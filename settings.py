@@ -101,7 +101,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'appenginepatcher',
     'ragendja',
-    'myapp',
     'registration',
     'mediautils',
     'pingpong',

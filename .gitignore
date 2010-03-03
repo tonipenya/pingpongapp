@@ -1,2 +1,3 @@
 *.pyc
-myapp/
+_generated_media/
+.dynamic_media/
