@@ -101,9 +101,10 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'appenginepatcher',
     'ragendja',
+    'myapp',
     'registration',
     'mediautils',
-    'pingpong'
+    'pingpong',
 )
 
 # List apps which should be left out from app settings and urlsauto loading
