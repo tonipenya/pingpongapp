@@ -4,7 +4,7 @@ from ragendja.settings_pre import *
 # Increase this when you update your media on the production site, so users
 # don't have to refresh their cache. By setting this your MEDIA_URL
 # automatically becomes /media/MEDIA_VERSION/
-MEDIA_VERSION = 1
+MEDIA_VERSION = 2
 
 # By hosting media on a different domain we can get a speedup (more parallel
 # browser connections).
@@ -17,9 +17,10 @@ COMBINE_MEDIA = {
         # See documentation why site_data can be useful:
         # http://code.google.com/p/app-engine-patch/wiki/MediaGenerator
         '.site_data.js',
+        'global/core.js',
     ),
     'combined-%(LANGUAGE_DIR)s.css': (
-        'global/look.css',
+        'global/core.css',
     ),
 }
 
@@ -88,10 +89,6 @@ INSTALLED_APPS = (
     # your app-specific media files get combined, so jquery should normally
     # come first.
     'jquery',
-
-    # Add blueprint CSS (http://blueprintcss.org/)
-    'blueprintcss',
-
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.admin',
@@ -101,9 +98,9 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'appenginepatcher',
     'ragendja',
+    'pingpong',
     'registration',
     'mediautils',
-    'pingpong',
 )
 
 # List apps which should be left out from app settings and urlsauto loading
