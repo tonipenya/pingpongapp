@@ -1,0 +1,37 @@
+	<div id="popup_login" class="popup core_radius_top8" style="display: none;">
+		<div class="popup_header core_radius_top8">
+			<span class="core_right"><a href="" onClick="hideShade(); return false;" class="popup_close"><strong>close</strong></a></span>
+			<h1>Secure Login</h1>
+		</div>
+		<form action="auth/login" method="post" id="loginForm">
+		<div class="popup_body core_radius_bottom6">
+			<div class="popup_container core_radius6">
+
+				<label for="username">Username</label>
+				<input type="text" name="username" class="fat med" />
+				<div class="core_error">Username error example</div>
+				<div class="mb_extra"></div>
+				
+				<label for="password">Password</label>
+				<input type="text" name="password" class="fat core_left" />
+				<div class="core_left"><a href="" onClick="showPopup('forgot', 'auth/forgot/', 'login'); return false;">Forget your password?</a> </div>
+				<div class="core_clear"></div>
+				<div class="core_error"></div>
+				<div class="mb_extra"></div>
+				
+				<div class="popup_terms">
+					<input type="checkbox" style="margin: 0pt; padding: 0pt;" id="remember" checked="checked" value="1" name="remember">
+					<label for="remember">Remember me</label>
+					<div class="mb_extra"></div>
+				</div>
+				
+				<div class="core_clear mb8"></div>
+				<p><input type="submit" onclick="loginForm(); return false;" class="btn_blue core_radius3" value="Login" /></p>
+				<div class="core_clear mb8"></div>
+				<p class="popup_links">
+					<a href="" onClick="showPopup('signup', 'auth/signup/', 'signup_username'); return false;">or sign up for free</a>
+				</p>
+			</div>
+		</div>
+		</form>
+	</div>

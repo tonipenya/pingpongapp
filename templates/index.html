@@ -41,9 +41,9 @@
 	<script>var baseUrl = "";</script>
 	<script>
 		$(document).ready(function () {
-			preloadPopup('login', 'login.html');
+			preloadPopup('login', '/login_popup');
 			$('.login a').bind('click', function() {
-				showPopup('login', 'login.html', 'username');
+				showPopup('login', '/login_popup', 'username');
 				return false;
 			});
 		});

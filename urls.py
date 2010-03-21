@@ -9,7 +9,7 @@ admin.autodiscover()
 handler500 = 'ragendja.views.server_error'
 
 urlpatterns += auth_patterns + patterns('',
-    ('^admin/(.*)', admin.site.root),
-    (r'^$', 'django.views.generic.simple.direct_to_template',
-        {'template': 'index.html'}),
+  ('^admin/(.*)', admin.site.root),
+  (r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}),
+  (r'login_popup', 'django.views.generic.simple.direct_to_template', {'template': 'login_popup.html'}),
 )
