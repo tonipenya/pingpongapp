@@ -17,10 +17,8 @@ COMBINE_MEDIA = {
         # See documentation why site_data can be useful:
         # http://code.google.com/p/app-engine-patch/wiki/MediaGenerator
         '.site_data.js',
-        'global/core.js',
     ),
     'combined-%(LANGUAGE_DIR)s.css': (
-        'global/core.css',
     ),
 }
 
@@ -108,7 +106,6 @@ IGNORE_APP_SETTINGS = IGNORE_APP_URLSAUTO = (
     # Example:
     # 'django.contrib.admin',
     # 'django.contrib.auth',
-    # 'yetanotherapp',
 )
 
 # Remote access to production server (e.g., via manage.py shell --remote)
