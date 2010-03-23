@@ -128,7 +128,7 @@ body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat
 .popup { text-align: center; margin: 0 auto; position: absolute; padding-top: 50px; z-index: 1500; width: 505px; }
 .popup_crop { width: 696px !important; }
 .popup_domain { background: #E1E1E1; color: #555; padding: 2px 10px 3px 10px; margin: 0 0 0 -12px; border: 1px solid #AABABB; }
-.popup_body { background: url("images/popup_bg.gif") #F1F0ED; padding: 23px; text-align: left; }
+.popup_body { background: url("images/popup_bg.jpg") #F1F0ED; padding: 23px; text-align: left; }
 .popup_close, .popup_close:hover { color: #FFF; font-size: 110%; line-height: 40px; margin-right: 5px; }
 .popup_container { background: #FFF; border: 1px solid #DFDCD9; padding: 23px; }
 .popup_container h3 { font-family: Georgia, "Times New Roman", Times, serif; font-size: 180%; font-weight: normal; }
