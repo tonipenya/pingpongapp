@@ -12,6 +12,8 @@ class Player(db.Model):
   last = db.StringProperty(required=True)
   nick = db.StringProperty(required=True)
   date_created = db.DateTimeProperty(auto_now_add=True)
+  ranking_points = db.IntegerProperty()
+  last_movement = db.IntegerProperty() # Last points gained/lost e.g. +5 or -5
 
 class Team(db.Model):
   player1 = db.ReferenceProperty(Player, 

@@ -76,9 +76,10 @@ MIDDLEWARE_CLASSES = (
 # Hybrid Django/Google authentication
 #AUTH_USER_MODULE = 'ragendja.auth.hybrid_models'
 
-LOGIN_URL = '/account/login/'
-LOGOUT_URL = '/account/logout/'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 INSTALLED_APPS = (
     # Add jquery support (app is in "common" folder). This automatically
