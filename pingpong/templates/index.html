@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
-{% block body %}
-<body id="home">
+
+{% block body-atts %} id="home"{% endblock %}
+
+{% block content %}
 	<div id="core_shade" class="core_shade" onClick="hideShade();" style="display:none;"></div>
 	<div id="message" class="core_message core_radius_bottom6" style="display: none;">Loading...</div>
 	<div id="popup_container">
@@ -48,5 +50,4 @@
 			});
 		});
 	</script>
-</body>
 {% endblock %}
