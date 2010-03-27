@@ -3,20 +3,29 @@
 {% block body-atts %} id="home"{% endblock %}
 
 {% block content %}
-	<div id="core_shade" class="core_shade" onClick="hideShade();" style="display:none;"></div>
-	<div id="message" class="core_message core_radius_bottom6" style="display: none;">Loading...</div>
-	<div id="popup_container">
-	<div class="top">
-		<div class="logo">
-			<span class="core_right">
-				<div class="signup_box"><a href="" class="btn_signup core_radius8">Signup<span></span></a></div>
-				<div class="login"><a href="">Login</a></div>
-				<div class="core_clear"></div>
-			</span>
-			<img src="{{ MEDIA_URL }}pingpong/images/home_logo.gif" width="219" height="52" alt="Ping Pong App - Simple tournament software" />
-		</div>
-	</div>
-	<div class="container">
+  <div id="core_shade" class="core_shade" onClick="hideShade();" style="display:none;"></div>
+  <div id="message" class="core_message core_radius_bottom6" style="display: none;">Loading...</div>
+  <div id="popup_container"></div>
+  <div class="top">
+  	<div class="logo">
+  		<span class="core_right">
+  			<!--<div class="signup_box"><a href="" class="btn_signup core_radius8">Signup<span></span></a></div>-->
+  			<div class="login">
+  			  <form action="{% url pingpong.views.login %}" method="post">
+    				<label for="username">Username</label>
+    				<input type="text" name="username" class="small" {% if previous_username %}value="{{ previous_username }}"{% endif %} />
+    				<label for="password">Password</label>
+    				<input type="password" name="password" class="small" />
+    				<button style="padding: 5px;">Login</button>
+  			  </form>
+  			  {% if login_error %}<div id="login_error">{{ login_error }}</div>{% endif %}
+  			</div>
+  			<div class="core_clear"></div>
+  		</span>
+  		<img src="{{ MEDIA_URL }}pingpong/images/home_logo.gif" width="219" height="52" alt="Ping Pong App - Simple tournament software" />
+  	</div>
+  </div>
+  <div class="container">
 		<a href="" class="core_right"><img src="{{ MEDIA_URL }}pingpong/images/home_screenshot.jpg" width="459" height="438" /></a>
 		<div class="copy">
 			<div class="intro">Track all of your singles and doubles scores and know for sure who's the best in the office.</div>
@@ -34,20 +43,11 @@
 			</div>
 		</div>
 		<div class="core_clear"></div>
-	</div>
-	<div class="container" style="padding-top: 0;">
-		<a href="" class="core_right"><img src="{{ MEDIA_URL }}pingpong/images/home_try_it_free.jpg" width="239" height="45" /></a>
-		<div class="core_clear"></div>
-		<span class="cancel core_right">Then $8.95/ mo. Cancel anytime - no hassle.</span>
-	</div>
-	<script>var baseUrl = "";</script>
-	<script>
-		$(document).ready(function () {
-			preloadPopup('login', '/login_popup');
-			$('.login a').bind('click', function() {
-				showPopup('login', '/login_popup', 'username');
-				return false;
-			});
-		});
-	</script>
+  </div>
+  <div class="container" style="padding-top: 0;">
+  	<a href="" class="core_right"><img src="{{ MEDIA_URL }}pingpong/images/home_try_it_free.jpg" width="239" height="45" /></a>
+  	<div class="core_clear"></div>
+  	<span class="cancel core_right">Then $8.95/ mo. Cancel anytime - no hassle.</span>
+  </div>
+  <script type="text/javascript">var baseUrl = "";</script>
 {% endblock %}

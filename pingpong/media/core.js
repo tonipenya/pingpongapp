@@ -85,40 +85,22 @@ function loginCheckUsernameMethod (data)
 {
 	$("#core_uname_confirm").html(data);
 }
-function loginForm ()
-{
+function doLogin() {
 	$("#popup_login").hide();
 	showMessage('Logging in...');
-	ajax(baseUrl+"auth/login", "POST", "", "loginFormMethod", "loginForm", "");
+	ajax("/login/ajax", "POST", "", "loginCallback", "loginForm", "");
 }
-function loginFormMethod (data)
-{
-	if (data == "home")
-	{
-		window.location = baseUrl;
-	}
-	if (data == "sell")
-	{
-		window.location = baseUrl+"sell";
-	}
-	else
-	{
+function loginCallback(data) {
+	if (data === "false") {
 		hideMessage();
-		$("#popup_login").remove();
-		$("#popup_container").prepend(data);
+		$("#login_error").val("Your username or password is invalid");
+		$("#login_error").show();
 		var tWidth = $(window).width();
 		var tPopup = $("#popup_login").width();
 		$("#popup_login").css("left", [tWidth-tPopup]/2+"px");
+	} else {
+		window.location = data;
 	}
-}
-// LOGOUT /////////////////////////////
-function logOut ()
-{
-	ajax(baseUrl+"auth/logout", "GET", "", "logOutMethod", "", "");
-}
-function logOutMethod ()
-{
-	document.location = baseUrl;
 }
 // LOADING /////////////////////////////
 function coreLoading (message)
