@@ -95,6 +95,14 @@ body#home .top { background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from
 body#home .trial { background: url(images/home_icon_trial.jpg) no-repeat; padding-left: 80px; }
 body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat; padding-left: 80px; }
 /* =========================================
+    Loader
+   ========================================= */
+#loading { background: url(images/core_bg.jpg) #363636; height: 100%; width: 100%; position: absolute; z-index: 1000000; }
+#loadingZone{ width:310px; margin: 10px 0 0 40px; }
+#loadingBar{ border:1px solid #555; background: #FFF; height:6px; text-align:left; line-height:0; margin:0; padding:1px; overflow:hidden; }
+#progressBar{ height:6px; line-height:0; margin:0; padding:0; background:#03AEE7; width:0%; }
+#loadingSms{ color: #FFF; font-size: 18px; font-weight: bold; display: block; padding:10px 2px; }
+/* =========================================
     MARGINS & PADDING
    ========================================= */
 .mb { margin-bottom: 19px; }

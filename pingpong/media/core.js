@@ -1,5 +1,28 @@
 // #############################
-// 1) CORE
+// 1) ONLOAD
+// #############################
+$(document).ready(function () {
+	determineLayout();
+});
+$(window).resize(function () {
+	determineLayout();
+});
+$('.nav_singles').bind('click', function() {
+	$(".nav_singles").removeClass("nav_up").addClass("nav_down");
+	$(".nav_doubles").removeClass("nav_down").addClass("nav_up");
+	$("#doubles").hide();
+	$("#singles").fadeIn("slow");
+	return false;
+});
+$('.nav_doubles').bind('click', function() {
+	$(".nav_doubles").removeClass("nav_up").addClass("nav_down");
+	$(".nav_singles").removeClass("nav_down").addClass("nav_up");
+	$("#singles").hide();
+	$("#doubles").fadeIn("slow");
+	return false;
+});
+// #############################
+// 2) CORE
 // #############################
 // AJAX LOADER /////////////////////////
 function ajax (url, type, id, method, formid, message) {
@@ -47,7 +70,7 @@ function resizeCols () {
 	$(".core_the_rest").css("width", colWidth+"px");
 }
 // #############################
-// 2) SECTIONS
+// 3) SECTIONS
 // #############################
 // FEEDBACK ///////////////////////////
 function getFeedback ()
@@ -100,35 +123,6 @@ function loginCallback(data) {
 		$("#popup_login").css("left", [tWidth-tPopup]/2+"px");
 	} else {
 		window.location = data;
-	}
-}
-function loginClear (which) {
-	if (which === "username") {
-		var loginUsername = $("#loginUsername").val();
-		if (loginUsername === "Username") {
-			$("#loginUsername").val("");
-		}
-	} else {
-		var loginPassword = $("#loginPassword").val();
-		if (loginPassword === "Password") {
-			$("#loginPassword").val("");
-		}
-	}
-}
-function loginFormValue () {
-	var loginUsername = $("#loginUsername").val();
-	var loginPassword = $("#loginPassword").val();
-	if (loginUsername === "" || loginUsername === "Username") {
-		$("#loginUsername").val("Username");
-		$("#loginUsername").css("color", "#999");
-	} else {
-		$("#loginUsername").css("color", "#333");
-	}
-	if (loginPassword === "" || loginPassword === "Password") {
-		$("#loginPassword").val("Password");
-		$("#loginPassword").css("color", "#999");
-	} else {
-		$("#loginPassword").css("color", "#333");
 	}
 }
 // LOADING /////////////////////////////
@@ -199,6 +193,5 @@ function signupFormMethod (data) {
 	var tPopup = $("#popup_signup").width();
 	$("#popup_signup").css("left", [tWidth-tPopup]/2+"px");
 }
-// #############################
-// 3) PLUGINS
-// #############################
+// NOTIFY LOADER /////////////////////
+myBar.loaded('core.js');
