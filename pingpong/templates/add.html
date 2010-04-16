@@ -1,0 +1,61 @@
+	<div id="popup_add" class="popup popup_large core_radius_top8" style="display: none;">
+		<script>
+			$(document).ready(function () {
+				$("#teamOneSlider").slider({ 
+					min: 0,
+					max: 30,
+					slide: function(event, ui) {
+						$("#teamOneScore").html(ui.value);
+					}
+				});
+				$("#teamTwoSlider").slider({ 
+					min: 0,
+					max: 30,
+					slide: function(event, ui) {
+						$("#teamTwoScore").html(ui.value);
+					}
+				});
+			});
+		</script>
+		<div class="popup_header core_radius_top8">
+			<span class="core_right"><a href="" onClick="hideShade(); return false;" class="popup_close"><strong>close</strong></a></span>
+			<img src="images/header_add_a_game.png" width="189" height="24" alt="Add a Game" />
+		</div>
+		<form action="">
+		<div class="popup_body core_radius_bottom6">
+			<div class="popup_half core_left core_center popup_light core_radius6">
+				<img src="images/header_select_team_one.gif" height="14" width="160" class="add_header" />
+				<div class="core_clear"></div>
+				<div id="DaveM" team="one" class="add_player"><a href="#">DaveM</a></div>
+				<div id="BenR" team="one" class="add_player"><a href="#">BenR</a></div>
+				<div id="DaveG" team="one" class="add_player"><a href="#">DaveG</a></div>
+				<div id="JamesD" team="one" class="add_player"><a href="#">JamesD</a></div>
+				<div id="PhilG" team="one" class="add_player"><a href="#">PhilG</a></div>
+				<div class="core_clear"></div>
+				<img src="images/header_team_one_score.gif" height="11" width="106" class="add_score_header" />
+				<div id="teamOneScore" class="add_score">0</div>
+				<div class="add_slider">
+					<div id="teamOneSlider"></div>
+				</div>
+			</div>
+			<div class="popup_half core_right core_center popup_dark core_radius6">
+				<img src="images/header_select_team_two.gif" height="14" width="160" class="add_header" />
+				<div class="core_clear"></div>
+				<div id="DaveM" team="two" class="add_player"><a href="#">DaveM</a></div>
+				<div id="BenR" team="two" class="add_player"><a href="#">BenR</a></div>
+				<div id="DaveG" team="two" class="add_player"><a href="#">DaveG</a></div>
+				<div id="JamesD" team="two" class="add_player"><a href="#">JamesD</a></div>
+				<div id="PhilG" team="two" class="add_player"><a href="#">PhilG</a></div>
+				<div class="core_clear"></div>
+				<img src="images/header_team_two_score.gif" height="11" width="106" class="add_score_header" />
+				<div id="teamTwoScore" class="add_score">0</div>
+				<div class="add_slider">
+					<div id="teamTwoSlider"></div>
+				</div>
+			</div>
+			<div class="core_clear"></div>
+			<div class="add_enter_scores"><a href="javascript:submitScores();"><img src="images/btn_enter_scores.jpg" width="211" height="45" /></a><span>or <a href="javascript: hideShade();">cancel</a></span></div>		
+			<div class="core_clear"></div>
+		</div>
+		</form>
+	</div>

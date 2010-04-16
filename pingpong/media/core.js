@@ -1,6 +1,10 @@
 // #############################
 // 1) ONLOAD
 // #############################
+// Set init arrays
+teamone = new Array();
+teamtwo = new Array();
+// Set events
 $(document).ready(function () {
 	determineLayout();
 });
@@ -72,6 +76,105 @@ function resizeCols () {
 // #############################
 // 3) SECTIONS
 // #############################
+// ADD SCORES ///////////////////////////
+$('div.add_player').live('click', function() {
+	var player = $(this).attr("id");
+	var team = $(this).attr("team");
+	// If it's already selected unselect it
+	if ($(this).hasClass("selected")) {
+		$(this).removeClass("selected");
+		playersRemove(team, player);
+	} else {
+		// Max of 2 players per team
+		if (playersCheckMax(team)) {
+			// Check that players not already selected on other team
+			checkOtherTeam = playersCheckOtherTeam(team, player);
+			if (checkOtherTeam === -1) {
+				$(this).addClass("selected");
+				playersAdd(team, player);
+			} else {
+				var otherTeam = (team === "one") ? "two" : "one";
+				alert(player +" has already been selected as a player on team "+ otherTeam);
+			}
+		} else {
+			alert("Oops, you can only select two players per team");
+		}
+	}
+	return false;
+});
+function playersAdd (team, player) {
+	if (team === "one") {
+		teamone.push(player);
+	} else {
+		teamtwo.push(player);
+	}
+}
+function playersCheckMax (team) {
+	if (team === "one") {
+		var lVal = teamone.length
+	} else {
+		var lVal = teamtwo.length;
+	}
+	if (lVal >= 2) {
+		return false;
+	} else {
+		return true
+	}
+}
+function playersCheckOtherTeam (team, player) {
+	var teamArray = (team === "one") ? teamtwo : teamone;
+	return teamArray.indexOf(player);
+}
+function playersRemove (team, player) {
+	if (team === "one") {
+		playersRemoval(teamone, player);
+	} else {
+		playersRemoval(teamtwo, player);
+	}
+}
+function playersRemoval (arr, value) {
+	arr.splice($.inArray(value, arr), 1);
+}
+function serializeScores (one, two) {
+	return "t1p1="+one[0]+"&t1p2="+one[1]+"&t2p1="+two[0]+"&t2p2="+two[1];
+}
+function submitScores () {
+	// Grab values
+	var teamOneScore = $("#teamOneScore").text();
+	var teamTwoScore = $("#teamTwoScore").text();
+	// piece together serialized string
+	var str = serializeScores(teamone, teamtwo)+"&t1s="+teamOneScore+"&t2s="+teamTwoScore;
+	// Send to server
+	// Needs to return JSON
+	$.ajax({
+		url: "/",
+		type: "POST",
+		data: str,
+		success : function (data) {
+			// Need to create "status" to determine if adding score was successful, or if there was an error
+			var submitStatus = data.status; // Returns bool
+			if (submitStatus) {
+				// Reset add form
+				$(".selected").removeClass("selected");
+				$("#teamOneScore").text("0");
+				$("#teamTwoScore").text("0");
+				$("#teamOneSlider").slider( "option", "value", 0 );
+				$("#teamTwoSlider").slider( "option", "value", 0 );
+				// Show success message
+				showMessage("Scores saved");
+				setTimeout("hideMessage();", 2000);
+				// Hide the add form
+				hideShade();
+			} else {
+				// show error provided in JSON response something like "Only two players can be selected per team."
+				showMessage(data.error);
+			}
+		}
+	});
+}
+function submitScoresMethod () {
+	
+}
 // FEEDBACK ///////////////////////////
 function getFeedback ()
 {
@@ -107,6 +210,35 @@ function loginCheckUsername (username) // Checks if username is available
 function loginCheckUsernameMethod (data)
 {
 	$("#core_uname_confirm").html(data);
+}
+function loginClear (which) {
+	if (which === "username") {
+		var loginUsername = $("#loginUsername").val();
+		if (loginUsername === "Username") {
+			$("#loginUsername").val("");
+		}
+	} else {
+		var loginPassword = $("#loginPassword").val();
+		if (loginPassword === "Password") {
+			$("#loginPassword").val("");
+		}
+	}
+}
+function loginFormValue () {
+	var loginUsername = $("#loginUsername").val();
+	var loginPassword = $("#loginPassword").val();
+	if (loginUsername === "" || loginUsername === "Username") {
+		$("#loginUsername").val("Username");
+		$("#loginUsername").css("color", "#999");
+	} else {
+		$("#loginUsername").css("color", "#333");
+	}
+	if (loginPassword === "" || loginPassword === "Password") {
+		$("#loginPassword").val("Password");
+		$("#loginPassword").css("color", "#999");
+	} else {
+		$("#loginPassword").css("color", "#333");
+	}
 }
 function doLogin() {
 	$("#popup_login").hide();
@@ -193,5 +325,3 @@ function signupFormMethod (data) {
 	var tPopup = $("#popup_signup").width();
 	$("#popup_signup").css("left", [tWidth-tPopup]/2+"px");
 }
-// NOTIFY LOADER /////////////////////
-myBar.loaded('core.js');
