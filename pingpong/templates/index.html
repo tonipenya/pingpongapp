@@ -10,7 +10,7 @@
   	<div class="logo">
   		<span class="core_right">
 			<div class="login">
-  			  <div class="signup"><a href="">Signup</a></div>
+  			  <div class="signup"><a href="" onclick="showPopup('signup', 'signup.html', 'name'); return false;">Signup</a></div>
 			  <form action="{% url pingpong.views.login %}" method="post">
     				<input type="image" src="{{ MEDIA_URL }}pingpong/images/btn_home_login.jpg" height="28" width="55" tabindex="3" class="core_right" />
 					<input type="password" id="loginPassword" onfocus="loginClear();" onblur="loginFormValue();" name="password" tabindex="2" class="small core_right"  />
@@ -44,7 +44,7 @@
 		<div class="core_clear"></div>
   </div>
   <div class="container" style="padding-top: 0;">
-  	<a href="" class="core_right"><img src="{{ MEDIA_URL }}pingpong/images/home_try_it_free.jpg" width="239" height="45" /></a>
+  	<a href="" onclick="showPopup('signup', 'signup.html', 'name'); return false;" class="core_right"><img src="{{ MEDIA_URL }}pingpong/images/home_try_it_free.jpg" width="239" height="45" /></a>
   	<div class="core_clear"></div>
   	<span class="cancel core_right">Then $8.95/ mo. Cancel anytime - no hassle.</span>
   </div>
