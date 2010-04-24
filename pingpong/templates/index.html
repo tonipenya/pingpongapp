@@ -10,7 +10,7 @@
   	<div class="logo">
   		<span class="core_right">
 			<div class="login">
-  			  <div class="signup"><a href="" onclick="showPopup('signup', 'signup.html', 'name'); return false;">Signup</a></div>
+  			  <div class="signup"><a href="" onclick="showPopup('signup', '/signup', 'name'); return false;">Signup</a></div>
 			  <form action="{% url pingpong.views.login %}" method="post">
     				<input type="image" src="{{ MEDIA_URL }}pingpong/images/btn_home_login.jpg" height="28" width="55" tabindex="3" class="core_right" />
 					<input type="password" id="loginPassword" onfocus="loginClear();" onblur="loginFormValue();" name="password" tabindex="2" class="small core_right"  />
@@ -50,7 +50,7 @@
   </div>
   <script type="text/javascript">
     var baseUrl = "";
-	loginFormValue();
-	$("#loginUsername").focus();
+    loginFormValue();
+    $("#loginUsername").focus();
   </script>
 {% endblock %}

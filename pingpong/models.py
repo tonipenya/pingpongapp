@@ -8,9 +8,7 @@ class Club(db.Model):
 
 class Player(db.Model):
   club = db.ReferenceProperty(Club)
-  first = db.StringProperty(required=True)
-  last = db.StringProperty(required=True)
-  nick = db.StringProperty(required=True)
+  name = db.StringProperty(required=True)
   date_created = db.DateTimeProperty(auto_now_add=True)
   ranking_points = db.IntegerProperty()
   last_movement = db.IntegerProperty() # Last points gained/lost e.g. +5 or -5

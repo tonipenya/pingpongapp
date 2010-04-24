@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <div id="message" class="core_message core_radius_bottom6" style="display: none;">Loading...</div>
+  <div id="popup_container"></div>
+
 	<!-- // NAV ////////////////////////////////////////////// -->
 	<div class="nav">
 		<div class="core_container">
-			<span class="core_right"><a href="" onclick="showPopup('add', 'add.html', ''); return false;" class="nav_add core_radius8">Add score<span></span></a></span>
+			<span class="core_right"><a href="" onclick="showPopup('add', '/score/add', ''); return false;" class="nav_add core_radius8">Add score<span></span></a></span>
 			<a href="" class="nav_singles nav_down core_radius8">Singles<span></span></a>
 			<a href="" class="nav_doubles nav_up core_radius8">Doubles<span></span></a>
 			<div class="core_clear"></div>
@@ -50,9 +53,7 @@
 		</div>
 		<a href=""><img src="{{ MEDIA_URL }}pingpong/images/footer_logo.gif" width="230" height="42" alt="PingPongApp.com" /></a>
 	</div>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			start();
-		});
-	</script>
+  <script type="text/javascript">
+    var baseUrl = "";
+  </script>
 {% endblock %}

@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login as auth_login, authenticate
+from django.contrib.auth.models import User
 
 def index(request):
   if request.user.is_authenticated():
@@ -23,3 +24,9 @@ def login(request):
         'previous_username': request.POST['username'] })
   else:
     return HttpResponseRedirect('/')
+
+def signup(request):
+  return render_to_response(request, 'pingpong/signup.html')
+
+def add_score(request):
+  return render_to_response(request, 'pingpong/addscore.html')
