@@ -26,11 +26,13 @@
 			<div class="popup_half core_left core_center popup_light core_radius6">
 				<img src="{{ MEDIA_URL }}pingpong/images/header_select_team_one.gif" height="14" width="160" class="add_header" />
 				<div class="core_clear"></div>
-				<div id="DaveM" team="one" class="add_player"><a href="#">DaveM</a></div>
-				<div id="BenR" team="one" class="add_player"><a href="#">BenR</a></div>
-				<div id="DaveG" team="one" class="add_player"><a href="#">DaveG</a></div>
-				<div id="JamesD" team="one" class="add_player"><a href="#">JamesD</a></div>
-				<div id="PhilG" team="one" class="add_player"><a href="#">PhilG</a></div>
+				{% if players %}
+      	{% ifnotequal players.count 0 %}
+				{% for p in players %}
+				<div id="{{ p.key }}" name="{{ p.name }}" team="one" class="add_player"><a href="#">{{ p.name }}</a></div>
+				{% endfor %}
+				{% endifnotequal %}
+				{% endif %}
 				<div class="core_clear"></div>
 				<img src="{{ MEDIA_URL }}pingpong/images/header_team_one_score.gif" height="11" width="106" class="add_score_header" />
 				<div id="teamOneScore" class="add_score">0</div>
@@ -41,11 +43,13 @@
 			<div class="popup_half core_right core_center popup_dark core_radius6">
 				<img src="{{ MEDIA_URL }}pingpong/images/header_select_team_two.gif" height="14" width="160" class="add_header" />
 				<div class="core_clear"></div>
-				<div id="DaveM" team="two" class="add_player"><a href="#">DaveM</a></div>
-				<div id="BenR" team="two" class="add_player"><a href="#">BenR</a></div>
-				<div id="DaveG" team="two" class="add_player"><a href="#">DaveG</a></div>
-				<div id="JamesD" team="two" class="add_player"><a href="#">JamesD</a></div>
-				<div id="PhilG" team="two" class="add_player"><a href="#">PhilG</a></div>
+				{% if players %}
+      	{% ifnotequal players.count 0 %}
+				{% for p in players %}
+				<div id="{{ p.key }}" name="{{ p.name }}" team="two" class="add_player"><a href="#">{{ p.name }}</a></div>
+				{% endfor %}
+				{% endifnotequal %}
+				{% endif %}
 				<div class="core_clear"></div>
 				<img src="{{ MEDIA_URL }}pingpong/images/header_team_two_score.gif" height="11" width="106" class="add_score_header" />
 				<div id="teamTwoScore" class="add_score">0</div>

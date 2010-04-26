@@ -46,7 +46,10 @@ def signup(request):
 
 @login_required
 def add_score(request):
-  return render_to_response(request, 'pingpong/addscore.html')
+  players = Player.gql("WHERE owner = :owner ORDER BY name",
+                       owner=request.user)
+  return render_to_response(request, 'pingpong/addscore.html',
+    { 'players': players, })
 
 @login_required
 def list_players(request):

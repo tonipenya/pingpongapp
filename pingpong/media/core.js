@@ -87,20 +87,21 @@ function resizeCols () {
 // #############################
 // ADD SCORES ///////////////////////////
 $('div.add_player').live('click', function() {
-	var player = $(this).attr("id");
+  var playerID = $(this).attr("id");
+	var player = $(this).attr("name");
 	var team = $(this).attr("team");
 	// If it's already selected unselect it
 	if ($(this).hasClass("selected")) {
 		$(this).removeClass("selected");
-		playersRemove(team, player);
+		playersRemove(team, playerID);
 	} else {
 		// Max of 2 players per team
 		if (playersCheckMax(team)) {
 			// Check that players not already selected on other team
-			checkOtherTeam = playersCheckOtherTeam(team, player);
+			checkOtherTeam = playersCheckOtherTeam(team, playerID);
 			if (checkOtherTeam === -1) {
 				$(this).addClass("selected");
-				playersAdd(team, player);
+				playersAdd(team, playerID);
 			} else {
 				var otherTeam = (team === "one") ? "two" : "one";
 				alert(player +" has already been selected as a player on team "+ otherTeam);
@@ -111,11 +112,11 @@ $('div.add_player').live('click', function() {
 	}
 	return false;
 });
-function playersAdd (team, player) {
+function playersAdd (team, playerID) {
 	if (team === "one") {
-		teamone.push(player);
+		teamone.push(playerID);
 	} else {
-		teamtwo.push(player);
+		teamtwo.push(playerID);
 	}
 }
 function playersCheckMax (team) {
@@ -130,15 +131,15 @@ function playersCheckMax (team) {
 		return true
 	}
 }
-function playersCheckOtherTeam (team, player) {
+function playersCheckOtherTeam (team, playerID) {
 	var teamArray = (team === "one") ? teamtwo : teamone;
-	return teamArray.indexOf(player);
+	return teamArray.indexOf(playerID);
 }
-function playersRemove (team, player) {
+function playersRemove (team, playerID) {
 	if (team === "one") {
-		playersRemoval(teamone, player);
+		playersRemoval(teamone, playerID);
 	} else {
-		playersRemoval(teamtwo, player);
+		playersRemoval(teamtwo, playerID);
 	}
 }
 function playersRemoval (arr, value) {
