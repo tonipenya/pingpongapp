@@ -6,6 +6,9 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.models import User
 
+def freetrial(request):
+  return render_to_response(request, 'pingpong/freetrial.html')
+
 def index(request):
   if request.user.is_authenticated():
     return render_to_response(request, 'pingpong/main.html')
