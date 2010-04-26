@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Player listing - {% endblock %}
+
+{% block content %}
+<h1>Player listing</h1>
+<a href="{% url pingpong.views.add_player %}">Create player</a>
+
+<ul>
+  {% for player in object_list %}
+    <li>
+      <a href="{% url pingpong.views.show_player key=player.key %}">{{ player.name }} ({{ player.ranking_points }} points)</a>
+      <a href="{% url pingpong.views.edit_player key=player.key %}">Edit</a>
+      <a href="{% url pingpong.views.delete_player key=player.key %}">Delete</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<div>
+  {% if has_previous %}
+    <a href="{% url pingpong.views.list_players %}?page={{ previous }}">previous</a>
+  {% endif %}
+  {% if has_next %}
+    <a href="{% url pingpong.views.list_players %}?page={{ next }}">next</a>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Delete player - {% endblock %}
+
+{% block content %}
+<h1>Delete person</h1>
+<a href="{% url pingpong.views.list_players %}">Back to player list</a>
+<a href="{% url pingpong.views.show_player key=object.key %}">Back to player</a>
+
+<p>
+Do you really want to delete {{ object.name }}?
+
+<form action="" method="post">
+  <input type="submit" name="delete" value="Delete" />
+</form>
+</p>
+
+{% endblock %}

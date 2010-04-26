@@ -2,11 +2,27 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _, ugettext as __
-from pingpong.models import Club
 from ragendja.auth.models import UserTraits
 from ragendja.forms import FormWithSets, FormSetField
 from registration.forms import RegistrationForm, RegistrationFormUniqueEmail
 from registration.models import RegistrationProfile
+from pingpong.models import Player
+
+def make_player_form(request):
+  class PlayerForm(forms.ModelForm):
+    name = forms.CharField(required=True, label='Name')
+
+    class Meta:
+      model = Player
+      exclude = ('owner', 'date_created', 'last_movement',)
+
+    def save(self, commit=True):
+      f = super(PlayerForm, self).save(commit=False)
+      if not f.pk: f.owner = request.user
+      if commit: f.save()
+      return f
+  
+  return PlayerForm
 
 class UserRegistrationForm(forms.ModelForm):
     username = forms.RegexField(regex=r'^\w+$', max_length=30,

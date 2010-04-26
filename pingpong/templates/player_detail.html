@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Player details - {% endblock %}
+
+{% block content %}
+<h1>Player details</h1>
+<a href="{% url pingpong.views.list_players %}">Back to player list</a>
+<a href="{% url pingpong.views.edit_player key=object.key %}">Edit</a>
+<a href="{% url pingpong.views.delete_player key=object.key %}">Delete</a>
+
+<ul>
+  <li>Name: {{ object.name }}</li>
+  <li>Ranking points: {{ object.ranking_points }}</li>
+</ul>
+{% endblock %}
