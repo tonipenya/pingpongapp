@@ -15,6 +15,7 @@
 	</div>
 
 	{% if players %}
+	{% ifnotequal players.count 0 %}
 	<!-- // Singles rankings -->
 	<div id="singles" class="core_rankings_div core_radius8">
 		<ul class="core_top_three core_radius8">
@@ -40,6 +41,9 @@
 		{% endfor %}
 		<div class="core_clear"></div>
 	</div>
+	{% else %}
+	<h1 id="core_message">You haven't added any players yet!</h1>
+	{% endifnotequal %}
 	{% endif %}
 	
 	<!-- // Footer ///////////////////////////////// -->
