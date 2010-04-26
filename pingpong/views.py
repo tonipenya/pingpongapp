@@ -18,7 +18,10 @@ def freetrial(request):
 
 def index(request):
   if request.user.is_authenticated():
-    return render_to_response(request, 'pingpong/main.html')
+    players = Player.gql("WHERE owner = :owner ORDER BY ranking_points, name",
+                         owner=request.user)
+    return render_to_response(request, 'pingpong/main.html',
+      { 'players': players, })
   else:
     return render_to_response(request, 'pingpong/index.html')
 
