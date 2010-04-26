@@ -16,6 +16,9 @@
   {% endblock %}
 </head>
 <body{% block body-atts%}{% endblock %}>
+	<div id="core_shade" class="core_shade" onClick="hideShade();" style="display:none;"></div>
+	<div id="message" class="core_message core_radius_bottom6" style="display: none;">Loading...</div>
+	<div id="popup_container"></div>
 {% block content %}
 {% endblock %}
 </html>

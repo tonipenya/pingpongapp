@@ -11,20 +11,29 @@ $(document).ready(function () {
 $(window).resize(function () {
 	determineLayout();
 });
-$('.nav_singles').bind('click', function() {
+$('.nav_singles').live('click', function() {
 	$(".nav_singles").removeClass("nav_up").addClass("nav_down");
 	$(".nav_doubles").removeClass("nav_down").addClass("nav_up");
 	$("#doubles").hide();
 	$("#singles").fadeIn("slow");
 	return false;
 });
-$('.nav_doubles').bind('click', function() {
+$('.nav_doubles').live('click', function() {
 	$(".nav_doubles").removeClass("nav_up").addClass("nav_down");
 	$(".nav_singles").removeClass("nav_down").addClass("nav_up");
 	$("#singles").hide();
 	$("#doubles").fadeIn("slow");
 	return false;
 });
+$('#players').live('click', function() {
+	signupHideExample();						 
+});
+$('#players').live('focus', function() {
+	signupHideExample();						 
+});
+$('#signup_players_example').live('click', function() {
+	signupHideExample();						 
+});	
 // #############################
 // 2) CORE
 // #############################
@@ -268,6 +277,7 @@ function hideShade () // Hides all popups and shade
 {
 	$("#core_shade").hide();
 	$(".popup").hide();
+	hideMessage();
 }
 function preloadPopup (popup, url)
 {
@@ -296,6 +306,7 @@ function showPopup (popup, url, focus) // Show or load popup
 	if ( $("#popup_"+popup).length > 0 ) {
 		$("#popup_"+popup).show();
 		if (focus) { $("#"+focus).focus(); }
+		window.scrollTo(0,0);
 	} else {
 		showMessage('Loading...');
 		var tWidth = $(window).width();
@@ -309,19 +320,69 @@ function showPopup (popup, url, focus) // Show or load popup
 				if (focus) { $("#"+focus).focus(); }
 				hideMessage();
 				$("#popup_"+popup).show();
+				window.scrollTo(0,0);
 			}
 		});
 	}
 }
-// SIGNUP /////////////////////////////
-function signupForm ()
-{
-	ajax(baseUrl+"auth/signup", "POST", "", "signupFormMethod", "signupForm", "");
+// SETTTINGS /////////////////////////////
+function settingsAdd () {
+	$("#settings_add").show();
 }
-function signupFormMethod (data) {
-	$("#popup_signup").remove();
+function settingsDelete (user, userid) {
+	if (confirm("Are you sure you want to delete "+user+"? All of their scores will be lost.")) {
+		ajax ("PATHTOUSERDELETE", "GET", "", "settingsDeleteMethod", "", "");
+  	}
+}
+function settingsDeleteMethod (data) {
+	$("#popup_settings").remove();
 	$("#popup_container").prepend(data);
 	var tWidth = $(window).width();
-	var tPopup = $("#popup_signup").width();
-	$("#popup_signup").css("left", [tWidth-tPopup]/2+"px");
+	var tPopup = $("#popup_settings").width();
+	$("#popup_settings").css("left", [tWidth-tPopup]/2+"px");
+}
+function settingsEdit(userid) {
+	if ($('#'+userid+"_input").is(':visible')) {
+		$('#'+userid+"_name").show();
+		$('#'+userid+"_input").hide();
+		$('#'+userid+"_edit").text("edit");
+	} else {
+		$('#'+userid+"_name").hide();
+		$('#'+userid+"_input").show();
+		$('#'+userid+"_input input").select();
+		$('#'+userid+"_edit").text("cancel");
+	}
+}
+// SIGNUP /////////////////////////////
+function signupCheckUsername (username) // Checks if username is available
+{
+	$("#uname_error").hide();
+	var ulength = username.length
+	if (ulength > 3)
+	{
+		ajax(baseUrl+'auth/check/'+username, "GET", "", "loginCheckUsernameMethod", "", "");
+	}
+	else
+	{
+		$("#core_uname_confirm").html('<span class="core_error">Shop names must be at least 4 characters long</span>');
+	}
+}
+function signupCheckUsernameMethod (data)
+{
+	$("#core_uname_confirm").html(data);
+}
+function signupForm ()
+{
+	ajax(baseUrl+"auth/signup", "POST", "", "signupFormMethod", "signups", "");
+}
+function signupFormMethod (data) {
+	$("#popup_freetrial").remove();
+	$("#popup_container").prepend(data);
+	var tWidth = $(window).width();
+	var tPopup = $("#popup_freetrial").width();
+	$("#popup_freetrial").css("left", [tWidth-tPopup]/2+"px");
+}
+function signupHideExample () {
+	$('#signup_players_example').hide();
+	$('#players').select();
 }

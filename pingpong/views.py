@@ -13,6 +13,9 @@ from django.views.generic.create_update import create_object, delete_object, \
 from pingpong.models import Player
 from pingpong.forms import make_player_form
 
+def freetrial(request):
+  return render_to_response(request, 'pingpong/freetrial.html')
+
 def index(request):
   if request.user.is_authenticated():
     return render_to_response(request, 'pingpong/main.html')
@@ -31,6 +34,9 @@ def login(request):
         'previous_username': request.POST['username'] })
   else:
     return HttpResponseRedirect('/')
+	
+def settings(request):
+  return render_to_response(request, 'pingpong/settings.html')
 
 def signup(request):
   return render_to_response(request, 'pingpong/signup.html')

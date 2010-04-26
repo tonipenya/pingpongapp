@@ -9,12 +9,13 @@ a { color: #FFF; }
 a:hover { text-decoration: none; } 
 th { font-style: inherit; font-weight: inherit; }
 fieldset, img { border: 0; }
-input { font-size: 105%; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px }
+input, textarea { font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #666; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px }
 input.pads { padding: 3px 5px; margin: 0 10px 4px 0; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px }
 input[type=text]:focus, input[type=password]:focus { outline: none; border: 2px solid #0099CC; }
 input.fat { padding: 3px 5px; margin: 0 10px 4px 0; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px }
 input.med { width: 200px; }
 input.required { border: 1px solid #993300; }
+label { font-size: 13px; font-weight: bold; }
 /* label { color: #333; display: block; font-weight: bold; margin: 0 0 5px 0; } */
 h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
 li { list-style: none; }
@@ -31,7 +32,7 @@ td { vertical-align: top; }
 .add_player.selected, .add_player:hover { border: 1px solid #039BCE;  cursor: default; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#03AFE9), to(#0280AB)); background-image: -moz-linear-gradient(0% 100% 90deg,#0280AB, #03AFE9); }
 .add_player.selected a, .add_player:hover a { color: #FFF; cursor: default; }
 .add_player a { color: #8A8A8A; text-decoration: none; }
-.add_score { font-size: 100px; font-family: Arial, Helvetica, sans-serif; line-height: 80px; font-weight: bold; color: #666; }
+.add_score { font-size: 100px; font-family: Arial, Helvetica, sans-serif; line-height: 80px; font-weight: bold; color: #666; text-shadow: 2px 2px 2px #999; }
 .add_score_header { margin: 13px 0; }
 .add_slider { padding: 16px 27px 10px 10px; }
 /* =========================================
@@ -58,6 +59,7 @@ td { vertical-align: top; }
 .core_error { color: #A91C07; font-style: italic; }
 .core_last { float: right; padding: 10px 4px 17px 0; text-align: center; width: 75px; margin: 3px 23px 0 0; color: #8DC754; text-shadow: 2px 2px 3px #1C1C1C; border-top: 2px solid #212121; border-left: 2px solid #212121; border-bottom: 1px solid #424242; border-right: 1px solid #424242; -moz-box-shadow: #1B1B1B 2px 2px 2px 0 inset; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#303030), to(#2B2B2B)); background-image: -moz-linear-gradient(0% 100% 90deg,#2B2B2B, #303030); }
 .core_left { float: left; }
+.core_light { color: #999; }
 .core_loss { color: #CCC; }
 .core_message { background: #F3F5B4; color: #000; font-size: 13px; font-weight: bold; padding: 6px 14px 8px 14px; position: fixed; top: 0; z-index: 100000; }
 .core_radius { -moz-border-radius:1px; border-radius:1px; -webkit-border-radius:1px; }
@@ -73,6 +75,7 @@ td { vertical-align: top; }
 .core_rankings_div { margin: 35px 0 35px 35px; }
 .core_right { float: right; }
 .core_shade { position: absolute; background: #101314; opacity: 0.9; -moz-opacity: 0.9; -khtml-opacity: 0.9; filter: alpha(opacity=90); width: 100%; height: 100%; top: 0; left: 0; z-index: 1000; }
+.core_text_med { font-size: 90%; font-weight: normal; }
 .core_the_rest { float: left; min-width: 300px; width: 100%; cursor: pointer; margin: 19px 35px 0 0; padding: 4px 13px 7px 13px; font-size: 26px; text-shadow: 2px 2px 3px #141414; color: #DDD; border-bottom: 3px solid #181818; border-right: 3px solid #181818; border-top: 3px solid #2D2D2D; border-left: 3px solid #2D2D2D; height: 59px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#282828), to(#1B1B1B)); background-image: -moz-linear-gradient(0% 100% 90deg,#1B1B1B, #282828); -moz-border-radius:8px; border-radius:8px; -webkit-border-radius:8px; cu }
 .core_the_rest .core_last { margin-top: 7px; }
 .core_the_rest .name { float: left; margin: 23px 0 0 0; }
@@ -88,6 +91,7 @@ td { vertical-align: top; }
 .core_top_three li:nth-child(1n+2) .rank { background: #595959; color: #CCC; border-top: 2px solid #676767; border-left: 2px solid #676767; border-bottom: 2px solid #505050; border-right: 2px solid #505050; text-shadow: 2px 2px 3px #515151; }
 .core_top_three li:nth-child(2) { border-bottom: 1px solid #373737; text-shadow: 2px 2px 3px #1A1A1A; padding: 0 20px 22px 20px; }
 .core_top_three li:nth-child(3) { padding: 10px 20px 0 20px; text-shadow: 2px 2px 3px #0C0C0C; margin: 0; }
+.core_vline { border-right: 1px solid #DDD; margin: 0 7px 0 5px; width: 1px; display: inline; }
 /* =========================================
     FOOTER
    ========================================= */
@@ -112,6 +116,7 @@ body#home .hosted { background: url(images/home_icon_hosted.jpg) no-repeat; padd
 body#home .intro { font-size: 16px; }
 body#home .login { float: right; margin-top: -4px; }
 body#home .login .small { font-size: 13px; padding: 4px; width: 85px; margin-right: 3px; }
+html>/**/body#home .login .small, x:-moz-any-link, x:default { padding: 5px 4px; }
 body#home .logo { margin: 0 auto; width: 812px; padding: 35px 0; }
 body#home .popup li, body#home .popup p { color: #666; font-size: 12px; }
 body#home .signup { color: #888; margin: 0 0 8px 0; }
@@ -131,6 +136,7 @@ body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat
     MARGINS & PADDING
    ========================================= */
 .mb { margin-bottom: 19px; }
+.mb8 { margin-bottom: 8px; }
 .mb_extra { margin-bottom: 23px; }
 .mb_supa { margin-bottom: 46px; }
 /* =========================================
@@ -175,3 +181,18 @@ body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat
 .popup_preview img { margin-top: 12px; }
 .popup_preview .popup_close { color: #006699; line-height: 14px; font-size: 140%; margin-bottom: 30px; }
 .popup_terms label { display: inline !important; }
+/* =========================================
+    SETTINGS
+   ========================================= */
+.settings table { border-top: 1px solid #DDD; border-left: 1px solid #DDD; width: 100%; }
+.settings td { padding: 3px 10px; border-bottom: 1px solid #DBDBDB; border-right: 1px solid #DBDBDB; text-align: left; }
+.settings td a { color: #006699; }
+.settings td.right { text-align: right; }
+.settings th { background: url("images/table_header_bg.jpg") repeat-x #E3E3DC; vertical-align: middle; padding: 7px 10px 5px 10px; font-weight: bold; border-bottom: 1px solid #DBDBDB; }
+.settings th.right { text-align: right; }
+/* =========================================
+    SIGNUP
+   ========================================= */
+.signup_players { width: 100%; height: 100px; }
+.signup_players_box { position: relative; }
+.signup_players_example { font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #999; position: absolute; top: 0; left: 2px; z-index: 1000; }
