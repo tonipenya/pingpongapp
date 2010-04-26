@@ -27,6 +27,9 @@ def login(request):
         'previous_username': request.POST['username'] })
   else:
     return HttpResponseRedirect('/')
+	
+def settings(request):
+  return render_to_response(request, 'pingpong/settings.html')
 
 def signup(request):
   return render_to_response(request, 'pingpong/signup.html')

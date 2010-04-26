@@ -325,6 +325,34 @@ function showPopup (popup, url, focus) // Show or load popup
 		});
 	}
 }
+// SETTTINGS /////////////////////////////
+function settingsAdd () {
+	$("#settings_add").show();
+}
+function settingsDelete (user, userid) {
+	if (confirm("Are you sure you want to delete "+user+"? All of their scores will be lost.")) {
+		ajax ("PATHTOUSERDELETE", "GET", "", "settingsDeleteMethod", "", "");
+  	}
+}
+function settingsDeleteMethod (data) {
+	$("#popup_settings").remove();
+	$("#popup_container").prepend(data);
+	var tWidth = $(window).width();
+	var tPopup = $("#popup_settings").width();
+	$("#popup_settings").css("left", [tWidth-tPopup]/2+"px");
+}
+function settingsEdit(userid) {
+	if ($('#'+userid+"_input").is(':visible')) {
+		$('#'+userid+"_name").show();
+		$('#'+userid+"_input").hide();
+		$('#'+userid+"_edit").text("edit");
+	} else {
+		$('#'+userid+"_name").hide();
+		$('#'+userid+"_input").show();
+		$('#'+userid+"_input input").select();
+		$('#'+userid+"_edit").text("cancel");
+	}
+}
 // SIGNUP /////////////////////////////
 function signupCheckUsername (username) // Checks if username is available
 {

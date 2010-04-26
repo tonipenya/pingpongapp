@@ -15,7 +15,7 @@ input[type=text]:focus, input[type=password]:focus { outline: none; border: 2px 
 input.fat { padding: 3px 5px; margin: 0 10px 4px 0; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px }
 input.med { width: 200px; }
 input.required { border: 1px solid #993300; }
-label { font-size: 13px; }
+label { font-size: 13px; font-weight: bold; }
 /* label { color: #333; display: block; font-weight: bold; margin: 0 0 5px 0; } */
 h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
 li { list-style: none; }
@@ -91,6 +91,7 @@ td { vertical-align: top; }
 .core_top_three li:nth-child(1n+2) .rank { background: #595959; color: #CCC; border-top: 2px solid #676767; border-left: 2px solid #676767; border-bottom: 2px solid #505050; border-right: 2px solid #505050; text-shadow: 2px 2px 3px #515151; }
 .core_top_three li:nth-child(2) { border-bottom: 1px solid #373737; text-shadow: 2px 2px 3px #1A1A1A; padding: 0 20px 22px 20px; }
 .core_top_three li:nth-child(3) { padding: 10px 20px 0 20px; text-shadow: 2px 2px 3px #0C0C0C; margin: 0; }
+.core_vline { border-right: 1px solid #DDD; margin: 0 7px 0 5px; width: 1px; display: inline; }
 /* =========================================
     FOOTER
    ========================================= */
@@ -181,8 +182,17 @@ body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat
 .popup_preview .popup_close { color: #006699; line-height: 14px; font-size: 140%; margin-bottom: 30px; }
 .popup_terms label { display: inline !important; }
 /* =========================================
+    SETTINGS
+   ========================================= */
+.settings table { border-top: 1px solid #DDD; border-left: 1px solid #DDD; width: 100%; }
+.settings td { padding: 3px 10px; border-bottom: 1px solid #DBDBDB; border-right: 1px solid #DBDBDB; text-align: left; }
+.settings td a { color: #006699; }
+.settings td.right { text-align: right; }
+.settings th { background: url("images/table_header_bg.jpg") repeat-x #E3E3DC; vertical-align: middle; padding: 7px 10px 5px 10px; font-weight: bold; border-bottom: 1px solid #DBDBDB; }
+.settings th.right { text-align: right; }
+/* =========================================
     SIGNUP
    ========================================= */
 .signup_players { width: 100%; height: 100px; }
 .signup_players_box { position: relative; }
-.signup_players_example { font-size: 12px; color: #999; position: absolute; top: 0; left: 2px; z-index: 1000; }
+.signup_players_example { font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #999; position: absolute; top: 0; left: 2px; z-index: 1000; }

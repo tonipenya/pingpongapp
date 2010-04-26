@@ -49,7 +49,7 @@
 	<!-- // FOOTER ///////////////////////////////// -->
 	<div class="footer">
 		<div class="links">
-			<a href="#">Settings</a> <a href="{% url django.contrib.auth.views.logout %}">Logout</a> 
+			<a href="#" onclick="showPopup('settings', '/settings', ''); return false;">Settings</a> <a href="{% url django.contrib.auth.views.logout %}">Logout</a> 
 		</div>
 		<a href=""><img src="{{ MEDIA_URL }}pingpong/images/footer_logo.gif" width="230" height="42" alt="PingPongApp.com" /></a>
 	</div>
