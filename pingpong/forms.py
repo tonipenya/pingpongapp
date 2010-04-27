@@ -14,7 +14,7 @@ def make_player_form(request):
 
     class Meta:
       model = Player
-      exclude = ('owner', 'date_created', 'last_movement',)
+      exclude = ('owner', 'date_created', 'singles_last_movement', 'doubles_last_movement')
 
     def save(self, commit=True):
       f = super(PlayerForm, self).save(commit=False)

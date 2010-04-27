@@ -5,19 +5,32 @@ class Player(db.Model):
   owner = db.ReferenceProperty(User, collection_name="player_owner_set")
   name = db.StringProperty(required=True)
   date_created = db.DateTimeProperty(auto_now_add=True)
-  ranking_points = db.IntegerProperty(default=100)
-  last_movement = db.IntegerProperty(default=0) # Last points gained/lost e.g. +5 or -5
+  singles_ranking_points = db.IntegerProperty(default=100)
+  doubles_ranking_points = db.IntegerProperty(default=100)
+  singles_last_movement = db.IntegerProperty(default=0) # Last points gained/lost e.g. +5 or -5
+  doubles_last_movement = db.IntegerProperty(default=0) # Last points gained/lost e.g. +5 or -5
 
-  def display_last_movement(self):
-    if self.last_movement == 0:
+  def display_singles_last_movement(self):
+    if self.singles_last_movement == 0:
       return ''
-    if self.last_movement > 0:
-      return '+%d' % self.last_movement
+    if self.singles_last_movement > 0:
+      return '+%d' % self.singles_last_movement
     else:
-      return '%d' % self.last_movement
+      return '%d' % self.singles_last_movement
 
-  def lost_last(self):
-    return self.last_movement < 0
+  def singles_lost_last(self):
+    return self.singles_last_movement < 0
+
+  def display_doubles_last_movement(self):
+    if self.doubles_last_movement == 0:
+      return ''
+    if self.doubles_last_movement > 0:
+      return '+%d' % self.doubles_last_movement
+    else:
+      return '%d' % self.doubles_last_movement
+
+  def doubles_lost_last(self):
+    return self.doubles_last_movement < 0
 
 class Team(db.Model):
   player1 = db.ReferenceProperty(Player, 

@@ -14,30 +14,30 @@
 		</div>
 	</div>
 
-	{% if players %}
-	{% ifnotequal players.count 0 %}
+	{% if singles_players and doubles_players %}
+	{% ifnotequal singles_players.count 0 %}
 	<!-- // Singles rankings -->
 	<div id="singles" class="core_rankings_div core_radius8">
 		<ul class="core_top_three core_radius8">
-		  {% for p in players|slice:"0:3" %}
-			<li class="top_players core_radius8"><span class="points">{{ p.ranking_points }}</span>{% ifnotequal p.display_last_movement '' %}<div class="core_last {% if p.lost_last %}core_loss{% endif %} core_radius8">{{ p.display_last_movement }}</div>{% endifnotequal %}<span class="rank core_radius8">{{ forloop.counter }}</span><span class="name">{{ p.name }}</span><div class="core_clear"></div></li>
+		  {% for p in singles_players|slice:"0:3" %}
+			<li class="top_players core_radius8"><span class="points">{{ p.singles_ranking_points }}</span>{% ifnotequal p.display_singles_last_movement '' %}<div class="core_last {% if p.singles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_singles_last_movement }}</div>{% endifnotequal %}<span class="rank core_radius8">{{ forloop.counter }}</span><span class="name">{{ p.name }}</span><div class="core_clear"></div></li>
 			{% endfor %}
 		</ul>
-		{% for p in players|slice:"3:10000" %}
-		<div class="core_the_rest"><span class="points">{{ p.ranking_points }}</span>{% ifnotequal p.display_last_movement '' %}<div class="core_last {% if p.lost_last %}core_loss{% endif %} core_radius8">{{ p.display_last_movement }}</div>{% endifnotequal %}<div class="rank">{{ forloop.counter|add:"3" }}.</div><span class="name">{{ p.name }}</span><div class="core_clear"></div></div>
+		{% for p in singles_players|slice:"3:10000" %}
+		<div class="core_the_rest"><span class="points">{{ p.singles_ranking_points }}</span>{% ifnotequal p.display_singles_last_movement '' %}<div class="core_last {% if p.singles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_singles_last_movement }}</div>{% endifnotequal %}<div class="rank">{{ forloop.counter|add:"3" }}.</div><span class="name">{{ p.name }}</span><div class="core_clear"></div></div>
 		{% endfor %}
 		<div class="core_clear"></div>
 	</div>
 
-	<!-- // Doubles rankings - just the same as singles for now -->
+	<!-- // Doubles rankings -->
 	<div id="doubles" class="core_rankings_div core_radius8" style="display: none">
 		<ul class="core_top_three core_radius8">
-		  {% for p in players|slice:"0:3" %}
-			<li class="top_players core_radius8"><span class="points">{{ p.ranking_points }}</span>{% ifnotequal p.display_last_movement '' %}<div class="core_last {% if p.lost_last %}core_loss{% endif %} core_radius8">{{ p.display_last_movement }}</div>{% endifnotequal %}<span class="rank core_radius8">{{ forloop.counter }}</span><span class="name">{{ p.name }}</span><div class="core_clear"></div></li>
+		  {% for p in doubles_players|slice:"0:3" %}
+			<li class="top_players core_radius8"><span class="points">{{ p.doubles_ranking_points }}</span>{% ifnotequal p.display_doubles_last_movement '' %}<div class="core_last {% if p.doubles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_doubles_last_movement }}</div>{% endifnotequal %}<span class="rank core_radius8">{{ forloop.counter }}</span><span class="name">{{ p.name }}</span><div class="core_clear"></div></li>
 			{% endfor %}
 		</ul>
-		{% for p in players|slice:"3:10000" %}
-		<div class="core_the_rest"><span class="points">{{ p.ranking_points }}</span>{% ifnotequal p.display_last_movement '' %}<div class="core_last {% if p.lost_last %}core_loss{% endif %} core_radius8">{{ p.display_last_movement }}</div>{% endifnotequal %}<div class="rank">{{ forloop.counter|add:"3" }}.</div><span class="name">{{ p.name }}</span><div class="core_clear"></div></div>
+		{% for p in doubles_players|slice:"3:10000" %}
+		<div class="core_the_rest"><span class="points">{{ p.doubles_ranking_points }}</span>{% ifnotequal p.display_doubles_last_movement '' %}<div class="core_last {% if p.doubles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_doubles_last_movement }}</div>{% endifnotequal %}<div class="rank">{{ forloop.counter|add:"3" }}.</div><span class="name">{{ p.name }}</span><div class="core_clear"></div></div>
 		{% endfor %}
 		<div class="core_clear"></div>
 	</div>
