@@ -43,12 +43,6 @@ indexes:
 - kind: pingpong_player
   properties:
   - name: owner
-  - name: ranking_points
-  - name: name
-
-- kind: pingpong_player
-  properties:
-  - name: owner
   - name: singles_ranking_points
   - name: name
 
