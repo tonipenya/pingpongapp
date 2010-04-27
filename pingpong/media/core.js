@@ -168,8 +168,7 @@ function submitScores () {
 				$("#teamOneSlider").slider( "option", "value", 0 );
 				$("#teamTwoSlider").slider( "option", "value", 0 );
 				showMessage(data.message);
-				setTimeout("hideMessage();", 2000);
-				window.location.replace("/");
+				setTimeout("redirectAfterAddScore();", 1500);
 			} else {
 				// show error provided in JSON response something like "Only two players can be selected per team."
 				showMessage(data.message);
@@ -177,6 +176,7 @@ function submitScores () {
 		}
 	});
 }
+function redirectAfterAddScore() { window.location.replace("/"); }
 function submitScoresMethod () {
 	
 }

@@ -44,5 +44,4 @@ class Game(db.Model):
     collection_name="team_reference_one_set")
   team2 = db.ReferenceProperty(Team,
     collection_name="team_reference_two_set")
-  date_created = db.DateTimeProperty(auto_now_add=True)
-  date_scores_entered = db.DateTimeProperty()
+  date_played = db.DateTimeProperty(auto_now_add=True)
