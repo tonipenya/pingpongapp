@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.utils import simplejson
 from django.core.urlresolvers import reverse
 from ragendja.template import render_to_response
 from django.contrib.auth.forms import AuthenticationForm
@@ -46,10 +47,17 @@ def signup(request):
 
 @login_required
 def add_score(request):
-  players = Player.gql("WHERE owner = :owner ORDER BY name",
-                       owner=request.user)
-  return render_to_response(request, 'pingpong/addscore.html',
-    { 'players': players, })
+  if not request.POST:
+    players = Player.gql("WHERE owner = :owner ORDER BY name",
+                         owner=request.user)
+    return render_to_response(request, 'pingpong/addscore.html',
+      { 'players': players, })
+  else:
+
+    # TODO: Implement validation and save game functionality
+
+    response_dict = { 'status': True, 'message': 'Scores successfully saved.' }
+    return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
 
 @login_required
 def list_players(request):

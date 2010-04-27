@@ -154,15 +154,12 @@ function submitScores () {
 	var teamTwoScore = $("#teamTwoScore").text();
 	// piece together serialized string
 	var str = serializeScores(teamone, teamtwo)+"&t1s="+teamOneScore+"&t2s="+teamTwoScore;
-	// Send to server
-	// Needs to return JSON
 	$.ajax({
-		url: "/",
+		url: "/score/add/",
 		type: "POST",
 		data: str,
 		success : function (data) {
-			// Need to create "status" to determine if adding score was successful, or if there was an error
-			var submitStatus = data.status; // Returns bool
+			var submitStatus = data.status; // true if success, otherwise false
 			if (submitStatus) {
 				// Reset add form
 				$(".selected").removeClass("selected");
@@ -170,14 +167,12 @@ function submitScores () {
 				$("#teamTwoScore").text("0");
 				$("#teamOneSlider").slider( "option", "value", 0 );
 				$("#teamTwoSlider").slider( "option", "value", 0 );
-				// Show success message
-				showMessage("Scores saved");
+				showMessage(data.message);
 				setTimeout("hideMessage();", 2000);
-				// Hide the add form
-				hideShade();
+				window.location.replace("/");
 			} else {
 				// show error provided in JSON response something like "Only two players can be selected per team."
-				showMessage(data.error);
+				showMessage(data.message);
 			}
 		}
 	});
