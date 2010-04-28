@@ -131,7 +131,6 @@ def add_score(request):
         t2p1.singles_last_movement = t2p1.singles_ranking_points - old_t2p1_ranking_points
         t1p1.put()
         t2p1.put()
-
       response_dict = { 'status': True, 'message': 'Scores successfully saved.' }
     except:
       response_dict = { 'status': False, 'message' : 'Hmmm. There was a problem saving your scores - please have another go.' }

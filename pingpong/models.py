@@ -45,7 +45,7 @@ class Game(db.Model):
   team2 = db.ReferenceProperty(Team,
     collection_name="team_reference_two_set")
   date_played = db.DateTimeProperty(auto_now_add=True)
-  t1p1_ranking_points = db.FloatProperty()
-  t1p2_ranking_points = db.FloatProperty()
-  t2p1_ranking_points = db.FloatProperty()
-  t2p2_ranking_points = db.FloatProperty()
+  p1_ranking_points = db.FloatProperty()
+  p2_ranking_points = db.FloatProperty()
+  p3_ranking_points = db.FloatProperty()
+  p4_ranking_points = db.FloatProperty()
