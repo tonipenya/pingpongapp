@@ -37,6 +37,17 @@ $('#signup_players_example').live('click', function() {
 // #############################
 // 2) CORE
 // #############################
+// Used to retrieve query string param values by name
+function getParameterByName(name) {
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if (results == null)
+    return "";
+  else
+    return results[1];
+}
 // AJAX LOADER /////////////////////////
 function ajax (url, type, id, method, formid, message) {
 	if (formid) { var str = $("#"+formid).serialize(); } else { var str = ""; } // Serialize form contents
@@ -168,7 +179,7 @@ function submitScores () {
 				$("#teamOneSlider").slider( "option", "value", 0 );
 				$("#teamTwoSlider").slider( "option", "value", 0 );
 				showMessage(data.message);
-				setTimeout("redirectAfterAddScore();", 1000);
+				setTimeout(function(){redirectAfterAddScore(data.mode)}, 1000);
 			} else {
 				// show error provided in JSON response something like "Only two players can be selected per team."
 				showMessage(data.message);
@@ -176,7 +187,9 @@ function submitScores () {
 		}
 	});
 }
-function redirectAfterAddScore() { window.location.replace("/"); }
+function redirectAfterAddScore(mode) {
+  window.location.replace("/?m=" + mode);
+}
 // FEEDBACK ///////////////////////////
 function getFeedback ()
 {

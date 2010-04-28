@@ -59,6 +59,7 @@ def add_score(request):
 
     # TODO: Validation!
 
+    mode = 'singles' # Used when we re-direct back to the main view
     try:
       # Find players. Save teams. Save game.
       t1p1 = get_object(Player, request.POST['t1p1'])
@@ -77,6 +78,7 @@ def add_score(request):
       team1_ranking_points = 0
       team2_ranking_points = 0
       if doubles:
+        mode = 'doubles'
         reset_doubles_last_movements(request.user)
         team1_ranking_points = (t1p1.doubles_ranking_points + t1p2.doubles_ranking_points) / 2
         team2_ranking_points = (t2p1.doubles_ranking_points + t2p2.doubles_ranking_points) / 2
@@ -131,9 +133,9 @@ def add_score(request):
         t2p1.singles_last_movement = t2p1.singles_ranking_points - old_t2p1_ranking_points
         t1p1.put()
         t2p1.put()
-      response_dict = { 'status': True, 'message': 'Scores successfully saved.' }
+      response_dict = { 'status': True, 'message': 'Scores successfully saved.', 'mode': mode }
     except:
-      response_dict = { 'status': False, 'message' : 'Hmmm. There was a problem saving your scores - please have another go.' }
+      response_dict = { 'status': False, 'message' : 'Hmmm. There was a problem saving your scores - please have another go.', 'mode': mode }
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
 
 def reset_singles_last_movements(user):
