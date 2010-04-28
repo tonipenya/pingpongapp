@@ -168,7 +168,7 @@ function submitScores () {
 				$("#teamOneSlider").slider( "option", "value", 0 );
 				$("#teamTwoSlider").slider( "option", "value", 0 );
 				showMessage(data.message);
-				setTimeout("redirectAfterAddScore();", 1500);
+				setTimeout("redirectAfterAddScore();", 1000);
 			} else {
 				// show error provided in JSON response something like "Only two players can be selected per team."
 				showMessage(data.message);
