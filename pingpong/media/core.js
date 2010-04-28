@@ -177,9 +177,6 @@ function submitScores () {
 	});
 }
 function redirectAfterAddScore() { window.location.replace("/"); }
-function submitScoresMethod () {
-	
-}
 // FEEDBACK ///////////////////////////
 function getFeedback ()
 {
