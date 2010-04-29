@@ -98,7 +98,7 @@ function resizeCols () {
 // #############################
 // ADD SCORES ///////////////////////////
 $('div.add_player').live('click', function() {
-  var playerID = $(this).attr("id");
+  	var playerID = $(this).attr("id");
 	var player = $(this).attr("name");
 	var team = $(this).attr("team");
 	// If it's already selected unselect it
@@ -115,10 +115,12 @@ $('div.add_player').live('click', function() {
 				playersAdd(team, playerID);
 			} else {
 				var otherTeam = (team === "one") ? "two" : "one";
-				alert(player +" has already been selected as a player on team "+ otherTeam);
+				showMessage(player +" has already been selected as a player on team "+ otherTeam);
+				setTimeout("hideMessage();", 2000);
 			}
 		} else {
-			alert("Oops, you can only select two players per team");
+			showMessage("Oops, you can only select two players per team");
+			setTimeout("hideMessage();", 2000);
 		}
 	}
 	return false;
@@ -163,30 +165,48 @@ function submitScores () {
 	// Grab values
 	var teamOneScore = $("#teamOneScore").text();
 	var teamTwoScore = $("#teamTwoScore").text();
-	// piece together serialized string
-	var str = serializeScores(teamone, teamtwo)+"&t1s="+teamOneScore+"&t2s="+teamTwoScore;
-	$.ajax({
-		url: "/score/add/",
-		type: "POST",
-		data: str,
-		success : function (data) {
-			var submitStatus = data.status; // true if success, otherwise false
-			if (submitStatus) {
-				// Reset add form
-				$(".selected").removeClass("selected");
-				$("#teamOneScore").text("0");
-				$("#teamTwoScore").text("0");
-				$("#teamOneSlider").slider( "option", "value", 0 );
-				$("#teamTwoSlider").slider( "option", "value", 0 );
-				showMessage(data.message);
-				setTimeout(function(){redirectAfterAddScore(data.mode)}, 1000);
-				hideShade();
+	// Ensure that there are scores and that they aren't equal
+	if (teamOneScore && teamTwoScore && teamOneScore !== teamTwoScore) {
+		// Ensure that players are selected on both teams
+		if (teamone.length > 0 && teamone.length < 3 && teamtwo.length > 0 && teamtwo.length < 3) {
+			// Ensure same number of players on both sides
+			if (teamone.length === teamtwo.length) {
+				// piece together serialized string
+				var str = serializeScores(teamone, teamtwo)+"&t1s="+teamOneScore+"&t2s="+teamTwoScore;
+				$.ajax({
+					url: "/score/add/",
+					type: "POST",
+					data: str,
+					success : function (data) {
+						var submitStatus = data.status; // true if success, otherwise false
+						if (submitStatus) {
+							// Reset add form
+							$(".selected").removeClass("selected");
+							$("#teamOneScore").text("0");
+							$("#teamTwoScore").text("0");
+							$("#teamOneSlider").slider( "option", "value", 0 );
+							$("#teamTwoSlider").slider( "option", "value", 0 );
+							showMessage(data.message);
+							setTimeout(function(){redirectAfterAddScore(data.mode)}, 1000);
+							hideShade();
+						} else {
+							// show error provided in JSON response something like "Only two players can be selected per team."
+							showMessage(data.message);
+						}
+					}
+				});
 			} else {
-				// show error provided in JSON response something like "Only two players can be selected per team."
-				showMessage(data.message);
+				showMessage("Oops, you've got to have the same number of players on both teams.");
+				setTimeout("hideMessage();", 2500);
 			}
+		} else {
+			showMessage("Don't forget to add players to both sides");
+			setTimeout("hideMessage();", 2000);
 		}
-	});
+	} else {
+		showMessage("Don't forget to add scores, and they can't be equal.");
+		setTimeout("hideMessage();", 2000);
+	}
 }
 function redirectAfterAddScore(mode) {
   window.location.replace("/?m=" + mode);
