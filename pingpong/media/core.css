@@ -115,10 +115,10 @@ body#home .copy { width: 314px; float: left; line-height: 26px; margin-top: -4px
 body#home .feature { margin-top: 33px; }
 body#home .hosted { background: url(images/home_icon_hosted.jpg) no-repeat; padding-left: 80px; }
 body#home .intro { font-size: 16px; }
-body#home .login { float: right; margin-top: -4px; }
+body#home .login { float: right; margin-top: 3px; }
 body#home .login .small { font-size: 13px; padding: 4px; width: 85px; margin-right: 3px; }
 html>/**/body#home .login .small, x:-moz-any-link, x:default { padding: 5px 4px; }
-body#home .logo { margin: 0 auto; width: 812px; padding: 35px 0; }
+body#home .logo { margin: 0 auto; width: 812px; padding: 23px 0 21px 0; }
 body#home .popup li, body#home .popup p { color: #666; font-size: 12px; }
 body#home .signup { color: #888; margin: 0 0 8px 0; }
 body#home .signup_box { float: right; margin-top: 17px; }
