@@ -76,11 +76,11 @@ td { vertical-align: top; }
 .core_right { float: right; }
 .core_shade { position: absolute; background: #101314; opacity: 0.9; -moz-opacity: 0.9; -khtml-opacity: 0.9; filter: alpha(opacity=90); width: 100%; height: 100%; top: 0; left: 0; z-index: 1000; }
 .core_text_med { font-size: 90%; font-weight: normal; }
-.core_the_rest { float: left; min-width: 300px; width: 100%; cursor: pointer; margin: 19px 35px 0 0; padding: 4px 13px 7px 13px; font-size: 26px; text-shadow: 2px 2px 3px #141414; color: #DDD; border-bottom: 3px solid #181818; border-right: 3px solid #181818; border-top: 3px solid #2D2D2D; border-left: 3px solid #2D2D2D; height: 59px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#282828), to(#1B1B1B)); background-image: -moz-linear-gradient(0% 100% 90deg,#1B1B1B, #282828); -moz-border-radius:8px; border-radius:8px; -webkit-border-radius:8px; cu }
+.core_the_rest { float: left; min-width: 300px; width: 100%; cursor: pointer; margin: 19px 35px 0 0; padding: 4px 8px 7px 8px; font-size: 22px; text-shadow: 2px 2px 3px #141414; color: #DDD; border-bottom: 3px solid #181818; border-right: 3px solid #181818; border-top: 3px solid #2D2D2D; border-left: 3px solid #2D2D2D; height: 59px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#282828), to(#1B1B1B)); background-image: -moz-linear-gradient(0% 100% 90deg,#1B1B1B, #282828); -moz-border-radius:8px; border-radius:8px; -webkit-border-radius:8px; cu }
 .core_the_rest .core_last { margin-top: 7px; }
 .core_the_rest .name { float: left; margin: 23px 0 0 0; }
 .core_the_rest .points { float: right; font-weight: bold; margin: 21px 23px 0 0; }
-.core_the_rest .rank { width: 50px; float: left; margin: 21px 0 0 23px; }
+.core_the_rest .rank { width: 30px; float: left; margin: 21px 0 0 23px; }
 .core_the_rest td { width: 33%; }
 .core_top_three { padding: 23px; min-width: 485px; margin: 0 39px 16px 0; font-size: 26px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#424242), to(#0F0F0F)); background-image: -moz-linear-gradient(0% 100% 90deg,#0F0F0F, #424242); }
 .core_top_three li { padding: 18px 20px; min-width: 300px; margin-bottom: 23px; cursor: pointer; text-shadow: 2px 2px 3px #1C1C1C; border-top: 2px solid #2C2C2C; border-left: 2px solid #2C2C2C; border-bottom: 1px solid #424242; border-right: 1px solid #424242; -moz-box-shadow: #1B1B1B 2px 2px 2px 0 inset; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#303030), to(#2B2B2B)); background-image: -moz-linear-gradient(0% 100% 90deg,#2B2B2B, #303030); }

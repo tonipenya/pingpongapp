@@ -89,7 +89,7 @@ function determineLayout () {
 	}
 }
 function resizeCols () {
-	var colWidth = (mainDivWidth/totalCols)-68;
+	var colWidth = (mainDivWidth/totalCols)-59;
 	// Set col width
 	$(".core_the_rest").css("width", colWidth+"px");
 }
