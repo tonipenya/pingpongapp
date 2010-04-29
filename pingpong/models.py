@@ -9,6 +9,11 @@ class Player(db.Model):
   doubles_ranking_points = db.FloatProperty(default=100.0)
   singles_last_movement = db.FloatProperty(default=0.0)
   doubles_last_movement = db.FloatProperty(default=0.0)
+  games_won = db.IntegerProperty(default=0)
+  games_lost = db.IntegerProperty(default=0)
+
+  def games_played(self):
+    return self.games_won + self.games_lost
 
   def display_singles_last_movement(self):
     if self.singles_last_movement == 0:
