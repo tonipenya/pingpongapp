@@ -51,8 +51,7 @@ def signup(request):
 @login_required
 def add_score(request):
   if not request.POST:
-    players = Player.gql("WHERE owner = :owner ORDER BY name",
-                         owner=request.user)
+    players = Player.gql("WHERE owner = :owner ORDER BY name", owner=request.user)
     return render_to_response(request, 'pingpong/addscore.html',
       { 'players': players, })
   else:
@@ -72,9 +71,20 @@ def add_score(request):
       t2 = db_create(Team, player1=t2p1, player2=t2p2, points=t2s)
       game = db_create(Game, team1=t1, team2=t2)
 
-      # TODO: Split this all up once it's been ported and tested
-
       doubles = (t1p1 != None and t1p2 != None and t2p1 != None and t2p2 != None)
+      if t1s > t2s:
+        t1p1.games_won += 1
+        t2p1.games_lost += 1
+        if doubles:
+          t1p2.games_won += 1
+          t2p2.games_lost += 1
+      else:
+        t2p1.games_won += 1
+        t1p1.games_lost += 1
+        if doubles:
+          t2p2.games_won += 1
+          t1p2.games_lost += 1
+      
       team1_ranking_points = 0
       team2_ranking_points = 0
       if doubles:
@@ -135,7 +145,10 @@ def add_score(request):
         t2p1.put()
       response_dict = { 'status': True, 'message': 'Scores successfully saved.', 'mode': mode }
     except:
-      response_dict = { 'status': False, 'message' : 'Hmmm. There was a problem saving your scores - please have another go.', 'mode': mode }
+      
+      # TODO: Log this so that it's reported by app engine
+      
+      response_dict = { 'status': False, 'message' : 'Hmmm... There was a problem saving your scores - please have another go.', 'mode': mode }
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
 
 def reset_singles_last_movements(user):
