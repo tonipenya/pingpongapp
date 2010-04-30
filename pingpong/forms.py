@@ -14,16 +14,14 @@ def make_player_form(request):
 
     class Meta:
       model = Player
-      exclude = ('owner', 'date_created', 'singles_ranking_points', 
-        'doubles_ranking_points', 'singles_last_movement', 'doubles_last_movement', 
-        'games_played', 'games_won', 'games_lost')
+      fields = ('name',)
 
     def save(self, commit=True):
       f = super(PlayerForm, self).save(commit=False)
       if not f.pk: f.owner = request.user
       if commit: f.save()
       return f
-  
+
   return PlayerForm
 
 class UserRegistrationForm(forms.ModelForm):

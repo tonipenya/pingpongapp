@@ -73,18 +73,23 @@ def add_score(request):
 
       doubles = (t1p1 != None and t1p2 != None and t2p1 != None and t2p2 != None)
       if t1s > t2s:
-        t1p1.games_won += 1
-        t2p1.games_lost += 1
         if doubles:
-          t1p2.games_won += 1
-          t2p2.games_lost += 1
+          t1p1.doubles_games_won += 1
+          t2p1.doubles_games_lost += 1
+          t1p2.doubles_games_won += 1
+          t2p2.doubles_games_lost += 1
+        else:
+          t1p1.singles_games_won += 1
+          t2p1.singles_games_lost += 1
       else:
-        t2p1.games_won += 1
-        t1p1.games_lost += 1
         if doubles:
-          t2p2.games_won += 1
-          t1p2.games_lost += 1
-      
+          t2p1.doubles_games_won += 1
+          t1p1.doubles_games_lost += 1
+          t2p2.doubles_games_won += 1
+          t1p2.doubles_games_lost += 1
+        else:
+          t2p1.singles_games_won += 1
+          t1p1.singles_games_lost += 1
       team1_ranking_points = 0
       team2_ranking_points = 0
       if doubles:
