@@ -58,10 +58,7 @@
     $(document).ready(function() {
       mode = getParameterByName('m');
       if (mode === 'doubles') {
-      	$(".nav_doubles").removeClass("nav_up").addClass("nav_down");
-      	$(".nav_singles").removeClass("nav_down").addClass("nav_up");
-      	$("#singles").hide();
-      	$("#doubles").fadeIn("slow");
+        showDoubles();
       	return false;
       }
     });

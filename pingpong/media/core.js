@@ -12,19 +12,28 @@ $(window).resize(function () {
 	determineLayout();
 });
 $('.nav_singles').live('click', function() {
+  showSingles();
+	return false;
+});
+$('.nav_doubles').live('click', function() {
+  showDoubles();
+	return false;
+});
+var currentMode = 'singles';
+function showSingles() {
 	$(".nav_singles").removeClass("nav_up").addClass("nav_down");
 	$(".nav_doubles").removeClass("nav_down").addClass("nav_up");
 	$("#doubles").hide();
 	$("#singles").fadeIn("slow");
-	return false;
-});
-$('.nav_doubles').live('click', function() {
+	currentMode = 'singles';
+}
+function showDoubles() {
 	$(".nav_doubles").removeClass("nav_up").addClass("nav_down");
 	$(".nav_singles").removeClass("nav_down").addClass("nav_up");
 	$("#singles").hide();
 	$("#doubles").fadeIn("slow");
-	return false;
-});
+	currentMode = 'doubles';
+}
 $('#players').live('click', function() {
 	signupHideExample();						 
 });
@@ -403,7 +412,6 @@ function submitSettings() {
 		success : function (data) {
 			var submitStatus = data.status; // true if success, otherwise false
 			if (submitStatus) {
-				// TODO: Reset settings form
 				showMessage(data.message);
 				setTimeout(function(){redirectAfterSubmitSettings()}, 1000);
 				hideShade();
@@ -414,7 +422,8 @@ function submitSettings() {
 	});
 }
 function redirectAfterSubmitSettings() {
-  window.location.replace("/");
+  modeStr = currentMode === 'doubles' ? '?m=doubles' : '';
+  window.location.replace("/" + modeStr);
 }
 // SIGNUP /////////////////////////////
 function signupCheckUsername (username) // Checks if username is available

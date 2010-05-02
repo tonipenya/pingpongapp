@@ -48,13 +48,16 @@ def settings(request):
     return render_to_response(request, 'pingpong/settings.html',
       { 'players': players, })
   else:
-    # Update player names based on posted values
     try:
+      # Update player names based on posted values
       for k, v in request.POST.items():
-        if str(k).endswith('_player'): # Expected key format: <player_key>_player
+        if str(k).endswith('_player'): # Expected key format: <key>_player
           player = get_object(Player, str(k)[:-7])
-          player.name = v # Values is the updated player name
+          player.name = v # Value is the updated player name
           player.put()
+      
+      # TODO: Update other settings
+      
       response_dict = { 'status': True, 'message': 'Settings successfully saved.' }
     except:
       response_dict = { 'status': False, 'message': 'Hmmm... There was a problem saving your settings - please have another go.' }
