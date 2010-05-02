@@ -46,7 +46,7 @@ def settings(request):
   if request.method != 'POST':
     players = Player.gql("WHERE owner = :owner ORDER BY name", owner=request.user)
     return render_to_response(request, 'pingpong/settings.html',
-      { 'players': players, })
+      { 'players': players, 'email': request.user.email })
   else:
     try:
       # Update player names based on posted values

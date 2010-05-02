@@ -404,22 +404,23 @@ function serializeSettings() {
   return result.substr(0, result.length - 1);
 }
 function submitSettings() {
-	var str = serializeSettings();
-	$.ajax({
-		url: "/settings/",
-		type: "POST",
-		data: str,
-		success : function (data) {
-			var submitStatus = data.status; // true if success, otherwise false
-			if (submitStatus) {
-				showMessage(data.message);
-				setTimeout(function(){redirectAfterSubmitSettings()}, 1000);
-				hideShade();
-			} else {
-				showMessage(data.message);
-			}
-		}
-	});
+  // TODO: Validate new player names, existing player names and email address
+  var str = serializeSettings();
+  $.ajax({
+    url: "/settings/",
+    type: "POST",
+    data: str,
+    success : function (data) {
+      var submitStatus = data.status; // true if success, otherwise false
+      if (submitStatus) {
+        showMessage(data.message);
+        setTimeout(function(){redirectAfterSubmitSettings()}, 1000);
+        hideShade();
+      } else {
+        showMessage(data.message);
+      }
+    }
+  });
 }
 function redirectAfterSubmitSettings() {
   modeStr = currentMode === 'doubles' ? '?m=doubles' : '';
