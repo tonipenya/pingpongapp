@@ -24,17 +24,15 @@
 						<th>Names</th>
 						<th class="right">Actions</th>
 					</tr>
-					<!-- Need to alternate colors of rows
-						bgcolor="#F5F5F1"
-						then
-						bgcolor="#FFF", etc... -->
-					<tr bgcolor="#FFF" onmouseover="this.style.backgroundColor='#E6F4FB';" onmouseout="this.style.backgroundColor='#FFF';">
+					{% for p in players %}
+					<tr bgcolor="#{% cycle 'FFF' 'F5F5F1' %}" onmouseover="this.style.backgroundColor='#E6F4FB';" onmouseout="this.style.backgroundColor='#{% cycle 'FFF' 'F5F5F1' %}';">
 						<td class="sell_desc">
-							<div id="ENTERDYNAMICROWID_name">David M</div>
-							<div id="ENTERDYNAMICROWID_input" style="display: none;"><input type="text" name="players[ENTERDYNAMICROWID]" value="David M" class="pads" style="margin-bottom: 0;" /></div>
+							<div id="{{ p.key }}_name">{{ p.name }}</div>
+							<div id="{{ p.key }}_input" style="display: none;"><input type="text" id="{{ p.key }}" value="{{ p.name }}" class="pads" style="margin-bottom: 0;" /></div>
 						</td>
-						<td class='right'><a href='' id="ENTERDYNAMICROWID_edit" onclick="settingsEdit('ENTERDYNAMICROWID'); return false;">edit</a> <div class="core_vline"></div> <a href='' onclick="settingsDelete('David M', 'ENTERDYNAMICROWID'); return false;">delete</a></td>
+						<td class='right'><a href='' id="{{ p.key }}_edit" onclick="settingsEdit('{{ p.key }}'); return false;">edit</a> <div class="core_vline"></div> <a href='' onclick="settingsDelete('{{ p.name }}', '{{ p.key }}'); return false;">delete</a></td>
 					</tr>
+					{% endfor %}
 				</table>
 				<div class="mb_supa"></div>
 				<h3>Account</h3>
@@ -53,7 +51,7 @@
 				
 			</div>
 			<div class="core_clear"></div>
-			<div class="add_enter_scores"><a href="javascript:submitScores();"><img src="{{ MEDIA_URL }}pingpong/images/btn_save_settings.jpg" width="166" height="45" /></a><span>or <a href="javascript: hideShade();">cancel</a></span></div>		
+			<div class="add_enter_scores"><a href="javascript:submitSettings();"><img src="{{ MEDIA_URL }}pingpong/images/btn_save_settings.jpg" width="166" height="45" /></a><span>or <a href="javascript: hideShade();">cancel</a></span></div>		
 			<div class="core_clear"></div>
 		</div>
 		</form>

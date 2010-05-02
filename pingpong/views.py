@@ -41,16 +41,31 @@ def login(request):
         'previous_username': request.POST['username'] })
   else:
     return HttpResponseRedirect('/')
-	
+
 def settings(request):
-  return render_to_response(request, 'pingpong/settings.html')
+  if request.method != 'POST':
+    players = Player.gql("WHERE owner = :owner ORDER BY name", owner=request.user)
+    return render_to_response(request, 'pingpong/settings.html',
+      { 'players': players, })
+  else:
+    # Update player names based on posted values
+    try:
+      for k, v in request.POST.items():
+        if str(k).endswith('_player'): # Expected key format: <player_key>_player
+          player = get_object(Player, str(k)[:-7])
+          player.name = v # Values is the updated player name
+          player.put()
+      response_dict = { 'status': True, 'message': 'Settings successfully saved.' }
+    except:
+      response_dict = { 'status': False, 'message': 'Hmmm... There was a problem saving your settings - please have another go.' }
+    return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
 
 def signup(request):
   return render_to_response(request, 'pingpong/signup.html')
 
 @login_required
 def add_score(request):
-  if not request.POST:
+  if request.method != 'POST':
     players = Player.gql("WHERE owner = :owner ORDER BY name", owner=request.user)
     return render_to_response(request, 'pingpong/addscore.html',
       { 'players': players, })

@@ -48,6 +48,12 @@ function getParameterByName(name) {
   else
     return results[1];
 }
+function htmlEncode(value) {
+  return $('<div/>').text(value).html(); 
+} 
+function htmlDecode(value) {
+  return $('<div/>').html(value).text(); 
+}
 // AJAX LOADER /////////////////////////
 function ajax (url, type, id, method, formid, message) {
 	if (formid) { var str = $("#"+formid).serialize(); } else { var str = ""; } // Serialize form contents
@@ -98,7 +104,7 @@ function resizeCols () {
 // #############################
 // ADD SCORES ///////////////////////////
 $('div.add_player').live('click', function() {
-  	var playerID = $(this).attr("id");
+	var playerID = $(this).attr("id");
 	var player = $(this).attr("name");
 	var team = $(this).attr("team");
 	// If it's already selected unselect it
@@ -379,6 +385,36 @@ function settingsEdit(userid) {
 		$('#'+userid+"_input input").select();
 		$('#'+userid+"_edit").text("cancel");
 	}
+}
+function serializeSettings() {
+  result = '';
+  // Find players whose names have changed and serialise
+  $("div[id$='_input']:visible input").each(function() {
+    result += $(this).attr('id') + '_player=' + htmlEncode($(this).attr('value')) + '&';
+  });
+  return result.substr(0, result.length - 1);
+}
+function submitSettings() {
+	var str = serializeSettings();
+	$.ajax({
+		url: "/settings/",
+		type: "POST",
+		data: str,
+		success : function (data) {
+			var submitStatus = data.status; // true if success, otherwise false
+			if (submitStatus) {
+				// TODO: Reset settings form
+				showMessage(data.message);
+				setTimeout(function(){redirectAfterSubmitSettings()}, 1000);
+				hideShade();
+			} else {
+				showMessage(data.message);
+			}
+		}
+	});
+}
+function redirectAfterSubmitSettings() {
+  window.location.replace("/");
 }
 // SIGNUP /////////////////////////////
 function signupCheckUsername (username) // Checks if username is available
