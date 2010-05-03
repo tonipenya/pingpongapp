@@ -24,6 +24,28 @@ indexes:
 
 - kind: pingpong_player
   properties:
+  - name: active
+  - name: owner
+  - name: doubles_ranking_points
+    direction: desc
+  - name: name
+
+- kind: pingpong_player
+  properties:
+  - name: active
+  - name: owner
+  - name: name
+
+- kind: pingpong_player
+  properties:
+  - name: active
+  - name: owner
+  - name: singles_ranking_points
+    direction: desc
+  - name: name
+
+- kind: pingpong_player
+  properties:
   - name: owner
   - name: doubles_ranking_points
   - name: name

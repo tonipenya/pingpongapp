@@ -368,20 +368,30 @@ function showPopup (popup, url, focus) // Show or load popup
 	}
 }
 // SETTTINGS /////////////////////////////
-function settingsAdd () {
-	$("#settings_add").show();
+function settingsAdd() {
+  $("#settings_add").show();
 }
-function settingsDelete (user, userid) {
-	if (confirm("Are you sure you want to delete "+user+"? All of their scores will be lost.")) {
-		ajax ("PATHTOUSERDELETE", "GET", "", "settingsDeleteMethod", "", "");
-  	}
+function deletePlayer(player, playerKey) {
+  if (confirm("Are you sure you want to delete " + player + "?")) {
+    $.ajax({
+      url: "/player/delete/" + playerKey,
+      type: "POST",
+      data: '',
+      success : function (data) {
+        if (data.status) { // true if success, otherwise false
+          showMessage(data.message);
+          setTimeout(function(){redirectAfterDeletePlayer()}, 1000);
+          hideShade();
+        } else {
+          showMessage(data.message);
+        }
+      }
+    });
+  }
 }
-function settingsDeleteMethod (data) {
-	$("#popup_settings").remove();
-	$("#popup_container").prepend(data);
-	var tWidth = $(window).width();
-	var tPopup = $("#popup_settings").width();
-	$("#popup_settings").css("left", [tWidth-tPopup]/2+"px");
+function redirectAfterDeletePlayer() {
+  modeStr = currentMode === 'doubles' ? '?m=doubles' : '';
+  window.location.replace("/" + modeStr);
 }
 function settingsEdit(userid) {
 	if ($('#'+userid+"_input").is(':visible')) {

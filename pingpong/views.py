@@ -20,9 +20,9 @@ def freetrial(request):
 
 def index(request):
   if request.user.is_authenticated():
-    singles_players = Player.gql("WHERE owner = :owner ORDER BY singles_ranking_points DESC, name",
+    singles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY singles_ranking_points DESC, name",
                                   owner=request.user)
-    doubles_players = Player.gql("WHERE owner = :owner ORDER BY doubles_ranking_points DESC, name",
+    doubles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY doubles_ranking_points DESC, name",
                                   owner=request.user)
     return render_to_response(request, 'pingpong/main.html',
       { 'singles_players': singles_players, 'doubles_players': doubles_players })
@@ -42,9 +42,10 @@ def login(request):
   else:
     return HttpResponseRedirect('/')
 
+@login_required
 def settings(request):
   if request.method != 'POST':
-    players = Player.gql("WHERE owner = :owner ORDER BY name", owner=request.user)
+    players = Player.gql("WHERE owner = :owner AND active = True ORDER BY name", owner=request.user)
     return render_to_response(request, 'pingpong/settings.html',
       { 'players': players, 'email': request.user.email })
   else:
@@ -55,8 +56,6 @@ def settings(request):
           player = get_object(Player, str(k)[:-7])
           player.name = v # Value is the updated player name
           player.put()
-      
-      # TODO: Update other settings
       
       response_dict = { 'status': True, 'message': 'Settings successfully saved.' }
     except:
@@ -69,7 +68,7 @@ def signup(request):
 @login_required
 def add_score(request):
   if request.method != 'POST':
-    players = Player.gql("WHERE owner = :owner ORDER BY name", owner=request.user)
+    players = Player.gql("WHERE owner = :owner AND active = True ORDER BY name", owner=request.user)
     return render_to_response(request, 'pingpong/addscore.html',
       { 'players': players, })
   else:
@@ -211,5 +210,15 @@ def edit_player(request, key):
 
 @login_required
 def delete_player(request, key):
-  return delete_object(request, Player, object_id=key,
-    post_delete_redirect=reverse('pingpong.views.list_players'))
+  if request.method == 'POST':
+    player = get_object(Player, key)
+    if player:
+      player.active = False
+      player.put()
+      response_dict = { 'status': True, 'message' : 'Player successfully deleted.' }
+      return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
+    else:
+      response_dict = { 'status': False, 'message' : "Hmm... We couldn't find that player. Please have another go." }
+      return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
+  else:
+    return HttpResponseRedirect('/')

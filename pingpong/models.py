@@ -13,6 +13,7 @@ class Player(db.Model):
   singles_games_lost = db.IntegerProperty(default=0)
   doubles_games_won = db.IntegerProperty(default=0)
   doubles_games_lost = db.IntegerProperty(default=0)
+  active = db.BooleanProperty(default=True)
 
   def singles_games_played(self):
     return self.singles_games_won + self.singles_games_lost

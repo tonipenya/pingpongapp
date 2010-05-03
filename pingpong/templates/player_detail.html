@@ -17,5 +17,6 @@
   <li>Doubles Wins: {{ object.doubles_games_won }}</li>
   <li>Doubles Losses: {{ object.doubles_games_lost }}</li>
   <li>Doubles ranking points: {{ object.doubles_ranking_points }}</li>
+  <li>Active: {% if object.active %}Yes{% else %}No{% endif %}</li>
 </ul>
 {% endblock %}
