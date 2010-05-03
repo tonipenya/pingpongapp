@@ -386,7 +386,7 @@ function deletePlayer(player, playerKey) {
         if (data.status) { // true if success, otherwise false
           showMessage(data.message);
           setTimeout(function(){redirectAfterDeletePlayer()}, 1000);
-          hideShade();
+          $(".popup").hide();
         } else {
           showMessage(data.message);
         }
@@ -430,7 +430,7 @@ function submitSettings() {
       if (submitStatus) {
         showMessage(data.message);
         setTimeout(function(){redirectAfterSubmitSettings()}, 1000);
-        hideShade();
+        $(".popup").hide();
       } else {
         showMessage(data.message);
       }
