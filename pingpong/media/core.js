@@ -203,7 +203,7 @@ function submitScores () {
 							$("#teamTwoSlider").slider( "option", "value", 0 );
 							showMessage(data.message);
 							setTimeout(function(){redirectAfterAddScore(data.mode)}, 1000);
-							hideShade();
+							$(".popup").hide();
 						} else {
 							// show error provided in JSON response something like "Only two players can be selected per team."
 							showMessage(data.message);
