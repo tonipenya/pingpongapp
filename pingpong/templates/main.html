@@ -2,17 +2,22 @@
 
 {% block content %}
   <div id="message" class="core_message core_radius_bottom6" style="display: none;">Loading...</div>
+  <div id="core_loading" class="core_loading" style="display: none;">Loading...</div>
   <div id="popup_container"></div>
 
 	<!-- // Nav ////////////////////////////////////////////// -->
 	<div class="nav">
-		<div class="core_container">
-			<span class="core_right"><a href="" onclick="showPopup('add', '/score/add', ''); return false;" class="nav_add core_radius8">Add score<span></span></a></span>
-			<a href="" class="nav_singles nav_down core_radius8">Singles<span></span></a>
-			<a href="" class="nav_doubles nav_up core_radius8">Doubles<span></span></a>
+		<div class="nav_container">
+			<a href="" class="nav_singles core_left nav_down core_radius8">Singles</a>
+			<a href="" class="nav_doubles core_left nav_up core_radius8">Doubles</a>
+			<div class="core_right" style="margin: 11px 0 0 30px"><a href="" onclick="showPopup('add', '/score/add', ''); return false;" class="nav_add core_radius8">Add score</a></div>
+			
+			<!-- Show when in trial mode - up to 14 days after signup date -->
+			<div class="nav_trial">14 trial days left - <a href="" onclick="showPopup('upgrade', '/upgrade', ''); return false;"><strong>upgrade now</strong></a></div>
+			
 			<div class="core_clear"></div>
 		</div>
-	</div>
+	</div>	
 
 	{% if singles_players and doubles_players %}
 	{% ifnotequal singles_players.count 0 %}

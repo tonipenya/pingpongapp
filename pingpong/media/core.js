@@ -315,6 +315,11 @@ function coreLoading (message)
 	$("#core_loading").fadeIn();
 }
 // POPUPS /////////////////////////////
+function fullPageLoading (message)
+{
+	$("#core_loading").html(message);
+	$("#core_loading").fadeIn();
+}
 function hideShade () // Hides all popups and shade
 {
 	$("#core_shade").hide();
@@ -468,4 +473,10 @@ function signupFormMethod (data) {
 function signupHideExample () {
 	$('#signup_players_example').hide();
 	$('#players').select();
+}
+// UPGRADE /////////////////////////////
+function upgrade (plan)
+{
+	fullPageLoading("One moment...");
+	window.location.replace("/paypal/");
 }

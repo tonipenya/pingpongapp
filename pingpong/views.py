@@ -222,3 +222,9 @@ def delete_player(request, key):
       return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
   else:
     return HttpResponseRedirect('/')
+	
+def paypal(request):
+  return render_to_response(request, 'pingpong/paypal.html')
+
+def upgrade(request):
+  return render_to_response(request, 'pingpong/upgrade.html')

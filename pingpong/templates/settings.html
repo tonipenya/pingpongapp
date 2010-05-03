@@ -26,9 +26,9 @@
 					</tr>
 					{% for p in players %}
 					<tr bgcolor="#{% cycle 'FFF' 'F5F5F1' %}" onmouseover="this.style.backgroundColor='#E6F4FB';" onmouseout="this.style.backgroundColor='#{% cycle 'FFF' 'F5F5F1' %}';">
-						<td class="sell_desc">
+						<td class="sell_desc" onclick="settingsEdit('{{ p.key }}');">
 							<div id="{{ p.key }}_name">{{ p.name }}</div>
-							<div id="{{ p.key }}_input" style="display: none;"><input type="text" id="{{ p.key }}" value="{{ p.name }}" class="pads" style="margin-bottom: 0;" /></div>
+							<div id="{{ p.key }}_input" style="display: none;"><input type="text" id="{{ p.key }}" value="{{ p.name }}" onclick="showSettingsEdit('{{ p.key }}');" class="pads" style="margin-bottom: 0;" /></div>
 						</td>
 						<td class='right'><a href='' id="{{ p.key }}_edit" onclick="settingsEdit('{{ p.key }}'); return false;">edit</a> <div class="core_vline"></div> <a href="" onclick="deletePlayer('{{ p.name }}', '{{ p.key }}'); return false;">delete</a></td>
 					</tr>

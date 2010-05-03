@@ -19,7 +19,7 @@ label { font-size: 13px; font-weight: bold; }
 /* label { color: #333; display: block; font-weight: bold; margin: 0 0 5px 0; } */
 h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
 li { list-style: none; }
-td { vertical-align: top; }
+td { vertical-align: top; } 
 /* =========================================
     ADD SCORES POPUP
    ========================================= */
@@ -38,7 +38,7 @@ td { vertical-align: top; }
 /* =========================================
     BUTTONS
    ========================================= */
-.btn_blue { background: #00A9E0; border: 1px solid #0099CC; font-size: 13px; padding: 5px 14px 6px 14px; color: #FFF; font-weight: bold; text-decoration: none; cursor: pointer; }
+.btn_blue { background: #00A9E0; font-family: Arial, Helvetica, sans-serif; border: 1px solid #0099CC; font-size: 13px; padding: 5px 14px 6px 14px; color: #FFF; font-weight: bold; text-decoration: none; cursor: pointer; }
 .btn_blue:hover { background: #008CBB; border: 1px solid #008CBB; }
 .btn_signup { border: 1px solid #313131; font-size: 20px; font-weight: bold; outline-style: none; outline-width: 0; padding: 10px 15px; margin: 20px 10px 0 0; text-decoration: none; margin-right: 0 !important; position: relative; text-shadow: 1px 1px 3px #026788; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#03AFE9), to(#027EA8)); background-image: -moz-linear-gradient(0% 100% 90deg,#027EA8, #03AFE9); color: #FFF; }
 .btn_signup:hover { border: 1px solid #039FD4; padding: 8px 14px 9qpx 14px !important; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#027EA8), to(#03AFE9)) !important; background-image: -moz-linear-gradient(0% 100% 90deg,#03AFE9, #027EA8) !important;   }
@@ -59,7 +59,7 @@ td { vertical-align: top; }
 .core_error { color: #A91C07; font-style: italic; }
 .core_last { float: right; padding: 10px 4px 17px 0; text-align: center; width: 75px; margin: 3px 23px 0 0; color: #8DC754; text-shadow: 2px 2px 3px #1C1C1C; border-top: 2px solid #212121; border-left: 2px solid #212121; border-bottom: 1px solid #424242; border-right: 1px solid #424242; -moz-box-shadow: #1B1B1B 2px 2px 2px 0 inset; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#303030), to(#2B2B2B)); background-image: -moz-linear-gradient(0% 100% 90deg,#2B2B2B, #303030); }
 .core_left { float: left; }
-.core_light { color: #999; }
+.core_light { color: #999; } 
 .core_loss { color: #CCC; }
 .core_message { background: #F3F5B4; color: #000; font-size: 13px; font-weight: bold; padding: 6px 14px 8px 14px; position: fixed; top: 0; z-index: 100000; }
 .core_radius { -moz-border-radius:1px; border-radius:1px; -webkit-border-radius:1px; }
@@ -140,22 +140,21 @@ body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat
 .mb8 { margin-bottom: 8px; }
 .mb_extra { margin-bottom: 23px; }
 .mb_supa { margin-bottom: 46px; }
+.mt11 { margin-top: 11px; }
 /* =========================================
     NAV
    ========================================= */
 .nav { height: 69px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3B3B3B), to(#141414)); background-image: -moz-linear-gradient(0% 100% 90deg,#141414, #3b3b3b); }
-.nav a { font-size: 20px; font-weight: bold; outline-style: none; outline-width: 0; padding: 10px 15px; margin: 20px 10px 0 0; text-decoration: none; }
+.nav_container { margin: 0 auto; text-align: center; min-width: 550px; height: 69px; padding: 14px 35px 25px 39px; }
+.nav a { font-size: 20px; font-weight: bold; outline-style: none; outline-width: 0; padding: 10px 15px; margin: 0 10px 0 0; text-decoration: none; }
 .nav_add { border: 1px solid #313131; margin-right: 0 !important; position: relative; text-shadow: 1px 1px 3px #026788; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#03AFE9), to(#027EA8)); background-image: -moz-linear-gradient(0% 100% 90deg,#027EA8, #03AFE9); color: #FFF; }
 .nav_add:hover { border: 1px solid #039FD4; padding: 8px 14px 9qpx 14px !important; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#027EA8), to(#03AFE9)) !important; background-image: -moz-linear-gradient(0% 100% 90deg,#03AFE9, #027EA8) !important;   }
-.nav_add span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:109px; height:32px;  margin:0; padding:0; background:url("images/nav_add.jpg") top left no-repeat; }
-.nav_add:hover span { background:url("images/nav_add_up.jpg") top left no-repeat; }
-.nav_doubles span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:90px; height:32px;  margin:0; padding:0; background:url("images/nav_doubles.jpg") top left no-repeat; }
-.nav_doubles.nav_up span { left:12px; background:url("images/nav_doubles_up.jpg") top left no-repeat; }
-.nav_doubles.nav_up:hover span { left:13px; background:url("images/nav_doubles.jpg") top left no-repeat; }
-.nav_singles span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:83px; height:32px;  margin:0; padding:0; background:url("images/nav_singles.jpg") top left no-repeat; }
-.nav_singles.nav_up span { background:url("images/nav_singles_up.jpg") top left no-repeat; }
-.nav_singles.nav_up:hover span { background:url("images/nav_singles.jpg") top left no-repeat; }
+.nav_add span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:109px; height:32px;  margin:0; padding:0; }
+.nav_doubles span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:90px; height:32px;  margin:0; padding:0; }
 .nav_down, .nav_up:hover { position: relative;  padding: 10px 14px !important; cursor:default; border-top: 1px solid #1B1B1B; border-left: 1px solid #1B1B1B; border-bottom: 1px solid #313131; border-right: 1px solid #313131; color: #A0A0A0; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222222), to(#2A2A2A)); background-image: -moz-linear-gradient(0% 100% 90deg,#2A2A2A, #222222); -moz-box-shadow: #1B1B1B 2px 2px 2px 0 inset; text-shadow: 1px 1px 3px #1B1B1B; }
+.nav_singles span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:83px; height:32px;  margin:0; padding:0; }
+.nav_trial { text-align: right; margin: 11px 0 0 0; font-size: 16px; color: #666; }
+.nav_trial a { margin: 0; padding: 0; font-size: 16px; text-decoration: underline; }
 .nav_up { color: #FFF; position: relative; }
 .nav_up:hover { cursor: pointer !important; }
 /* =========================================
@@ -197,3 +196,9 @@ body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat
 .signup_players { width: 100%; height: 100px; }
 .signup_players_box { position: relative; }
 .signup_players_example { font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #999; position: absolute; top: 0; left: 2px; z-index: 1000; }
+/* =========================================
+    UPGRADE
+   ========================================= */
+.upgrade_list { margin: 13px 0 0 15px; }
+.upgrade_list li { list-style: square; line-height: 22px; font-family: Arial, Helvetica, sans-serif; }
+.upgrade_price { font-size: 170%; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; }
