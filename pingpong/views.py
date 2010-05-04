@@ -228,3 +228,6 @@ def paypal(request):
 
 def upgrade(request):
   return render_to_response(request, 'pingpong/upgrade.html')
+  
+def player_stats(request):
+  return render_to_response(request, 'pingpong/player_stats.html')

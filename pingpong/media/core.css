@@ -197,6 +197,18 @@ body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat
 .signup_players_box { position: relative; }
 .signup_players_example { font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #999; position: absolute; top: 0; left: 2px; z-index: 1000; }
 /* =========================================
+    STATS
+   ========================================= */
+.stats_table { width: 100%; color: #666; font-size: 12px; }
+.stats_table td { padding: 6px 6px; }
+.stats_table td.lost, .stats_table td.won { text-align: left; padding: 10px 6px; width: 50px; }
+.stats_table td.lost span { background: #BBB; padding: 5px 14px; color: #FFF; font-weight: bold; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px; }
+.stats_table td.the_players { padding: 10px 6px; text-align: left; font-family: Arial, Helvetica, sans-serif; }
+.stats_table td.won span { background: #666; padding: 5px 12px; color: #FFF; font-weight: bold; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px; }
+.stats_table th { font-size: 16px; color: #333; text-align: center; padding: 10px 6px; font-weight: bold; }
+.stats_table tr.gray td { background: #E7E7E7; }
+.stats_table td.row_title { font-weight: bold; text-align: left; padding: 10px 6px; }
+/* =========================================
     UPGRADE
    ========================================= */
 .upgrade_list { margin: 13px 0 0 15px; }
