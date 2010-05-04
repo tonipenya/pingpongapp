@@ -51,6 +51,14 @@ def settings(request):
       { 'players': players, 'email': request.user.email })
   else:
     try:
+      # Add any new players
+      new_players = request.POST['newplayers']
+      if new_players:
+        players = new_players.splitlines()
+        for p in players:
+          if len(p.strip()) > 0:
+            db_create(Player, name=p.strip(), owner=request.user)
+
       # Update player names based on posted values
       for k, v in request.POST.items():
         if str(k).endswith('_player'): # Expected key format: <key>_player
