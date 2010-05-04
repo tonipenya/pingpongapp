@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
 from ragendja.template import render_to_response
@@ -59,6 +60,7 @@ def settings(request):
       
       response_dict = { 'status': True, 'message': 'Settings successfully saved.' }
     except:
+      logging.exception('There was a problem saving settings')
       response_dict = { 'status': False, 'message': 'Hmmm... There was a problem saving your settings - please have another go.' }
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
 
@@ -167,9 +169,7 @@ def add_score(request):
         t2p1.put()
       response_dict = { 'status': True, 'message': 'Scores successfully saved.', 'mode': mode }
     except:
-      
-      # TODO: Log this so that it's reported by app engine
-      
+      logging.exception('There was a problem adding scores')
       response_dict = { 'status': False, 'message' : 'Hmmm... There was a problem saving your scores - please have another go.', 'mode': mode }
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
 
