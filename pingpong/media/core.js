@@ -421,10 +421,10 @@ function settingsEdit(userid) {
 function serializeSettings() {
   result = '';
   // Add any new player data
-  result += 'newplayers=' + encodeURI($("textarea#players").val()) + '&';
+  result += 'newplayers=' + encodeURIComponent($("textarea#players").val()) + '&';
   // Find players whose names have changed and serialise
   $("div[id$='_input']:visible input").each(function() {
-    result += $(this).attr('id') + '_player=' + encodeURI($(this).attr('value')) + '&';
+    result += $(this).attr('id') + '_player=' + encodeURIComponent($(this).attr('value')) + '&';
   });
   return result.substr(0, result.length - 1);
 }
