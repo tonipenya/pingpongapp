@@ -230,12 +230,53 @@ def delete_player(request, key):
       return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
   else:
     return HttpResponseRedirect('/')
-	
+
 def paypal(request):
   return render_to_response(request, 'pingpong/paypal.html')
 
 def upgrade(request):
   return render_to_response(request, 'pingpong/upgrade.html')
-  
-def player_stats(request):
-  return render_to_response(request, 'pingpong/player_stats.html')
+
+@login_required
+def player_stats(request, key):
+  player = get_object(Player, key)
+  # Calculate the player's ranking on the fly
+  singles_ranking = 0
+  doubles_ranking = 0
+  singles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY singles_ranking_points DESC, name",
+                                owner=request.user)
+  for sp in singles_players:
+    singles_ranking += 1
+    if sp.key == player.key:
+      break
+  doubles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY doubles_ranking_points DESC, name",
+                                owner=request.user)
+  for dp in doubles_players:
+    doubles_ranking += 1
+    if dp.key == player.key:
+      break
+
+  player_games = [] # Load game history
+  # Find all teams where player is player1 (no gql OR operator)
+  teams = Team.gql("WHERE player1 = :player", player=player)
+  for t in teams:
+    games = Game.gql("WHERE team1 = :team", team=t)
+    for g in games:
+      player_games.append(g)
+    games = Game.gql("WHERE team2 = :team", team=t)
+    for g in games:
+      player_games.append(g)
+  # Find all teams where player is player2 (no gql OR operator)
+  teams = Team.gql("WHERE player2 = :player", player=player)
+  for t in teams:
+    games = Game.gql("WHERE team1 = :team", team=t)
+    for g in games:
+      player_games.append(g)
+    games = Game.gql("WHERE team2 = :team", team=t)
+    for g in games:
+      player_games.append(g)
+  player_games.sort(cmp=lambda x,y: cmp(x.date_played, y.date_played), reverse=True)
+
+  return render_to_response(request, 'pingpong/player_stats.html',
+    { 'player': player, 'singles_ranking': singles_ranking, 'doubles_ranking': doubles_ranking, 
+    'games': player_games[:20] })

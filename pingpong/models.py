@@ -60,3 +60,9 @@ class Game(db.Model):
   p2_ranking_points = db.FloatProperty()
   p3_ranking_points = db.FloatProperty()
   p4_ranking_points = db.FloatProperty()
+
+  def won(self, player):
+    if self.team1.points > self.team2.points:
+      return self.team1.player1 == player or self.team1.player2 == player
+    else:
+      return self.team2.player1 == player or self.team2.player2 == player

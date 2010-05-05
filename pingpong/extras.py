@@ -16,7 +16,7 @@ if not user or user.username != 'admin' or not (user.is_active and
 from django.contrib.auth.models import User
 from pingpong.models import Player, Team, Game
 
-owner_key_name = '' # Set this the key name (not the key itself) of the account owner
+owner_key_name = '' # Set this to the key name (not the key itself) of the account owner
 owner = User.get_by_key_name(owner_key_name)
 if owner:
   # Find all players

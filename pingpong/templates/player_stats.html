@@ -1,6 +1,8 @@
+{% load humanize %}
+{% load pingpong_tags %}
 	<div id="popup_stats" class="popup popup_large core_radius_top8">
 		<div class="popup_header core_radius_top8">
-			<span class="core_right"><a href="" onClick="hideShade(); return false;" class="popup_close"><strong>close</strong></a></span>
+			<span class="core_right"><a href="" onClick="hideShade(); $('div#popup_stats').remove(); return false;" class="popup_close"><strong>close</strong></a></span>
 			<img src="{{ MEDIA_URL }}pingpong/images/header_player_stats.gif" width="138" height="24" alt="Add a Game" />
 		</div>
 		<div class="popup_body core_radius_bottom6">
@@ -13,23 +15,23 @@
 					</tr>
 					<tr class="gray">
 						<td class="row_title">Games Played</td>
-						<td>13</td>
-						<td>27</td>
+						<td>{{ player.singles_games_played }}</td>
+						<td>{{ player.doubles_games_played }}</td>
 					</tr>
 					<tr>
 						<td class="row_title">Games Won</td>
-						<td>10</td>
-						<td>17</td>
+						<td>{{ player.singles_games_won }}</td>
+						<td>{{ player.doubles_games_won }}</td>
 					</tr>
 					<tr class="gray">
 						<td class="row_title">Games Lost</td>
-						<td>3</td>
-						<td>10</td>
+						<td>{{ player.singles_games_lost }}</td>
+						<td>{{ player.doubles_games_lost }}</td>
 					</tr>
 					<tr>
 						<td class="row_title">Ranking</td>
-						<td>1st</td>
-						<td>4th</td>
+						<td>{{ singles_ranking|ordinal }}</td>
+						<td>{{ doubles_ranking|ordinal }}</td>
 					</tr>
 				</table>
 			</div>
@@ -38,6 +40,15 @@
 					<tr>
 						<th colspan="3" style="text-align: left;">Last 20 games played</th>
 					</tr>
+					{% for g in games %}
+					<tr{% cycle ' class="gray"' '' %}>
+						<td class="{% if player|won:g %}won{% else %}lost{% endif %}"><span>{% if player|won:g %}Won{% else %}Lost{% endif %}</span></td>
+						<td class="the_players">
+						  {{ g.team1.player1.name }} {% if g.team1.player2 %} &amp; {{ g.team1.player2.name }} {% endif %} ({{ g.team1.points|floatformat:0 }}) vs. 
+						  {{ g.team2.player1.name }} {% if g.team2.player2 %} &amp; {{ g.team2.player2.name }} {% endif %} ({{ g.team2.points|floatformat:0 }})</td>
+					</tr>
+					{% endfor %}
+					<!--
 					<tr class="gray">
 						<td class="won"><span>Won</span></td>
 						<td class="the_players">DaveM & JamesD (21) vs. DaveG & BenR (15)</td>
@@ -54,8 +65,14 @@
 						<td class="won"><span>Won</span></td>
 						<td class="the_players">DaveM (11) vs ScottR (9)</td>
 					</tr>
+					-->
 				</table>
 			</div>
 			<div class="core_clear"></div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	  $("div#core_shade").click(function() {
+	    $('div#popup_stats').remove();
+	  });
+	</script>
