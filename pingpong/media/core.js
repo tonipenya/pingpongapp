@@ -374,7 +374,15 @@ function showPopup (popup, url, focus) // Show or load popup
 }
 // SETTTINGS /////////////////////////////
 function settingsAdd() {
-  $("#settings_add").show();
+  if ($("#settings_add").is(':visible')) {
+    $("#players").val('');
+    $('#signup_players_example').show();
+    $("#settings_add").hide();
+    $("a#add_new_players").text('Add new players');
+  } else {
+    $("#settings_add").show();
+    $("a#add_new_players").text('cancel');
+  }
 }
 function deletePlayer(player, playerKey) {
   if (confirm("Are you sure you want to delete " + player + "?")) {
@@ -412,9 +420,11 @@ function settingsEdit(userid) {
 }
 function serializeSettings() {
   result = '';
+  // Add any new player data
+  result += 'newplayers=' + encodeURIComponent($("textarea#players").val()) + '&';
   // Find players whose names have changed and serialise
   $("div[id$='_input']:visible input").each(function() {
-    result += $(this).attr('id') + '_player=' + htmlEncode($(this).attr('value')) + '&';
+    result += $(this).attr('id') + '_player=' + encodeURIComponent($(this).attr('value')) + '&';
   });
   return result.substr(0, result.length - 1);
 }
