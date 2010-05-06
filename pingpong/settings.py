@@ -8,3 +8,6 @@ settings.add_app_media('combined-%(LANGUAGE_DIR)s.css',
     'pingpong/core.css',
     'pingpong/jquery-ui-1.8.custom.css',
 )
+settings.add_app_media('ie.css',
+    'pingpong/ie.css',
+)
