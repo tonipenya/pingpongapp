@@ -199,6 +199,7 @@ body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat
 /* =========================================
     STATS
    ========================================= */
+.stats_name { font-size: 13px; margin-top: -7px; color: #999; }
 .stats_table { width: 100%; color: #666; font-size: 12px; }
 .stats_table td { padding: 6px 6px; }
 .stats_table td.lost, .stats_table td.won { text-align: left; padding: 10px 6px; width: 50px; }
