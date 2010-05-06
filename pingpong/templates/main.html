@@ -11,7 +11,9 @@
 			<a href="" class="nav_singles core_left nav_down core_radius8">Singles</a>
 			<a href="" class="nav_doubles core_left nav_up core_radius8">Doubles</a>
 			<div class="core_right" style="margin: 11px 0 0 30px"><a href="" onclick="showPopup('add', '/score/add', ''); return false;" class="nav_add core_radius8">Add score</a></div>
-			
+			<div class="core_right" style="margin-top: 10px;">
+				<a href="#" onclick="showPopup('settings', '/settings', ''); return false;" class="links">Settings</a> <a href="{% url django.contrib.auth.views.logout %}" class="links">Logout</a> 
+			</div>
 			<!-- Show when in trial mode - up to 14 days after signup date -->
 			<!--<div class="nav_trial">14 trial days left - <a href="" onclick="showPopup('upgrade', '/upgrade', ''); return false;"><strong>upgrade now</strong></a></div>-->
 			
@@ -53,9 +55,6 @@
 	
 	<!-- // Footer ///////////////////////////////// -->
 	<div class="footer">
-		<div class="links">
-			<a href="#" onclick="showPopup('settings', '/settings', ''); return false;">Settings</a> <a href="{% url django.contrib.auth.views.logout %}">Logout</a> 
-		</div>
 		<a href=""><img src="{{ MEDIA_URL }}pingpong/images/footer_logo.gif" width="198" height="44" alt="PingPongNinja.com" /></a>
 	</div>
   <script type="text/javascript">

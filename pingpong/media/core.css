@@ -99,8 +99,6 @@ h1#core_message { font-size: 33px; margin: 39px; }
 .footer { background: url(images/footer_bg.jpg) repeat-x #333; padding: 25px 39px; }
 .footer a { color: #FFF; font-size: 20px; font-weight: bold; }
 .footer a:hover { color: #A0A0A0; }
-.footer .links { float: right; margin-top: 10px; }
-.footer .links a { text-decoration: none; margin-left: 23px; }
 /* =========================================
     HOME
    ========================================= */
@@ -152,6 +150,7 @@ body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat
 .nav_add span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:109px; height:32px;  margin:0; padding:0; }
 .nav_doubles span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:90px; height:32px;  margin:0; padding:0; }
 .nav_down, .nav_up:hover { position: relative;  padding: 10px 14px !important; cursor:default; border-top: 1px solid #1B1B1B; border-left: 1px solid #1B1B1B; border-bottom: 1px solid #313131; border-right: 1px solid #313131; color: #A0A0A0; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222222), to(#2A2A2A)); background-image: -moz-linear-gradient(0% 100% 90deg,#2A2A2A, #222222); -moz-box-shadow: #1B1B1B 2px 2px 2px 0 inset; text-shadow: 1px 1px 3px #1B1B1B; }
+.nav a.links { text-decoration: none; margin: 10px 0 0 23px; padding: 0; }
 .nav_singles span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:83px; height:32px;  margin:0; padding:0; }
 .nav_trial { text-align: right; margin: 11px 0 0 0; font-size: 16px; color: #666; }
 .nav_trial a { margin: 0; padding: 0; font-size: 16px; text-decoration: underline; }
