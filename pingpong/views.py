@@ -236,6 +236,9 @@ def paypal(request):
 
 def upgrade(request):
   return render_to_response(request, 'pingpong/upgrade.html')
+  
+def terms(request):
+  return render_to_response(request, 'pingpong/terms.html')
 
 @login_required
 def player_stats(request, key):

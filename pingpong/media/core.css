@@ -62,6 +62,11 @@ td { vertical-align: top; }
 .core_light { color: #999; } 
 .core_loss { color: #CCC; }
 .core_message { background: #F3F5B4; color: #000; font-size: 13px; font-weight: bold; padding: 6px 14px 8px 14px; position: fixed; top: 0; z-index: 100000; }
+.core_privacy { color: #333; }
+.core_privacy a { text-decoration: underline; color: #006699; }
+.core_privacy h3 { font-size: 17px; font-weight: bold; margin: 10px 0; }
+.core_privacy li { font-size: 13px !important; list-style: disc; margin-left: 20px; }
+.core_privacy p { font-size: 13px !important; margin-bottom: 14px !important; }
 .core_radius { -moz-border-radius:1px; border-radius:1px; -webkit-border-radius:1px; }
 .core_radius3 { -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px; }
 .core_radius6 { -moz-border-radius:6px; border-radius:6px; -webkit-border-radius:6px; }
@@ -113,6 +118,8 @@ body#home .copy { width: 314px; float: left; line-height: 26px; margin-top: -4px
 body#home .feature { margin-top: 33px; }
 body#home .hosted { background: url(images/home_icon_hosted.jpg) no-repeat; padding-left: 80px; }
 body#home .intro { font-size: 16px; }
+body#home .links { float: left; }
+body#home .links a { margin-right: 13px; }
 body#home .login { float: right; margin-top: 3px; }
 body#home .login .small { font-size: 13px; padding: 4px; width: 85px; margin-right: 3px; }
 html>/**/body#home .login .small, x:-moz-any-link, x:default { padding: 5px 4px; }
