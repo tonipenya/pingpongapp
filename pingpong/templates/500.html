@@ -1,6 +1,26 @@
-{% extends 'base.html' %}
-{% block content %}
-<body>
-<h1>Oops - something went wrong while handling your request.</h1>
-</body>
-{% endblock %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>PingPongNinja</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+  {% block css %}
+    <link rel="stylesheet" type="text/css"  media="screen, projection" href="{{ MEDIA_URL }}combined-{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}.css" />
+    <!--[if IE]>
+      <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ MEDIA_URL }}ie.css">
+    <![endif]-->
+  {% endblock %}
+</head>
+<body id="home">
+    <div class="top">
+  	<div class="logo">
+  		<img src="{{ MEDIA_URL }}pingpong/images/home_logo.gif" width="286" height="75" alt="Ping Pong App - Simple tournament software" />
+  	</div>
+  </div>
+  <div class="container">
+	<h1 style="margin-bottom: 23px;">Oops - We've run into a bit of a snag.</h1>
+	<p style="margin-bottom: 23px;">Check out this video and then give it another try.  If there is still a problem, please let us know (<a href="mailto:support@pingpongninja.com">support@pingpongninja.com)</a></p>
+	<object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/-9q74AmaTPg&color1=0xb1b1b1&color2=0xd0d0d0&hl=en_US&feature=player_detailpage&fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><embed src="http://www.youtube.com/v/-9q74AmaTPg&color1=0xb1b1b1&color2=0xd0d0d0&hl=en_US&feature=player_detailpage&fs=1" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="385"></embed></object>
+  </div></body>
+</html>

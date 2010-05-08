@@ -1,6 +1,25 @@
-{% extends 'base.html' %}
-{% block content %}
-<body>
-<h1>Oops - you appear to have requested a resource which doesn't exist.</h1>
-</body>
-{% endblock %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>PingPongNinja</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+  {% block css %}
+    <link rel="stylesheet" type="text/css"  media="screen, projection" href="{{ MEDIA_URL }}combined-{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}.css" />
+    <!--[if IE]>
+      <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ MEDIA_URL }}ie.css">
+    <![endif]-->
+  {% endblock %}
+</head>
+<body id="home">
+    <div class="top">
+  	<div class="logo">
+  		<img src="{{ MEDIA_URL }}pingpong/images/home_logo.gif" width="286" height="75" alt="Ping Pong App - Simple tournament software" />
+  	</div>
+  </div>
+  <div class="container">
+	<h1 style="margin-bottom: 23px;">Oops - we can't find what you're looking for.</h1>
+	<object width="640" height="480"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=2747427&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1&amp;group_id=" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=2747427&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1&amp;group_id=" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="640" height="480"></embed></object>
+  </div></body>
+</html>
