@@ -50,8 +50,24 @@ img { -ms-interpolation-mode: bicubic; }
 * html .container {height: 1%;}
 
 
-/* Forms 
+/* Our styles
 -------------------------------------------------------------- */
 
-/* Fixes padding on fieldset */
-fieldset {padding-top: 0;}
+body#home .login { width: 255px; }
+body#home .login_box { width: 255px; }
+body#home .top { background: #242424; }
+
+.core_the_rest { background: #202020; }
+.core_the_rest .name, .core_the_rest .rank { padding: 5px 0; margin-top: 18px; }
+.core_the_rest .points { padding: 5px 0; margin-top: 16px; }
+
+.core_top_three { background: #272727; padding-bottom: 0; }
+.core_top_three li { background: #2D2D2D; padding-bottom: 0; }
+.core_top_three li .name { padding: 5px 0; margin-top: 12px; }
+.core_top_three li .points { padding: 10px 0; margin-top: 3px; }
+
+.nav { background: #262626; }
+.nav_add { background: #028FBE; }
+.nav_down, .nav_up:hover { background: #343434; }
+
+.settings_table td { background: #FFF; }
