@@ -11,12 +11,13 @@
 			<a href="" class="nav_singles core_left nav_down core_radius8">Singles</a>
 			<a href="" class="nav_doubles core_left nav_up core_radius8">Doubles</a>
 			<div class="core_right" style="margin: 11px 0 0 30px;"><a href="" onclick="showPopup('add', '/score/add', ''); return false;" class="nav_add core_radius8">Add score</a></div>
-			<div class="core_right" style="margin-top: 5px; padding: 5px 0;">
-				<a href="#" onclick="showPopup('settings', '/settings', ''); return false;" class="links">Settings</a> <a href="{% url django.contrib.auth.views.logout %}" class="links">Logout</a> 
+			<div class="core_left" style="margin-top: 5px; padding: 5px 0 0 10px;">
+				<a href="{% url pingpong.views.home %}" class="links">Home</a>
+				<a href="#" onclick="showPopup('settings', '{% url pingpong.views.settings %}', ''); return false;" class="links">Settings</a>
+				<a href="{% url django.contrib.auth.views.logout %}" class="links">Logout</a> 
 			</div>
 			<!-- Show when in trial mode - up to 14 days after signup date -->
 			<!--<div class="nav_trial">14 trial days left - <a href="" onclick="showPopup('upgrade', '/upgrade', ''); return false;"><strong>upgrade now</strong></a></div>-->
-			
 			<div class="core_clear"></div>
 		</div>
 	</div>	
@@ -49,7 +50,7 @@
 		<div class="core_clear"></div>
 	</div>
 	{% else %}
-	<h1 id="core_message">You haven't added any players yet!</h1>
+	<h1 id="core_message">You haven't added any players yet! Open <a href="#" onclick="showPopup('settings', '{% url pingpong.views.settings %}', ''); return false;" >settings</a> to add your first players.</h1>
 	{% endifnotequal %}
 	{% endif %}
 	

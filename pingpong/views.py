@@ -30,6 +30,12 @@ def index(request):
   else:
     return render_to_response(request, 'pingpong/index.html')
 
+def home(request):
+  if request.user.is_authenticated():
+    return render_to_response(request, 'pingpong/index.html')
+  else:
+    return HttpResponseRedirect('/')
+
 def login(request):
   if request.method == 'POST':
     user = authenticate(username=request.POST['username'], password=request.POST['password'])
