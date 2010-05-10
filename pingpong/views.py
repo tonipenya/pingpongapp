@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 from django.utils import simplejson
+from django.forms.fields import email_re
 from django.core.urlresolvers import reverse
 from ragendja.template import render_to_response
 from ragendja.dbutils import get_object, db_create
@@ -57,7 +58,20 @@ def settings(request):
     return render_to_response(request, 'pingpong/settings.html',
       { 'players': players, 'email': request.user.email })
   else:
+    errors = {}
     try:
+      # Save email address
+      email = request.POST['email']
+      if is_valid_email(email.strip()):
+        user = request.user
+        user.email = email.strip()
+        user.save()
+      else:
+        errors['email'] = 'Invalid email address'
+        response_dict = { 'status': False, 'message': 'Hmmm... There was a problem saving your settings - please have another go.',
+          'errors': errors }
+        return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
+
       # Add any new players
       new_players = request.POST['newplayers']
       if new_players:
@@ -72,12 +86,16 @@ def settings(request):
           player = get_object(Player, str(k)[:-7])
           player.name = v # Value is the updated player name
           player.put()
-      
+    
       response_dict = { 'status': True, 'message': 'Settings successfully saved.' }
     except:
       logging.exception('There was a problem saving settings')
-      response_dict = { 'status': False, 'message': 'Hmmm... There was a problem saving your settings - please have another go.' }
+      response_dict = { 'status': False, 'message': 'Hmmm... There was a problem saving your settings - please have another go.',
+        'errors': errors }
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
+
+def is_valid_email(email):
+    return True if email_re.match(email) else False
 
 def signup(request):
   return render_to_response(request, 'pingpong/signup.html')
