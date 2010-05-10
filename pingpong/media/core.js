@@ -344,6 +344,7 @@ function hideShade () // Hides all popups and shade
 	$("#core_shade").hide();
 	$(".popup").hide();
 	hideMessage();
+	$(".formError").hide();
 }
 function preloadPopup (popup, url)
 {

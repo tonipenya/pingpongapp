@@ -1,9 +1,14 @@
+	<script>	
+		$(document).ready(function() {
+			$("#settings").validationEngine()
+		});
+	</script>
 	<div id="popup_settings" class="popup popup_large core_radius_top8">
 		<div class="popup_header core_radius_top8">
 			<span class="core_right"><a href="" onClick="hideShade(); return false;" class="popup_close"><strong>close</strong></a></span>
 			<img src="{{ MEDIA_URL }}pingpong/images/header_settings.gif" width="97" height="22" alt="Settings" />
 		</div>
-		<form action="">
+		<form action="" id="settings">
 		<div class="popup_body core_radius_bottom6">
 			<div class="settings popup_container core_radius6">
 				<span class="core_right"><a id="add_new_players" href="" onclick="settingsAdd(); return false;" style="color: #006699">Add new players</a></span>
@@ -28,7 +33,7 @@
 					<tr bgcolor="#{% cycle 'FFF' 'F5F5F1' %}" onmouseover="this.style.backgroundColor='#E6F4FB';" onmouseout="this.style.backgroundColor='#{% cycle 'FFF' 'F5F5F1' %}';">
 						<td class="sell_desc">
 							<div id="{{ p.key }}_name" onclick="settingsEdit('{{ p.key }}');">{{ p.name }}</div>
-							<div id="{{ p.key }}_input" style="display: none;"><input type="text" id="{{ p.key }}" value="{{ p.name }}" class="pads" style="margin-bottom: 0;" /></div>
+							<div id="{{ p.key }}_input" style="display: none;"><input type="text" id="{{ p.key }}" value="{{ p.name }}" class="pads validate[required]" style="margin-bottom: 0;" /></div>
 						</td>
 						<td class='right'><a href='' id="{{ p.key }}_edit" onclick="settingsEdit('{{ p.key }}'); return false;">edit</a> <div class="core_vline"></div> <a href="" onclick="deletePlayer('{{ p.name }}', '{{ p.key }}'); return false;">delete</a></td>
 					</tr>
@@ -39,7 +44,7 @@
 				<div class="mb_extra"></div>
 				
 				<label for="email">Email address</label><br />
-				<input type="text" name="email" id="email" class="core_left pads med" value="{{ email }}" />
+				<input type="text" name="email" id="email" class="core_left pads med validate[custom[email],required]" value="{{ email }}" />
 				<div id="email_error" class="core_mb_extra core_error"><!-- Populate if error --></div>
 				<div class="core_clear"></div>
 				<div class="mb"></div>
