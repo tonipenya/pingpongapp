@@ -452,6 +452,8 @@ function settingsEdit(userid) {
 }
 function serializeSettings() {
   result = '';
+  // Add email address
+  result+= 'email=' + encodeURIComponent($("#email").val()) + '&';
   // Add any new player data
   result += 'newplayers=' + encodeURIComponent($("textarea#players").val()) + '&';
   // Find players whose names have changed and serialise
@@ -462,7 +464,6 @@ function serializeSettings() {
 }
 var submitSettingsPreventDoubleSubmit = true;
 function submitSettings() {
-	// TODO: Validate new player names, existing player names and email address
 	var str = serializeSettings();
 	$.ajax({
 		url: "/settings/",
@@ -478,6 +479,7 @@ function submitSettings() {
 				setTimeout(function(){redirectAfterSubmitSettings()}, 1000);
 				$(".popup").hide();
 			} else {
+			  showSettingsErrors(data.errors);
 				showMessage(data.message);
 			}
 		},
@@ -488,6 +490,17 @@ function submitSettings() {
 			submitSettingsPreventDoubleSubmit = true;
 		}
 	});
+}
+function clearSettingsErrors() {
+  $("div[id$='_error']").each( function() {
+    $(this).text('');
+  });
+}
+function showSettingsErrors(errors) {
+  clearSettingsErrors();
+  $.each(errors, function(id, error) {
+    $("#" + id + "_error").text(error);
+  });
 }
 function redirectAfterSubmitSettings() {
   modeStr = currentMode === 'doubles' ? '?m=doubles' : '';

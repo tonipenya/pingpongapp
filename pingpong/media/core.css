@@ -122,7 +122,7 @@ body#home .links { float: left; }
 body#home .links a { margin-right: 13px; }
 body#home .login { float: right; margin-top: 3px; }
 body#home .login .small { font-size: 13px; padding: 4px; width: 85px; margin-right: 3px; }
-body#home .login .small, x:-moz-any-link, x:default { padding: 5px 4px; }
+html>/**/body#home .login .small, x:-moz-any-link, x:default { padding: 5px 4px; }
 body#home .logo { margin: 0 auto; width: 812px; padding: 23px 0 21px 0; }
 body#home .popup li, body#home .popup p { color: #666; font-size: 12px; }
 body#home .signup { color: #888; margin: 0 0 8px 0; font-size: 14px; }
