@@ -1,10 +1,35 @@
-	<div id="popup_terms" class="popup popup_large core_radius_top8">
-		<div class="popup_header core_radius_top8">
-			<span class="core_right"><a href="" onClick="hideShade(); return false;" class="popup_close"><strong>close</strong></a></span>
-			<img src="{{ MEDIA_URL }}pingpong/images/header_settings.gif" width="97" height="22" alt="Settings" />
-		</div>
-		<div class="popup_body core_privacy core_radius_bottom6">
-			<p class="bold">By signing up for the PingPongNinja service ("Service") or any of the services of PingPongNinja ("PingPongNinja"), you are entering into an agreement with PingPongNinja, Inc. ("we") and are agreeing to be bound by the following terms and conditions ("Terms of Service"). Any new features or tools which are added to the current Service shall be also subject to the Terms of Service. You can review the most current version of the Terms of Service at any time at: <a href="http://www.pingpongninja.com/">http://www.PingPongNinja.com/</a>. PingPongNinja reserves the right to update and change the Terms of Service by posting updates and changes to the PingPongNinja website. You are advised to check the Terms of Service from time to time for any updates or changes that may impact you.</p>
+{% extends 'base.html' %}
+
+{% block body-atts %} id="home"{% endblock %}
+
+{% block content %}
+	<div class="top">
+  	<div class="logo">
+  		<span class="core_right login_box">
+    		{% if not request.user.is_authenticated %}
+  			<div class="login">
+    			  <div class="signup"><a href="" onclick="showPopup('freetrial', '/freetrial', ''); return false;">Signup</a></div>
+  			  <form action="{% url pingpong.views.login %}" method="post">
+            <input type="image" src="{{ MEDIA_URL }}pingpong/images/btn_home_login.jpg" height="28" width="55" tabindex="3" class="core_right" />
+            <input type="password" id="loginPassword" onfocus="loginClear();" onblur="loginFormValue();" name="password" tabindex="2" class="small core_right"  />
+            <input type="text" id="loginUsername" onfocus="loginClear('username');" onblur="loginFormValue();" name="username" tabindex="1" class="small core_right" {% if previous_username %}value="{{ previous_username }}"{% endif %} />
+  			  </form>
+  			  {% if login_error %}<div id="login_error">{{ login_error }}</div>{% endif %}
+  			</div>
+  			{% else %}
+  			<div class="logged_in">
+  			  Welcome {{ user.username }}! &nbsp;&nbsp;<a href="{% url pingpong.views.index %}">My dashboard</a> | <a href="{% url django.contrib.auth.views.logout %}">Logout</a>
+  			</div>
+  			{% endif %}
+  			<div class="core_clear"></div>
+  		</span>
+  		<img src="{{ MEDIA_URL }}pingpong/images/home_logo.gif" width="286" height="75" alt="PingPongNinja - In-Office Ping Pong Rankings" />
+  	</div>
+  </div>
+  <div class="container core_privacy">
+	<h1>Terms of use</h1>
+	
+	<p class="bold">By signing up for the PingPongNinja service ("Service") or any of the services of PingPongNinja ("PingPongNinja"), you are entering into an agreement with PingPongNinja, Inc. ("we") and are agreeing to be bound by the following terms and conditions ("Terms of Service"). Any new features or tools which are added to the current Service shall be also subject to the Terms of Service. You can review the most current version of the Terms of Service at any time at: <a href="http://www.pingpongninja.com/">http://www.PingPongNinja.com/</a>. PingPongNinja reserves the right to update and change the Terms of Service by posting updates and changes to the PingPongNinja website. You are advised to check the Terms of Service from time to time for any updates or changes that may impact you.</p>
 			<h3>General Conditions:</h3>
 			<p>You must read, agree with and accept all of the terms and conditions contained in this User Agreement and the Privacy Policy before you may become a member of PingPongNinja.</p>
 			<ol>
@@ -63,5 +88,18 @@
 			</p>
 			<p>Other product, font, and company names and logos may be trademarks or registered trademarks of their respective companies.</p>
 		
-		</div>
+  </div>
+   <div class="container" style="padding-top: 0;">
+  	<div class="links terms_of_use">
+		<a href="{% url pingpong.views.terms %}">Terms of use</a>
 	</div>
+	<a href="" onclick="showPopup('signup', '{% url pingpong.views.signup %}', 'name'); return false;" class="core_right"><img src="{{ MEDIA_URL }}pingpong/images/home_try_it_free.jpg" width="239" height="45" /></a>
+  	<div class="core_clear"></div>
+  	<span class="cancel core_right">Then $8.95/ mo. Cancel anytime - no hassle.</span>
+  </div>
+<script type="text/javascript">
+    var baseUrl = "";
+    loginFormValue();
+    $("#loginUsername").focus();
+  </script>
+{% endblock %}

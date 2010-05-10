@@ -62,10 +62,11 @@ td { vertical-align: top; }
 .core_light { color: #999; } 
 .core_loss { color: #CCC; }
 .core_message { background: #F3F5B4; color: #000; font-size: 13px; font-weight: bold; padding: 6px 14px 8px 14px; position: fixed; top: 0; z-index: 100000; }
-.core_privacy { color: #333; }
-.core_privacy a { text-decoration: underline; color: #006699; }
-.core_privacy h3 { font-size: 17px; font-weight: bold; margin: 10px 0; }
-.core_privacy li { font-size: 13px !important; list-style: disc; margin-left: 20px; }
+.core_privacy { color: #666; line-height: 20px; }
+.core_privacy a { text-decoration: underline; color: #FFF; }
+.core_privacy h1 { color: #FFF; margin-bottom: 23px; }
+.core_privacy h3 { font-size: 17px; font-weight: bold; margin: 10px 0; color: #FFF; }
+.core_privacy li { font-size: 13px !important; list-style: disc; margin: 0 0 5px 20px; color: #ACACAC; }
 .core_privacy p { font-size: 13px !important; margin-bottom: 14px !important; }
 .core_radius { -moz-border-radius:1px; border-radius:1px; -webkit-border-radius:1px; }
 .core_radius3 { -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px; }
