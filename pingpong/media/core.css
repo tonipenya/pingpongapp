@@ -178,7 +178,8 @@ body#home .terms_of_use { font-size: 14px; }
 .popup_dark { background: #EFEFEF !important; }
 .popup_domain { background: #E1E1E1; color: #555; padding: 2px 10px 3px 10px; margin: 0 0 0 -12px; border: 1px solid #AABABB; }
 .popup_body { background: url("images/popup_bg.jpg") #F1F0ED; padding: 23px; text-align: left; }
-.popup_close, .popup_close:hover { color: #FFF; font-size: 110%; line-height: 40px; margin-right: 5px; }
+.popup_cancel { padding: 5px 5px 5px 0; }
+.popup_close, .popup_close:hover { color: #FFF; font-size: 110%; line-height: 40px; margin-right: 5px; padding: 5px; }
 .popup_container { background: #FFF; border: 1px solid #DFDCD9; padding: 23px; color: #333; }
 .popup_container h3 { font-family: Georgia, "Times New Roman", Times, serif; font-size: 180%; font-weight: normal; }
 .popup_half { background: #FFF; border: 1px solid #DFDCD9; padding: 13px 0 13px 15px; width: 47%; }
@@ -197,9 +198,10 @@ body#home .terms_of_use { font-size: 14px; }
 /* =========================================
     SETTINGS
    ========================================= */
+.settings_add { padding: 5px; color: #006699; }
 .settings table { border-top: 1px solid #DDD; border-left: 1px solid #DDD; width: 100%; }
 .settings td { padding: 3px 10px; border-bottom: 1px solid #DBDBDB; border-right: 1px solid #DBDBDB; text-align: left; }
-.settings td a { color: #006699; }
+.settings td a { color: #006699; padding: 5px; }
 .settings td.right { text-align: right; }
 .settings th { background: url("images/table_header_bg.jpg") repeat-x #E3E3DC; vertical-align: middle; padding: 7px 10px 5px 10px; font-weight: bold; border-bottom: 1px solid #DBDBDB; }
 .settings th.right { text-align: right; }

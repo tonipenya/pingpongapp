@@ -11,7 +11,7 @@
 		<form action="" id="settings">
 		<div class="popup_body core_radius_bottom6">
 			<div class="settings popup_container core_radius6">
-				<span class="core_right"><a id="add_new_players" href="" onclick="settingsAdd(); return false;" style="color: #006699">Add new players</a></span>
+				<span class="core_right"><a id="add_new_players" href="" class="settings_add" onclick="settingsAdd(); return false;">Add new players</a></span>
 				<div id="settings_add" style="display: none;">
 					<h3>Add Players</h3>
 					<p class="core_text_med mb8 core_light" style="margin-top: 8px; font-size: 12px; font-family: Arial, Helvetica, sans-serif;">Add new players below entering one player name per line.</p>
@@ -57,7 +57,7 @@
 				
 			</div>
 			<div class="core_clear"></div>
-			<div class="add_enter_scores"><a href="javascript:submitSettings();"><img src="{{ MEDIA_URL }}pingpong/images/btn_save_settings.jpg" width="166" height="45" /></a><span>or <a href="javascript: hideShade();">cancel</a></span></div>		
+			<div class="add_enter_scores"><a href="javascript:submitSettings();"><img src="{{ MEDIA_URL }}pingpong/images/btn_save_settings.jpg" width="166" height="45" /></a><span>or <a href="javascript: hideShade();" class="popup_cancel">cancel</a></span></div>		
 			<div class="core_clear"></div>
 		</div>
 		</form>
