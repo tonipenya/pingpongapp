@@ -68,9 +68,6 @@ def settings(request):
         user.save()
       else:
         errors['email'] = 'Invalid email address'
-        response_dict = { 'status': False, 'message': 'Hmmm... There was a problem saving your settings - please have another go.',
-          'errors': errors }
-        return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
 
       # Add any new players
       new_players = request.POST['newplayers']
@@ -84,10 +81,19 @@ def settings(request):
       for k, v in request.POST.items():
         if str(k).endswith('_player'): # Expected key format: <key>_player
           player = get_object(Player, str(k)[:-7])
-          player.name = v # Value is the updated player name
-          player.put()
-    
-      response_dict = { 'status': True, 'message': 'Settings successfully saved.' }
+          if player:
+            if len(v.strip()) > 0:
+              player.name = v # Value is the updated player name
+              player.put()
+            else:
+              errors[str(k)[:-7]] = 'Invalid name'
+
+      if len(errors) == 0:
+        response_dict = { 'status': True, 'message': 'Settings successfully saved.' }
+      else:
+        response_dict = { 'status': False, 'message': 'Hmmm... There was a problem saving your settings - please have another go.',
+          'errors': errors }
+      return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
     except:
       logging.exception('There was a problem saving settings')
       response_dict = { 'status': False, 'message': 'Hmmm... There was a problem saving your settings - please have another go.',
