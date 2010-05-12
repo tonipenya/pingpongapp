@@ -248,6 +248,10 @@ function presetScore (points, team) {
 	$("#team"+team+"Slider .ui-slider-handle").css("left", points*3.33333+"%");
 	$("#team"+team+"Score").html(points);
 }
+// ANALYTICS //////////////////////////
+function fakePageview (pageName) {
+	pageTracker._trackPageview(pageName);
+}
 // FEEDBACK ///////////////////////////
 function getFeedback ()
 {
@@ -331,6 +335,10 @@ function loginCallback(data) {
 		window.location = data;
 	}
 }
+function logOut (url) {
+	fakePageview(url); // track in GA
+	window.location = url;
+}
 // LOADING /////////////////////////////
 function coreLoading (message)
 {
@@ -367,6 +375,9 @@ function preloadPopup (popup, url)
 }
 function showPopup (popup, url, focus) // Show or load popup
 {
+	// Add fake pageview to Google Analytics
+	fakePageview(url);
+	// Grab doc height
 	var docHeight = $(document).height();
 	// Clear current popup
 	$(".popup").hide();

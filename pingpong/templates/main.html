@@ -14,7 +14,7 @@
 			<div class="core_left nav_links">
 				<a href="{% url pingpong.views.home %}" class="links">Home</a>
 				<a href="#" onclick="showPopup('settings', '{% url pingpong.views.settings %}', ''); return false;" class="links">Settings</a>
-				<a href="{% url django.contrib.auth.views.logout %}" class="links">Logout</a> 
+				<a href="#" class="links" onclick="logOut('{% url django.contrib.auth.views.logout %}'); return false;">Logout</a> 
 			</div>
 			<!-- Show when in trial mode - up to 14 days after signup date -->
 			<!--<div class="nav_trial">14 trial days left - <a href="" onclick="showPopup('upgrade', '/upgrade', ''); return false;"><strong>upgrade now</strong></a></div>-->
