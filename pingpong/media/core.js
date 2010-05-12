@@ -244,6 +244,10 @@ function submitScores () {
 function redirectAfterAddScore(mode) {
   window.location.replace("/?m=" + mode);
 }
+function presetScore (points, team) {
+	$("#team"+team+"Slider .ui-slider-handle").css("left", points*3.33333+"%");
+	$("#team"+team+"Score").html(points);
+}
 // FEEDBACK ///////////////////////////
 function getFeedback ()
 {
