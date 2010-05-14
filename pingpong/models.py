@@ -66,3 +66,8 @@ class Game(db.Model):
       return self.team1.player1 == player or self.team1.player2 == player
     else:
       return self.team2.player1 == player or self.team2.player2 == player
+
+class PlayerGame(db.Model):
+  player = db.ReferenceProperty(Player)
+  game = db.ReferenceProperty(Game)
+  date_played = db.DateTimeProperty(auto_now_add=True)

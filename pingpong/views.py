@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, delete_object, \
   update_object
-from pingpong.models import Player, Team, Game
+from pingpong.models import Player, Team, Game, PlayerGame
 from pingpong.forms import make_player_form
 from pingpong.rankings import DefaultRankingSystem
 
@@ -125,6 +125,7 @@ def add_score(request):
       t1 = db_create(Team, player1=t1p1, player2=t1p2, points=t1s)
       t2 = db_create(Team, player1=t2p1, player2=t2p2, points=t2s)
       game = db_create(Game, team1=t1, team2=t2)
+      save_player_games(game, t1p1, t1p2, t2p1, t2p2)
       doubles = (t1p1 != None and t1p2 != None and t2p1 != None and t2p2 != None)
       if doubles:
         mode = 'doubles'
@@ -136,6 +137,12 @@ def add_score(request):
       logging.exception('There was a problem adding scores')
       response_dict = { 'status': False, 'message' : 'Hmmm... There was a problem saving your scores - please have another go.', 'mode': mode }
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
+
+def save_player_games(game, p1, p2, p3, p4):
+  if p1 != None: db_create(PlayerGame, player=p1, game=game, date_played=game.date_played)
+  if p2 != None: db_create(PlayerGame, player=p2, game=game, date_played=game.date_played)
+  if p3 != None: db_create(PlayerGame, player=p3, game=game, date_played=game.date_played)
+  if p4 != None: db_create(PlayerGame, player=p4, game=game, date_played=game.date_played)
 
 @login_required
 def list_players(request):
@@ -204,26 +211,10 @@ def player_stats(request, key):
       break
 
   player_games = [] # Load game history
-  # Find all teams where player is player1 (no gql OR operator)
-  teams = Team.gql("WHERE player1 = :player", player=player)
-  for t in teams:
-    games = Game.gql("WHERE team1 = :team", team=t)
-    for g in games:
-      player_games.append(g)
-    games = Game.gql("WHERE team2 = :team", team=t)
-    for g in games:
-      player_games.append(g)
-  # Find all teams where player is player2 (no gql OR operator)
-  teams = Team.gql("WHERE player2 = :player", player=player)
-  for t in teams:
-    games = Game.gql("WHERE team1 = :team", team=t)
-    for g in games:
-      player_games.append(g)
-    games = Game.gql("WHERE team2 = :team", team=t)
-    for g in games:
-      player_games.append(g)
-  player_games.sort(cmp=lambda x,y: cmp(x.date_played, y.date_played), reverse=True)
+  pgs = PlayerGame.gql("WHERE player = :player ORDER BY date_played DESC LIMIT 20", player=player)
+  for pg in pgs:
+    player_games.append(pg.game)
 
   return render_to_response(request, 'pingpong/player_stats.html',
     { 'player': player, 'singles_ranking': singles_ranking, 'doubles_ranking': doubles_ranking, 
-    'games': player_games[:20] })
+    'games': player_games })

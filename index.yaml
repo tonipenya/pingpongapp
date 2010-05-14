@@ -74,3 +74,9 @@ indexes:
   - name: singles_ranking_points
     direction: desc
   - name: name
+
+- kind: pingpong_playergame
+  properties:
+  - name: player
+  - name: date_played
+    direction: desc

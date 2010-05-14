@@ -56,3 +56,29 @@ if owner:
     p.singles_last_movement = 0.0
     p.singles_ranking_points = 100.0
     p.put()
+
+# Creating new PlayerGame entities for extant data
+from ragendja.dbutils import db_create
+from pingpong.models import Player, Team, Game, PlayerGame
+
+for p in Player.all():
+  # Find all teams where p is player1 (no gql OR operator)
+  teams = Team.gql("WHERE player1 = :player", player=p)
+  for t in teams:
+    # Delete all games in which t played
+    games = Game.gql("WHERE team1 = :team", team=t)
+    for g in games:
+      db_create(PlayerGame, player=p, game=g, date_played=g.date_played)
+    games = Game.gql("WHERE team2 = :team", team=t)
+    for g in games:
+      db_create(PlayerGame, player=p, game=g, date_played=g.date_played)
+  # Find all teams where p is player2 (no gql OR operator)
+  teams = Team.gql("WHERE player2 = :player", player=p)
+  for t in teams:
+    # Delete all games in which t played
+    games = Game.gql("WHERE team1 = :team", team=t)
+    for g in games:
+      db_create(PlayerGame, player=p, game=g, date_played=g.date_played)
+    games = Game.gql("WHERE team2 = :team", team=t)
+    for g in games:
+      db_create(PlayerGame, player=p, game=g, date_played=g.date_played)
