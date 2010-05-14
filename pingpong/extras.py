@@ -110,15 +110,15 @@ if owner:
       else: # singles game
         singles_count += 1
     if singles_count == 0:
-      #p.singles_ranking_points = p.singles_ranking_points - (p.singles_ranking_points * reduction_factor)
-      #p.put()
+      p.singles_ranking_points = p.singles_ranking_points - (p.singles_ranking_points * reduction_factor)
+      p.put()
       print '%s has had their singles ranking points reduced to %f' % (p.name, p.singles_ranking_points)
     else:
       print '%s hasn\'t had any change made to their singles ranking points' % p.name
     
     if doubles_count == 0:
-      #p.doubles_ranking_points = p.doubles_ranking_points - (p.doubles_ranking_points * reduction_factor)
-      #p.put()
+      p.doubles_ranking_points = p.doubles_ranking_points - (p.doubles_ranking_points * reduction_factor)
+      p.put()
       print '%s has had their doubles ranking points reduced to %f' % (p.name, p.doubles_ranking_points)
     else:
       print '%s hasn\'t had any change made to their doubles ranking points' % p.name
