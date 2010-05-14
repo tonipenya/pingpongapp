@@ -82,3 +82,43 @@ for p in Player.all():
     games = Game.gql("WHERE team2 = :team", team=t)
     for g in games:
       db_create(PlayerGame, player=p, game=g, date_played=g.date_played)
+
+# Reduce players' singles and/or doubles ranking points if they haven't played
+# any games in a defined period.
+# N.B. Doubles and singles ranking points are treated separately
+from datetime import datetime, timedelta
+from django.contrib.auth.models import User
+from pingpong.models import Player, Team, Game, PlayerGame
+
+num_days = 7
+reduction_factor = 0.1
+check_point = datetime.utcnow() # The point from which we should check back num_days to see whether the player has played any games
+start_point = check_point - timedelta(days=num_days)
+owner_key_name = '' # Set this to the key name (not the key itself) of the account owner
+owner = User.get_by_key_name(owner_key_name)
+if owner:
+  # Find all players belonging to owner
+  players = Player.gql("WHERE owner = :owner", owner=owner)
+  for p in players:
+    singles_count = 0
+    doubles_count = 0
+    # Get all the player's games in the period defined
+    pgs = PlayerGame.gql("WHERE player = :player AND date_played > :start_point", player=p, start_point=start_point)
+    for pg in pgs:
+      if pg.game.team1.player1 and pg.game.team1.player2: # doubles game
+        doubles_count += 1
+      else: # singles game
+        singles_count += 1
+    if singles_count == 0:
+      #p.singles_ranking_points = p.singles_ranking_points - (p.singles_ranking_points * reduction_factor)
+      #p.put()
+      print '%s has had their singles ranking points reduced to %f' % (p.name, p.singles_ranking_points)
+    else:
+      print '%s hasn\'t had any change made to their singles ranking points' % p.name
+    
+    if doubles_count == 0:
+      #p.doubles_ranking_points = p.doubles_ranking_points - (p.doubles_ranking_points * reduction_factor)
+      #p.put()
+      print '%s has had their doubles ranking points reduced to %f' % (p.name, p.doubles_ranking_points)
+    else:
+      print '%s hasn\'t had any change made to their doubles ranking points' % p.name
