@@ -59,6 +59,7 @@ td { vertical-align: top; }
 .core_center { text-align: center; }
 .core_clear { clear: both; }
 .core_container { margin: 0 auto; text-align: left; min-width: 550px; height: 69px; padding: 25px 35px 25px 39px; }
+.core_content { background: #FFF; padding: 23px; }
 .core_error { color: #A91C07; font-style: italic; }
 .core_last { float: right; padding: 10px 4px 17px 0; text-align: center; width: 75px; margin: 3px 23px 0 0; color: #8DC754; text-shadow: 2px 2px 3px #1C1C1C; border-top: 2px solid #212121; border-left: 2px solid #212121; border-bottom: 1px solid #424242; border-right: 1px solid #424242; -moz-box-shadow: #1B1B1B 2px 2px 2px 0 inset; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#303030), to(#2B2B2B)); background-image: -moz-linear-gradient(0% 100% 90deg,#2B2B2B, #303030); }
 .core_left { float: left; }
@@ -66,11 +67,11 @@ td { vertical-align: top; }
 .core_loss { color: #CCC; }
 .core_message { background: #F3F5B4; color: #000; font-size: 13px; font-weight: bold; padding: 6px 14px 8px 14px; position: fixed; top: 0; z-index: 100000; }
 .core_privacy { color: #666; line-height: 20px; }
-.core_privacy a { text-decoration: underline; color: #FFF; }
-.core_privacy h1 { color: #FFF; margin-bottom: 23px; }
-.core_privacy h3 { font-size: 17px; font-weight: bold; margin: 10px 0; color: #FFF; }
-.core_privacy li { font-size: 13px !important; list-style: disc; margin: 0 0 5px 20px; color: #ACACAC; }
-.core_privacy p { font-size: 13px !important; margin-bottom: 14px !important; }
+.core_privacy a { text-decoration: underline; color: #006699; }
+.core_privacy h1 { color: #333; margin-bottom: 23px; }
+.core_privacy h3 { font-size: 17px; font-weight: bold; margin: 10px 0; color: #666; }
+.core_privacy li { font-size: 13px !important; list-style: disc; margin: 0 0 5px 20px; color: #666; }
+.core_privacy p { font-size: 13px !important; margin-bottom: 14px !important; color: #666 !important; }
 .core_radius { -moz-border-radius:1px; border-radius:1px; -webkit-border-radius:1px; }
 .core_radius3 { -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px; }
 .core_radius6 { -moz-border-radius:6px; border-radius:6px; -webkit-border-radius:6px; }

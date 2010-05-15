@@ -45,18 +45,5 @@
 		</div>
 		<div class="core_clear"></div>
   </div>
-  <div class="container" style="padding-top: 0;">
-  	<div class="links terms_of_use">
-		<a href="{% url pingpong.views.terms %}">Terms of use</a>
-	</div>
-	<a href="" onclick="showPopup('signup', '{% url pingpong.views.signup %}', 'name'); return false;" class="core_right"><img src="{{ MEDIA_URL }}pingpong/images/home_try_it_free.jpg" width="239" height="45" /></a>
-  	<div class="core_clear"></div>
-  	<span class="cancel core_right">Then $8.95/ mo. Cancel anytime - no hassle.</span>
-  </div>
-  
-  <script type="text/javascript">
-    var baseUrl = "";
-    loginFormValue();
-    $("#loginUsername").focus();
-  </script>
+  {% include 'footer.html' %}
 {% endblock %}

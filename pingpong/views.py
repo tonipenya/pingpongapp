@@ -190,6 +190,9 @@ def upgrade(request):
   
 def terms(request):
   return render_to_response(request, 'pingpong/terms.html')
+  
+def privacy(request):
+  return render_to_response(request, 'pingpong/privacy.html')
 
 @login_required
 def player_stats(request, key):
