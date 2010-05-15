@@ -49,6 +49,10 @@ td { vertical-align: top; }
 .btn_signup:hover span { background:url("images/home_signup_up.jpg") top left no-repeat; }
 .btn_signup_box { float: right; margin-top: 17px; }
 /* =========================================
+    CONTACT US
+   ========================================= */
+.contact_feedback { width: 80%; height: 200px; padding: 3px; }
+/* =========================================
     CORE
    ========================================= */
 .core_box_side { width: 300px; float: right; margin-top: 13px; }

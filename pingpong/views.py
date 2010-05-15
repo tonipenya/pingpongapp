@@ -193,6 +193,9 @@ def terms(request):
   
 def privacy(request):
   return render_to_response(request, 'pingpong/privacy.html')
+  
+def contact(request):
+  return render_to_response(request, 'pingpong/contact.html')
 
 @login_required
 def player_stats(request, key):
