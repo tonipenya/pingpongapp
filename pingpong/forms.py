@@ -8,6 +8,13 @@ from registration.forms import RegistrationForm, RegistrationFormUniqueEmail
 from registration.models import RegistrationProfile
 from pingpong.models import Player
 
+from django import forms
+
+class ContactForm(forms.Form):
+  feedback = forms.CharField(widget=forms.Textarea(attrs={'name': 'feedback', 'class': 'contact_feedback fields required'}))
+  name = forms.CharField(widget=forms.TextInput(attrs={'name': 'name', 'class': 'pads fields required'}))
+  email = forms.EmailField(widget=forms.TextInput(attrs={'email': 'email', 'class': 'pads med fields required email'}))
+
 def make_player_form(request):
   class PlayerForm(forms.ModelForm):
     name = forms.CharField(required=True, label='Name')

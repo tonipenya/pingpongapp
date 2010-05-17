@@ -22,41 +22,10 @@
         </span> <a href="{% url pingpong.views.index %}"><img src="{{ MEDIA_URL }}pingpong/images/home_logo.gif" width="286" height="75" alt="PingPongNinja - In-Office Ping Pong Rankings" /></a> </div>
 </div>
 <div class="container core_privacy">
-  <div class="core_content core_radius6">
-    <form id="contactForm" action="{% url pingpong.views.contact %}" method="post"> 
-  		<h1>We'd love to hear from you</h1>
-  		<p>
-  			<label for="feedback">Submit your feedback below:</label>
-  			{{ form.feedback }}
-  			{{ form.feedback.errors }}
-  		</p>
-  		<p>
-  			<label>What's your name?</label>
-  			{{ form.name }}
-  			{{ form.name.errors }}
-  		</p>
-  		<p>
-  			<label>What's your email address?</label>
-  			{{ form.email }}
-  			{{ form.email.errors }}
-  		</p>
-  		<p><input type="submit" onclick="$('#contactForm').submit(); return false;" class="btn_blue core_radius3" value="Submit feedback" /></p>
-  	</form>
-  </div>
+    <div class="core_content core_radius6">
+			<h1>Thanks!</h1>
+			<p>If you submitted feedback, we'd really like to thank you. If you asked a question we'll get back to you as soon as possible.</p>
+    </div>
 </div>
-<script type="text/javascript">	
-	$(document).ready(function() {
-		$("#contactForm").validate();
-		$('.fields').live('blur', function() {
-			$("#contactForm").validate().element(this);
-		});
-		$("#contactForm").submit(function () {
-			if (!$("#contactForm").valid()) {
-				return false;
-			}
-		});
-	});
-	setTimeout(function() {$("#id_feedback").focus();}, 800);
-</script>
 {% include 'footer.html' %}
 {% endblock %}

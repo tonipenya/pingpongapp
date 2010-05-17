@@ -2,6 +2,7 @@
 import logging
 from django.utils import simplejson
 from django.forms.fields import email_re
+from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from ragendja.template import render_to_response
 from ragendja.dbutils import get_object, db_create
@@ -15,7 +16,7 @@ from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, delete_object, \
   update_object
 from pingpong.models import Player, Team, Game, PlayerGame
-from pingpong.forms import make_player_form
+from pingpong.forms import make_player_form, ContactForm
 from pingpong.rankings import DefaultRankingSystem
 
 def freetrial(request):
@@ -193,9 +194,26 @@ def terms(request):
   
 def privacy(request):
   return render_to_response(request, 'pingpong/privacy.html')
-  
+
 def contact(request):
-  return render_to_response(request, 'pingpong/contact.html')
+  if request.method == 'POST':
+    form = ContactForm(request.POST)
+    if form.is_valid():
+      subject = 'PingPongNinja contact form submission'
+      feedback = form.cleaned_data['feedback']
+      email = form.cleaned_data['email']
+      recipients = ['info@pingpongninja.com']
+      from django.conf import settings
+      msg = EmailMessage(subject=subject, body=feedback, from_email=settings.DEFAULT_FROM_EMAIL,
+        to=recipients, headers= { 'Reply-To': email })
+      msg.send()
+      return HttpResponseRedirect('/thanks/')
+  else:
+    form = ContactForm()
+  return render_to_response(request, 'pingpong/contact.html', { 'form': form, })
+
+def thanks(request):
+  return render_to_response(request, 'pingpong/thanks.html')
 
 @login_required
 def player_stats(request, key):
