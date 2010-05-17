@@ -1,6 +1,9 @@
-	<script>	
+	<script type="text/javascript">	
 		$(document).ready(function() {
-			$("#settings").validationEngine()
+			$("#settings").validate();
+			$('.settings_names').live('blur', function() {
+				$("#settings").validate().element(this);
+			});
 		});
 	</script>
 	<div id="popup_settings" class="popup popup_large core_radius_top8">
@@ -34,8 +37,7 @@
 						<td class="sell_desc">
 							<div id="{{ p.key }}_name" onclick="settingsEdit('{{ p.key }}');">{{ p.name }}</div>
 							<div id="{{ p.key }}_input" style="display: none;">
-							  <input type="text" id="{{ p.key }}" value="{{ p.name }}" class="core_left pads validate[required]" style="margin-bottom: 0;" />
-							  <div id="{{ p.key }}_error" class="core_error"></div>
+							  <input type="text" id="{{ p.key }}" value="{{ p.name }}" class="core_left settings_names pads required" style="margin-bottom: 0;" />
 							  <div class="core_clear"></div>
 							</div>
 						</td>
@@ -49,7 +51,7 @@
 
 				<label for="email">Email address</label><br />
 
-				<input type="text" name="email" id="email" class="core_left pads med validate[custom[email],required]" value="{{ email }}" />
+				<input type="text" name="email" id="email" class="core_left pads med required email" value="{{ email }}" />
 				<div id="email_error" class="core_mb_extra core_error"></div>
 				<div class="core_clear"></div>
 				<div class="mb"></div>

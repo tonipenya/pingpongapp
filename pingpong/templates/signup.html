@@ -1,7 +1,15 @@
 	<script>	
-		$(document).ready(function() {
-			$("#signupForm").validationEngine()
-		});
+
+			$("#signupForm").validate();
+			$('.fields').live('blur', function() {
+				$("#signupForm").validate().element(this);
+			});
+			$("#signupForm").submit(function () {
+				if (!$("#signupForm").valid()) {
+					return false;
+				}
+			});
+
 	</script>
 	<div id="popup_signup" class="popup popup_medlrg core_radius_top6">
 		<div class="popup_header core_radius_top6">
@@ -19,10 +27,10 @@
 				
 				<form action="http://pingpongapp.createsend.com/t/r/s/hutrdy/" method="post" id="signupForm">
 					<label for="name">What's your name?</label>
-					<input type="text" name="cm-name" id="name" class="pads validate[required]" />
+					<input type="text" name="cm-name" id="name" class="pads fields required" />
 					<div class="mb_extra"></div>
 					<label for="hutrdy-hutrdy">What's your email address?</label>
-					<input type="text" name="cm-hutrdy-hutrdy" id="hutrdy-hutrdy" class="pads med validate[custom[email],required]" />
+					<input type="text" name="cm-hutrdy-hutrdy" id="hutrdy-hutrdy" class="pads med fields email required" />
 					<div class="mb_extra"></div>
 					<p><input type="submit" class="btn_blue core_radius3" value="I'd like an invite" /></p>
 				</form>

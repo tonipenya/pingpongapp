@@ -2,8 +2,9 @@
 // 1) ONLOAD
 // #############################
 // Set init arrays
-teamone = new Array();
-teamtwo = new Array();
+var teamone = new Array();
+var teamtwo = new Array();
+var preventDoubleSubmission = true;
 // Set events
 $(document).ready(function () {
 	determineLayout();
@@ -64,30 +65,41 @@ function htmlDecode(value) {
   return $('<div/>').html(value).text(); 
 }
 // AJAX LOADER /////////////////////////
-function ajax (url, type, id, method, formid, message) {
-	if (formid) { var str = $("#"+formid).serialize(); } else { var str = ""; } // Serialize form contents
-	$.ajax({
-		url: url, // URL of request
-		type: type, // GET or POST
-		data: str,
-		beforeSend: function(){
-			if (message)
-			{
-				showMessage(message);
-			}
-		},
-		success : function (data) {
-			if (id) { $("#"+id).html(data); } // ID to populate on success
-			if (method) { window[method](data); } // Call this method on success
-		},
-		complete: function(){
-			hideMessage();
-			if (formid) { $("#"+formid).resetFormSubmissions(); }
-		},
-		error:function (xhr, ajaxOptions, thrownError){
-			if (formid) { $("#"+formid).resetFormSubmissions(); }
+function ajax (url, type, id, method, formid, message, str) {
+	if (formid) { // Serialize form contents
+		var str = $("#"+formid).serialize();
+	} else {
+		if (!str) {
+			var str = "";
 		}
-	});
+	} 
+	if (preventDoubleSubmission) {
+		$.ajax({
+			url: url, // URL of request
+			type: type, // GET or POST
+			data: str,
+			beforeSend: function(){
+				preventDoubleSubmission = false;
+				if (message)
+				{
+					showMessage(message);
+				}
+			},
+			success : function (data) {
+				if (id) { $("#"+id).html(data); } // ID to populate on success
+				if (method) { method(data); } // Call this method on success
+			},
+			complete: function(){
+				hideMessage();
+				if (formid) { $("#"+formid).resetFormSubmissions(); }
+				preventDoubleSubmission = true;
+			},
+			error:function (xhr, ajaxOptions, thrownError){
+				if (formid) { $("#"+formid).resetFormSubmissions(); }
+				preventDoubleSubmission = true;
+			}
+		});
+	}
 	/*error:function (xhr, ajaxOptions, thrownError){
 		alert(xhr.status);
 		alert(thrownError);
@@ -180,65 +192,48 @@ function playersRemoval (arr, value) {
 function serializeScores (one, two) {
 	return "t1p1="+one[0]+"&t1p2="+one[1]+"&t2p1="+two[0]+"&t2p2="+two[1];
 }
-var submitScoresPreventDoubleSubmit = true;
 function submitScores () {
-	// Prevent double submit
-	if (submitScoresPreventDoubleSubmit) {
-		// Grab values
-		var teamOneScore = $("#teamOneScore").text();
-		var teamTwoScore = $("#teamTwoScore").text();
-		// Ensure that there are scores and that they aren't equal
-		if (teamOneScore && teamTwoScore && teamOneScore !== teamTwoScore) {
-			// Ensure that players are selected on both teams
-			if (teamone.length > 0 && teamone.length < 3 && teamtwo.length > 0 && teamtwo.length < 3) {
-				// Ensure same number of players on both sides
-				if (teamone.length === teamtwo.length) {
-					// piece together serialized string
-					var str = serializeScores(teamone, teamtwo)+"&t1s="+teamOneScore+"&t2s="+teamTwoScore;
-					$.ajax({
-						url: "/score/add/",
-						type: "POST",
-						data: str,
-						beforeSend: function(){
-							showMessage("Calculating new rankings...");
-							submitScoresPreventDoubleSubmit = false;
-						},
-						success : function (data) {
-							var submitStatus = data.status; // true if success, otherwise false
-							if (submitStatus) {
-								// Reset add form
-								$(".selected").removeClass("selected");
-								$("#teamOneScore").text("0");
-								$("#teamTwoScore").text("0");
-								$("#teamOneSlider").slider( "option", "value", 0 );
-								$("#teamTwoSlider").slider( "option", "value", 0 );
-								setTimeout(function(){redirectAfterAddScore(data.mode)}, 1000);
-								$(".popup").hide();
-							} else {
-								// show error provided in JSON response something like "Only two players can be selected per team."
-								showMessage(data.message);
-							}
-						},
-						complete: function () {
-							submitScoresPreventDoubleSubmit = true;
-						},
-						error:function (){
-							submitScoresPreventDoubleSubmit = true;
-						}
-					});
-					// Prevent double submissions
-				} else {
-					showMessage("Oops, you've got to have the same number of players on both teams.");
-					setTimeout("hideMessage();", 2500);
-				}
+	// Grab values
+	var teamOneScore = $("#teamOneScore").text();
+	var teamTwoScore = $("#teamTwoScore").text();
+	// Ensure that there are scores and that they aren't equal
+	if (teamOneScore && teamTwoScore && teamOneScore !== teamTwoScore) {
+		// Ensure that players are selected on both teams
+		if (teamone.length > 0 && teamone.length < 3 && teamtwo.length > 0 && teamtwo.length < 3) {
+			// Ensure same number of players on both sides
+			if (teamone.length === teamtwo.length) {
+				// piece together serialized string
+				var str = serializeScores(teamone, teamtwo)+"&t1s="+teamOneScore+"&t2s="+teamTwoScore;
+				// Make POST
+				ajax ("/score/add/", "POST", "", submitScoresMethod, "", "Calculating new rankings...", str);
+				// Prevent double submissions
 			} else {
-				showMessage("Don't forget to add players to both sides");
-				setTimeout("hideMessage();", 2000);
+				showMessage("Oops, you've got to have the same number of players on both teams.");
+				setTimeout("hideMessage();", 2500);
 			}
 		} else {
-			showMessage("Don't forget to add scores, and they can't be equal.");
+			showMessage("Don't forget to add players to both sides");
 			setTimeout("hideMessage();", 2000);
 		}
+	} else {
+		showMessage("Don't forget to add scores, and they can't be equal.");
+		setTimeout("hideMessage();", 2000);
+	}
+}
+function submitScoresMethod (data) {
+	var submitStatus = data.status; // true if success, otherwise false
+	if (submitStatus) {
+		// Reset add form
+		$(".selected").removeClass("selected");
+		$("#teamOneScore").text("0");
+		$("#teamTwoScore").text("0");
+		$("#teamOneSlider").slider( "option", "value", 0 );
+		$("#teamTwoSlider").slider( "option", "value", 0 );
+		setTimeout(function(){redirectAfterAddScore(data.mode)}, 1000);
+		$(".popup").hide();
+	} else {
+		// show error provided in JSON response something like "Only two players can be selected per team."
+		showMessage(data.message);
 	}
 }
 function redirectAfterAddScore(mode) {
@@ -271,23 +266,6 @@ function showMessage (message)
 	$("#message").show();
 }
 // LOGIN /////////////////////////////
-function loginCheckUsername (username) // Checks if username is available
-{
-	$("#uname_error").hide();
-	var ulength = username.length
-	if (ulength > 3)
-	{
-		ajax(baseUrl+'auth/check/'+username, "GET", "", "loginCheckUsernameMethod", "", "");
-	}
-	else
-	{
-		$("#core_uname_confirm").html('<span class="core_error">Shop names must be at least 4 characters long</span>');
-	}
-}
-function loginCheckUsernameMethod (data)
-{
-	$("#core_uname_confirm").html(data);
-}
 function loginClear (which) {
 	if (which === "username") {
 		var loginUsername = $("#loginUsername").val();
@@ -320,7 +298,7 @@ function loginFormValue () {
 function doLogin() {
 	$("#popup_login").hide();
 	showMessage('Logging in...');
-	ajax("/login/ajax", "POST", "", "loginCallback", "loginForm", "");
+	ajax("/login/ajax", "POST", "", loginCallback, "loginForm", "", "");
 	$("#"+loginForm).blockDoubleSubmissions();
 }
 function loginCallback(data) {
@@ -361,20 +339,19 @@ function hideShade () // Hides all popups and shade
 function preloadPopup (popup, url)
 {
 	if ( $("#popup_"+popup).length == 0 ) {
-		var tWidth = $(window).width();
-		$.ajax({
-			url: baseUrl+url,
-			type: "GET",
-			success : function (data) {
-				$("#popup_container").prepend(data);
-				var tPopup = $("#popup_"+popup).width();
-				$("#popup_"+popup).css("left", [tWidth-tPopup]/2+"px");
-			}
-		});
+		ajax (url, "GET", "", preloadPopupMethod, "", "", "");
 	}
+}
+function preloadPopupMethod (data) {
+	var tWidth = $(window).width();
+	$("#popup_container").prepend(data);
+	var tPopup = $("#popup_"+popup).width();
+	$("#popup_"+popup).css("left", [tWidth-tPopup]/2+"px");
 }
 function showPopup (popup, url, focus) // Show or load popup
 {
+	// Set popup name for method
+	popupName = popup;
 	// Add fake pageview to Google Analytics
 	fakePageview(url);
 	// Grab doc height
@@ -390,22 +367,18 @@ function showPopup (popup, url, focus) // Show or load popup
 		if (focus) { $("#"+focus).focus(); }
 		window.scrollTo(0,0);
 	} else {
-		showMessage('Loading...');
-		var tWidth = $(window).width();
-		$.ajax({
-			url: baseUrl+url,
-			type: "GET",
-			success : function (data) {
-				$("#popup_container").prepend(data);
-				var tPopup = $("#popup_"+popup).width();
-				$("#popup_"+popup).css("left", [tWidth-tPopup]/2+"px");
-				if (focus) { $("#"+focus).focus(); }
-				hideMessage();
-				$("#popup_"+popup).show();
-				window.scrollTo(0,0);
-			}
-		});
+		ajax (url, "GET", "", showPopupMethod, "", "Loading...", "");
 	}
+}
+function showPopupMethod (data) {
+	var tWidth = $(window).width();
+	$("#popup_container").prepend(data);
+	var tPopup = $("#popup_"+popupName).width();
+	$("#popup_"+popupName).css("left", [tWidth-tPopup]/2+"px");
+	if (focus) { $("#"+focus).focus(); }
+	hideMessage();
+	$("#popup_"+popupName).show();
+	window.scrollTo(0,0);
 }
 // SETTTINGS /////////////////////////////
 function settingsAdd() {
@@ -419,34 +392,18 @@ function settingsAdd() {
     $("a#add_new_players").text('cancel');
   }
 }
-var deletePlayerPreventDoubleSubmit = true;
 function deletePlayer(player, playerKey) {
-	if (deletePlayerPreventDoubleSubmit) {
-		if (confirm("Are you sure you want to delete " + player + "?")) {
-			$.ajax({
-				url: "/player/delete/" + playerKey,
-				type: "POST",
-				data: '',
-				beforeSend: function(){
-					deletePlayerPreventDoubleSubmit = false;
-				},
-				success : function (data) {
-					if (data.status) { // true if success, otherwise false
-						showMessage(data.message);
-						setTimeout(function(){redirectAfterDeletePlayer()}, 1000);
-						$(".popup").hide();
-					} else {
-						showMessage(data.message);
-					}
-				},
-				complete: function () {
-					deletePlayerPreventDoubleSubmit = true;
-				},
-				error:function (){
-					deletePlayerPreventDoubleSubmit = true;
-				}
-			});
-		}
+	if (confirm("Are you sure you want to delete " + player + "?")) {
+		ajax ("/player/delete/" + playerKey, "POST", "", deletePlayerMethod, "", "Calculating new rankings...", "");
+	}
+}
+function deletePlayerMethod (data) {
+	if (data.status) { // true if success, otherwise false
+		showMessage(data.message);
+		setTimeout(function(){redirectAfterDeletePlayer()}, 1000);
+		$(".popup").hide();
+	} else {
+		showMessage(data.message);
 	}
 }
 function redirectAfterDeletePlayer() {
@@ -477,44 +434,36 @@ function serializeSettings() {
   });
   return result.substr(0, result.length - 1);
 }
-var submitSettingsPreventDoubleSubmit = true;
 function submitSettings() {
-	var str = serializeSettings();
-	$.ajax({
-		url: "/settings/",
-		type: "POST",
-		data: str,
-		beforeSend: function(){
-			submitSettingsPreventDoubleSubmit = false;
-		},
-		success : function (data) {
-				var submitStatus = data.status; // true if success, otherwise false
-				if (submitStatus) {
-				showMessage(data.message);
-				setTimeout(function(){redirectAfterSubmitSettings()}, 1000);
-				$(".popup").hide();
-			} else {
-			  showSettingsErrors(data.errors);
-				showMessage(data.message);
-			}
-		},
-		complete: function () {
-			submitSettingsPreventDoubleSubmit = true;
-		},
-		error:function (){
-			submitSettingsPreventDoubleSubmit = true;
-		}
-	});
+	if ($("#settings").valid()) {
+		var str = serializeSettings();
+		ajax ("/settings/", "POST", "", submitSettingsMethod, "", "Saving settings...", str);
+	}
+}
+function submitSettingsMethod (data) {
+	var submitStatus = data.status; // true if success, otherwise false
+	if (submitStatus) {
+		showMessage(data.message);
+		setTimeout(function(){redirectAfterSubmitSettings()}, 1000);
+		$(".popup").hide();
+	} else {
+	  showSettingsErrors(data.errors);
+		showMessage(data.message);
+	}
 }
 function clearSettingsErrors() {
-  $("div[id$='_error']").each( function() {
+  $(".error").each( function() {
     $(this).text('');
   });
 }
 function showSettingsErrors(errors) {
   clearSettingsErrors();
   $.each(errors, function(id, error) {
-    $("#" + id + "_error").text(error);
+    if ($("#" + id + "_error")) {
+		$("#" + id + "_error").text(error);
+	} else {
+		$("#" + id).after('<label id="'+id+'_error" for="'+id + "_error"+'" generated="true" class="error">'+error+'</label>');
+	}
   });
 }
 function redirectAfterSubmitSettings() {
@@ -528,7 +477,7 @@ function signupCheckUsername (username) // Checks if username is available
 	var ulength = username.length
 	if (ulength > 3)
 	{
-		ajax(baseUrl+'auth/check/'+username, "GET", "", "loginCheckUsernameMethod", "", "");
+		ajax('auth/check/'+username, "GET", "", signupCheckUsernameMethod, "", "", "");
 	}
 	else
 	{
@@ -541,8 +490,9 @@ function signupCheckUsernameMethod (data)
 }
 function signupForm ()
 {
-	ajax(baseUrl+"auth/signup", "POST", "", "signupFormMethod", "signups", "");
-	$("#"+signups).blockDoubleSubmissions();
+	if ($("#signup").valid()) {
+		ajax("auth/signup", "POST", "", signupFormMethod, "signups", "", "");
+	}
 }
 function signupFormMethod (data) {
 	$("#popup_freetrial").remove();
@@ -561,21 +511,3 @@ function upgrade (plan)
 	fullPageLoading("One moment...");
 	window.location.replace("/paypal/");
 }
-// #############################
-// 4) PLUGINS
-// #############################
-(function($) {
-	var beenSubmitted = false;
-	$.fn.blockDoubleSubmissions = function(formId) {
-		this.submit(function() {
-			if (beenSubmitted) {
-				return false;
-			} else {
-				beenSubmitted = true;
-			}
-		});
-	};
-	$.fn.resetFormSubmissions = function() {
-		beenSubmitted = false;
-	};
-})(jQuery);

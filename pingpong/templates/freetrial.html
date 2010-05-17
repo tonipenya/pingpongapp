@@ -1,6 +1,9 @@
 	<script>	
 		$(document).ready(function() {
-			$("#signups").validationEngine()
+			$("#signups").validate();
+			$('.fields').live('blur', function() {
+				$("#signups").validate().element(this);
+			});
 		});
 	</script>
 	<div id="popup_freetrial" class="popup popup_medlrg core_radius_top6">
@@ -20,7 +23,7 @@
 				<form id="signups">
 				
 					<label for="username">Choose an account name</label>
-					<input type="text" name="username" id="username" class="core_left pads med validate[required,custom[noSpecialCaracters],length[4,20]]" autocomplete="off" onkeyup="signupCheckUsername(this.value);" />
+					<input type="text" name="username" id="username" class="core_left pads med fields" maxlength="20" autocomplete="off" onkeyup="signupCheckUsername(this.value);" />
 					<div class="popup_domain core_left">.pingpongninja.com</div>
 					<div class="core_clear"></div>
 					<div id="core_uname_confirm"></div>
@@ -29,19 +32,19 @@
 					<div class="mb"></div>
 					
 					<label for="password">Enter a password</label>
-					<input type="password" name="password" id="password" class="core_left pads validate[required,length[4,30]]" />
+					<input type="password" name="password" id="password" class="core_left pads fields required" />
 					<div id="password_error" class="core_mb_extra core_error"><!-- Populate if error --></div>
 					<div class="core_clear"></div>
 					<div class="mb"></div>
 
 					<label for="password_confirm">Retype your password</label>
-					<input type="password" name="passwordconfirm" id="passwordconfirm" class="core_left pads validate[required,confirm[password],length[4,20]]" />
+					<input type="password" name="passwordconfirm" id="passwordconfirm" class="core_left pads fields required" />
 					<div id="confirm_error" class="core_mb_extra core_error"><!-- Populate if error --></div>
 					<div class="core_clear"></div>
 					<div class="mb"></div>
 
 					<label for="email">Enter your email address</label>
-					<input type="text" name="email" id="email" class="core_left pads med validate[required,custom[email]]" />
+					<input type="text" name="email" id="email" class="core_left pads med fields required email" />
 					<div id="email_error" class="core_mb_extra core_error"><!-- Populate if error --></div>
 					<div class="core_clear"></div>
 					<div class="mb"></div>
@@ -50,7 +53,7 @@
 					<p class="core_text_med mb8 core_light">Add each of your players, one name per line.</p>
 					<div class="signup_players_box">
 						<div id="signup_players_example" class="signup_players_example">David M<br />James D</div>
-						<textarea name="players" id="players" class="signup_players validate[required]"></textarea>
+						<textarea name="players" id="players" class="signup_players fields required"></textarea>
 					</div>
 					<div id="players_error" class="core_mb_extra core_error"><!-- Populate if error --></div>
 					<div class="core_clear"></div>

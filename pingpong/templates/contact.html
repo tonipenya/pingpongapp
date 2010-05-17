@@ -27,20 +27,33 @@
 			<h1>We'd love to hear from you</h1>
 			<p>
 				<label for="feedback">Submit your feedback below:</label>
-				<textarea name="feedback" id="feedback" class="contact_feedback"></textarea>
+				<textarea name="feedback" id="feedback" class="contact_feedback fields required"></textarea>
 			</p>
 			<p>
 				<label>What's your name?</label>
-				<input name="name" class="pads" />
+				<input name="name" class="pads fields required" />
 			</p>
 			<p>
 				<label>What's your email address?</label>
-				<input name="email" class="pads med" />
+				<input name="email" class="pads med fields required email" />
 			</p>
 			<p><input type="submit" onclick="$('#contactForm').submit(); return false;" class="btn_blue core_radius3" value="Submit feedback" /></p>
 		</form>
     </div>
 </div>
-<script type="text/javascript">setTimeout(function() {$("#feedback").focus();}, 800);</script>
+<script type="text/javascript">	
+	$(document).ready(function() {
+		$("#contactForm").validate();
+		$('.fields').live('blur', function() {
+			$("#contactForm").validate().element(this);
+		});
+		$("#contactForm").submit(function () {
+			if (!$("#contactForm").valid()) {
+				return false;
+			}
+		});
+	});
+	setTimeout(function() {$("#feedback").focus();}, 800);
+</script>
 {% include 'footer.html' %}
 {% endblock %}
