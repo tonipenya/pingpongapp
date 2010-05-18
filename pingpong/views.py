@@ -194,6 +194,9 @@ def terms(request):
   
 def privacy(request):
   return render_to_response(request, 'pingpong/privacy.html')
+  
+def about(request):
+  return render_to_response(request, 'pingpong/about.html')
 
 def contact(request):
   if request.method == 'POST':
