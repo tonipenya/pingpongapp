@@ -37,7 +37,7 @@ mobile_uas = [
  
 mobile_ua_hints = [ 'SymbianOS', 'Opera Mini', 'iPhone' ]
 
-def mobileBrowser(request):
+def is_mobile_browser(request):
   mobile_browser = False
   ua = request.META['HTTP_USER_AGENT'].lower()[0:4]
   if (ua in mobile_uas):
@@ -54,14 +54,14 @@ def index(request):
                                   owner=request.user)
     doubles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY doubles_ranking_points DESC, name",
                                   owner=request.user)
-    if mobileBrowser(request):
+    if is_mobile_browser(request):
       return render_to_response(request, 'pingpong/main.html',
 	  { 'singles_players': singles_players, 'doubles_players': doubles_players, 'isMobile': True })
     else:
       return render_to_response(request, 'pingpong/main.html',
       { 'singles_players': singles_players, 'doubles_players': doubles_players, 'isMobile': False })
   else:
-    if mobileBrowser(request):
+    if is_mobile_browser(request):
       return render_to_response(request, 'pingpong/index_m.html')
     else:
       return render_to_response(request, 'pingpong/index.html')
