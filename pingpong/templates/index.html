@@ -3,48 +3,25 @@
 {% block body-atts %} id="home"{% endblock %}
 
 {% block content %}
-  <div class="top">
-  	<div class="logo">
-  		<div class="core_right login_box">
-    		{% if not request.user.is_authenticated %}
-  			<div class="login">
-    			  <div class="signup"><a href="" onclick="showPopup('signup', '{% url pingpong.views.signup %}', 'name'); return false;">Signup</a></div>
-						<form action="{% url pingpong.views.login %}" method="post">
-							<input type="text" id="loginUsername" onfocus="loginClear('username');" onblur="loginFormValue();" name="username" tabindex="1" class="small core_left" {% if previous_username %}value="{{ previous_username }}"{% endif %} />
-							<input type="password" id="loginPassword" onfocus="loginClear();" onblur="loginFormValue();" name="password" tabindex="2" class="small core_left" />
-							<input type="image" src="{{ MEDIA_URL }}pingpong/images/btn_home_login.jpg" height="28" width="55" tabindex="3" class="core_left" />
-						</form>
-  			  {% if login_error %}<div id="login_error">{{ login_error }}</div>{% endif %}
-  			</div>
-  			{% else %}
-  			<div class="logged_in">
-  			  <span class="core_welcome">Welcome {{ user.username }}! &nbsp;&nbsp;</span><a href="{% url pingpong.views.index %}">My dashboard</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{% url django.contrib.auth.views.logout %}">Logout</a>
-  			</div>
-  			{% endif %}
-  			<div class="core_clear"></div>
-  		</div>
-  		<img src="{{ MEDIA_URL }}pingpong/images/home_logo.gif" class="core_logo" width="286" height="75" alt="PingPongNinja - In-Office Ping Pong Rankings" />
-			<div class="core_clear"></div>
-  	</div>
-  </div>
-  <div class="container">
-		<a href="" onclick="showPopup('signup', '/signup', 'name'); return false;" class="core_right core_screenshot"><img src="{{ MEDIA_URL }}pingpong/images/home_screenshot.jpg" width="459" height="438" /></a>
-		<div class="copy">
-			<div class="intro">Track all of your singles and doubles scores and know for sure who's the best in the office.</div>
-			<div class="feature unlimited">
-				<h2>Unlimited players &amp; games</h2>
-				<p>You can add unlimited players and list unlimited games for just $8.95/mo.  Cancel anytime and take your data with you.</p>
-			</div>
-			<div class="feature trial">
-				<h2>14 day free trial</h2>
-				<p>Get everything set up in only a minute or two.  Try it free for 14 days.  No credit card is required until after your free trial.</p>
-			</div>
-			<div class="feature hosted">
-				<h2>Remotely hosted</h2>
-				<p>We backup your data nightly and make sure it stays secure.  Plus, now your devs have no way to fudge their own scores.</p>
-			</div>
+{% include 'top.html' %}
+<div class="container">
+	<a href="" onclick="showPopup('signup', '/signup', 'name'); return false;" class="core_right core_screenshot"><img src="{{ MEDIA_URL }}pingpong/images/home_screenshot.jpg" width="459" height="438" /></a>
+	<div class="copy">
+		<div class="intro">Track all of your singles and doubles scores and know for sure who's the best in the office.</div>
+		<div class="feature unlimited">
+			<h2>Unlimited players &amp; games</h2>
+			<p>You can add unlimited players and list unlimited games for just $8.95/mo.  Cancel anytime and take your data with you.</p>
 		</div>
-		<div class="core_clear"></div>
-  </div>
-  {% include 'footer.html' %}
+		<div class="feature trial">
+			<h2>14 day free trial</h2>
+			<p>Get everything set up in only a minute or two.  Try it free for 14 days.  No credit card is required until after your free trial.</p>
+		</div>
+		<div class="feature hosted">
+			<h2>Remotely hosted</h2>
+			<p>We backup your data nightly and make sure it stays secure.  Plus, now your devs have no way to fudge their own scores.</p>
+		</div>
+	</div>
+	<div class="core_clear"></div>
+</div>
+{% include 'footer.html' %}
 {% endblock %}

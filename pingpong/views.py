@@ -19,8 +19,8 @@ from pingpong.models import Player, Team, Game, PlayerGame
 from pingpong.forms import make_player_form, ContactForm
 from pingpong.rankings import DefaultRankingSystem
 
-def freetrial(request):
-  return render_to_response(request, 'pingpong/freetrial.html')
+def register(request):
+  return render_to_response(request, 'pingpong/register.html')
   
 # list of mobile User Agents
 mobile_uas = [

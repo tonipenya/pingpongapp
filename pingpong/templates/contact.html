@@ -3,24 +3,7 @@
 {% block body-atts %} id="home"{% endblock %}
 
 {% block content %}
-<div class="top">
-    <div class="logo"> <span class="core_right login_box"> {% if not request.user.is_authenticated %}
-        <div class="login">
-            <div class="signup"><a href="" onclick="showPopup('freetrial', '/freetrial', ''); return false;">Signup</a></div>
-            <form action="{% url pingpong.views.login %}" method="post">
-                <input type="image" src="{{ MEDIA_URL }}pingpong/images/btn_home_login.jpg" height="28" width="55" tabindex="3" class="core_right" />
-                <input type="password" id="loginPassword" onfocus="loginClear();" onblur="loginFormValue();" name="password" tabindex="2" class="small core_right"  />
-                <input type="text" id="loginUsername" onfocus="loginClear('username');" onblur="loginFormValue();" name="username" tabindex="1" class="small core_right" {% if previous_username %}value="{{ previous_username }}"{% endif %} />
-            </form>
-            {% if login_error %}
-            <div id="login_error">{{ login_error }}</div>
-            {% endif %} </div>
-        {% else %}
-        <div class="logged_in"> Welcome {{ user.username }}! &nbsp;&nbsp;<a href="{% url pingpong.views.index %}">My dashboard</a> | <a href="{% url django.contrib.auth.views.logout %}">Logout</a> </div>
-        {% endif %}
-        <div class="core_clear"></div>
-        </span> <a href="{% url pingpong.views.index %}"><img src="{{ MEDIA_URL }}pingpong/images/home_logo.gif" width="286" height="75" alt="PingPongNinja - In-Office Ping Pong Rankings" /></a> </div>
-</div>
+{% include 'top.html' %}
 <div class="container core_privacy">
   <div class="core_content core_radius6">
     <form id="contactForm" action="{% url pingpong.views.contact %}" method="post"> 

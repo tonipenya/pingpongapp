@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block body-atts %} id="home"{% endblock %}
+
+{% block content %}
+{% include 'top.html' %}
+<div class="container core_privacy">
+  <div class="core_content core_radius6">
+  	<h1>Setup your account</h1>
+  	<div class="mb_extra"></div>
+  	<p>Fill out the short sign up below and start adding scores immediately.  Your <strong>free trial will last for 14 days</strong>.</p> 
+  	<div class="mb_extra"></div>
+  	<form id="signups">
+  		<label for="username">Choose an account name</label>
+  		<input type="text" name="username" id="username" class="core_left pads med fields" maxlength="20" autocomplete="off" onkeyup="signupCheckUsername(this.value);" />
+  		<div class="popup_domain core_left">.pingpongninja.com</div>
+  		<div class="core_clear"></div>
+  		<div id="core_uname_confirm"></div>
+  		<div id="username_error" class="core_error"><!-- Populate if error --></div>
+  		<div class="core_clear"></div>
+  		<div class="mb"></div>
+
+  		<label for="password">Enter a password</label>
+  		<input type="password" name="password" id="password" class="core_left pads fields required" />
+  		<div id="password_error" class="core_mb_extra core_error"><!-- Populate if error --></div>
+  		<div class="core_clear"></div>
+  		<div class="mb"></div>
+
+  		<label for="password_confirm">Retype your password</label>
+  		<input type="password" name="passwordconfirm" id="passwordconfirm" class="core_left pads fields required" />
+  		<div id="confirm_error" class="core_mb_extra core_error"><!-- Populate if error --></div>
+  		<div class="core_clear"></div>
+  		<div class="mb"></div>
+
+  		<label for="email">Enter your email address</label>
+  		<input type="text" name="email" id="email" class="core_left pads med fields required email" />
+  		<div id="email_error" class="core_mb_extra core_error"><!-- Populate if error --></div>
+  		<div class="core_clear"></div>
+  		<div class="mb"></div>
+
+  		<label for="email">Add your players</label>
+  		<p class="core_text_med mb8 core_light">Add each of your players, one name per line.</p>
+  		<div class="signup_players_box">
+  			<div id="signup_players_example" class="signup_players_example">David M<br />James D</div>
+  			<textarea name="players" id="players" class="signup_players fields required"></textarea>
+  		</div>
+  		<div id="players_error" class="core_mb_extra core_error"><!-- Populate if error --></div>
+  		<div class="core_clear"></div>
+  		<div class="mb"></div>
+
+  		<a href="javascript:signupForm();"><img src="{{ MEDIA_URL }}pingpong/images/btn_create_my_account.jpg" width="218" height="45" /></a>
+  	</form>
+  </div>
+</div>
+{% include 'footer.html' %}
+<script>	
+	$(document).ready(function() {
+		$("#signups").validate();
+		$('.fields').live('blur', function() {
+			$("#signups").validate().element(this);
+		});
+	});
+</script>
+{% endblock %}
