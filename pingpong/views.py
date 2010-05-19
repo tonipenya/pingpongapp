@@ -21,6 +21,32 @@ from pingpong.rankings import DefaultRankingSystem
 
 def freetrial(request):
   return render_to_response(request, 'pingpong/freetrial.html')
+  
+# list of mobile User Agents
+mobile_uas = [
+  'w3c ','acs-','alav','alca','amoi','audi','avan','benq','bird','blac',
+  'blaz','brew','cell','cldc','cmd-','dang','doco','eric','hipt','inno',
+  'ipaq','java','jigs','kddi','keji','leno','lg-c','lg-d','lg-g','lge-',
+  'maui','maxo','midp','mits','mmef','mobi','mot-','moto','mwbp','nec-',
+  'newt','noki','oper','palm','pana','pant','phil','play','port','prox',
+  'qwap','sage','sams','sany','sch-','sec-','send','seri','sgh-','shar',
+  'sie-','siem','smal','smar','sony','sph-','symb','t-mo','teli','tim-',
+  'tosh','tsm-','upg1','upsi','vk-v','voda','wap-','wapa','wapi','wapp',
+  'wapr','webc','winw','winw','xda','xda-'
+  ]
+ 
+mobile_ua_hints = [ 'SymbianOS', 'Opera Mini', 'iPhone' ]
+
+def mobileBrowser(request):
+  mobile_browser = False
+  ua = request.META['HTTP_USER_AGENT'].lower()[0:4]
+  if (ua in mobile_uas):
+    mobile_browser = True
+  else:
+    for hint in mobile_ua_hints:
+      if request.META['HTTP_USER_AGENT'].find(hint) > 0:
+        mobile_browser = True
+  return mobile_browser
 
 def index(request):
   if request.user.is_authenticated():
@@ -28,10 +54,17 @@ def index(request):
                                   owner=request.user)
     doubles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY doubles_ranking_points DESC, name",
                                   owner=request.user)
-    return render_to_response(request, 'pingpong/main.html',
-      { 'singles_players': singles_players, 'doubles_players': doubles_players })
+    if mobileBrowser(request):
+      return render_to_response(request, 'pingpong/main.html',
+	  { 'singles_players': singles_players, 'doubles_players': doubles_players, 'isMobile': True })
+    else:
+      return render_to_response(request, 'pingpong/main.html',
+      { 'singles_players': singles_players, 'doubles_players': doubles_players, 'isMobile': False })
   else:
-    return render_to_response(request, 'pingpong/index.html')
+    if mobileBrowser(request):
+      return render_to_response(request, 'pingpong/index_m.html')
+    else:
+      return render_to_response(request, 'pingpong/index.html')
 
 def home(request):
   if request.user.is_authenticated():

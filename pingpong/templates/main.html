@@ -1,62 +1,72 @@
 {% extends 'base.html' %}
 
-{% block content %}
-  <div id="message" class="core_message core_radius_bottom6" style="display: none;">Loading...</div>
-  <div id="core_loading" class="core_loading" style="display: none;">Loading...</div>
-  <div id="popup_container"></div>
 
-	<!-- // Nav ////////////////////////////////////////////// -->
-	<div class="nav">
-		<div class="nav_container">
-			<a href="" class="nav_singles core_left nav_down core_radius8">Singles</a>
-			<a href="" class="nav_doubles core_left nav_up core_radius8">Doubles</a>
-			<div class="core_right" style="margin: 11px 0 0 30px;"><a href="" onclick="showPopup('add', '/score/add', ''); return false;" class="nav_add core_radius8">Add score</a></div>
-			<div class="core_left nav_links">
-				<a href="{% url pingpong.views.home %}" class="links">Home</a>
-				<a href="#" onclick="showPopup('settings', '{% url pingpong.views.settings %}', ''); return false;" class="links">Settings</a>
-				<a href="#" class="links" onclick="logOut('{% url django.contrib.auth.views.logout %}'); return false;">Logout</a> 
+{% block content %}
+  <div class="core_main">
+		<div id="message" class="core_message core_radius_bottom6" style="display: none;">Loading...</div>
+		<div id="core_loading" class="core_loading" style="display: none;">Loading...</div>
+		<div id="popup_container"></div>
+	
+		<!-- // Nav ////////////////////////////////////////////// -->
+		<div class="nav">
+			<div class="nav_container">
+				<a href="" class="nav_singles core_left nav_down core_radius8">Singles</a>
+				<a href="" class="nav_doubles core_left nav_up core_radius8">Doubles</a>
+				<div class="core_right core_add"><a href="" onclick="showPopup('add', '/score/add', ''); return false;" class="nav_add core_radius8">Add score</a></div>
+				<div class="core_left nav_links">
+					<a href="{% url pingpong.views.home %}" class="links">Home</a>
+					<a href="#" onclick="showPopup('settings', '{% url pingpong.views.settings %}', ''); return false;" class="links">Settings</a>
+					<a href="#" class="links" onclick="logOut('{% url django.contrib.auth.views.logout %}'); return false;">Logout</a> 
+				</div>
+				<!-- Show when in trial mode - up to 14 days after signup date -->
+				<!--<div class="nav_trial">14 trial days left - <a href="" onclick="showPopup('upgrade', '/upgrade', ''); return false;"><strong>upgrade now</strong></a></div>-->
+				<div class="core_clear"></div>
 			</div>
-			<!-- Show when in trial mode - up to 14 days after signup date -->
-			<!--<div class="nav_trial">14 trial days left - <a href="" onclick="showPopup('upgrade', '/upgrade', ''); return false;"><strong>upgrade now</strong></a></div>-->
+		</div>	
+	
+		{% if singles_players and doubles_players %}
+		{% ifnotequal singles_players.count 0 %}
+		<!-- // Singles rankings -->
+		<div id="singles" class="core_rankings_div core_radius8">
+			<ul class="core_top_three core_radius8">
+				{% for p in singles_players|slice:"0:3" %}
+				<li class="top_players core_radius8" onclick="showPopup('stats', '/player/stats/{{ p.key }}', '');"><span class="points">{{ p.singles_ranking_points|floatformat:"-2" }}</span>{% ifnotequal p.display_singles_last_movement '' %}<div class="core_last {% if p.singles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_singles_last_movement }}</div>{% endifnotequal %}<span class="rank core_radius8">{{ forloop.counter }}</span><span class="name">{{ p.name }}</span><div class="core_clear"></div></li>
+				{% endfor %}
+			</ul>
+			{% for p in singles_players|slice:"3:10000" %}
+			<div class="core_the_rest" onclick="showPopup('stats', '/player/stats/{{ p.key }}', '');"><span class="points">{{ p.singles_ranking_points|floatformat:"-2" }}</span>{% ifnotequal p.display_singles_last_movement '' %}<div class="core_last {% if p.singles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_singles_last_movement }}</div>{% endifnotequal %}<div class="rank">{{ forloop.counter|add:"3" }}.</div><div class="name">{{ p.name }}</div><div class="core_clear"></div></div>
+			{% endfor %}
 			<div class="core_clear"></div>
 		</div>
-	</div>	
-
-	{% if singles_players and doubles_players %}
-	{% ifnotequal singles_players.count 0 %}
-	<!-- // Singles rankings -->
-	<div id="singles" class="core_rankings_div core_radius8">
-		<ul class="core_top_three core_radius8">
-		  {% for p in singles_players|slice:"0:3" %}
-			<li class="top_players core_radius8" onclick="showPopup('stats', '/player/stats/{{ p.key }}', '');"><span class="points">{{ p.singles_ranking_points|floatformat:"-2" }}</span>{% ifnotequal p.display_singles_last_movement '' %}<div class="core_last {% if p.singles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_singles_last_movement }}</div>{% endifnotequal %}<span class="rank core_radius8">{{ forloop.counter }}</span><span class="name">{{ p.name }}</span><div class="core_clear"></div></li>
-			{% endfor %}
-		</ul>
-		{% for p in singles_players|slice:"3:10000" %}
-		<div class="core_the_rest" onclick="showPopup('stats', '/player/stats/{{ p.key }}', '');"><span class="points">{{ p.singles_ranking_points|floatformat:"-2" }}</span>{% ifnotequal p.display_singles_last_movement '' %}<div class="core_last {% if p.singles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_singles_last_movement }}</div>{% endifnotequal %}<div class="rank">{{ forloop.counter|add:"3" }}.</div><div class="name">{{ p.name }}</div><div class="core_clear"></div></div>
-		{% endfor %}
-		<div class="core_clear"></div>
-	</div>
-
-	<!-- // Doubles rankings -->
-	<div id="doubles" class="core_rankings_div core_radius8" style="display: none">
-		<ul class="core_top_three core_radius8">
-		  {% for p in doubles_players|slice:"0:3" %}
-			<li class="top_players core_radius8" onclick="showPopup('stats', '/player/stats/{{ p.key }}', '');"><span class="points">{{ p.doubles_ranking_points|floatformat:"-2" }}</span>{% ifnotequal p.display_doubles_last_movement '' %}<div class="core_last {% if p.doubles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_doubles_last_movement }}</div>{% endifnotequal %}<span class="rank core_radius8">{{ forloop.counter }}</span><div class="name">{{ p.name }}</div><div class="core_clear"></div></li>
-			{% endfor %}
-		</ul>
-		{% for p in doubles_players|slice:"3:10000" %}
-		<div class="core_the_rest" onclick="showPopup('stats', '/player/stats/{{ p.key }}', '');"><span class="points">{{ p.doubles_ranking_points|floatformat:"-2" }}</span>{% ifnotequal p.display_doubles_last_movement '' %}<div class="core_last {% if p.doubles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_doubles_last_movement }}</div>{% endifnotequal %}<div class="rank">{{ forloop.counter|add:"3" }}.</div><div class="name">{{ p.name }}</div><div class="core_clear"></div></div>
-		{% endfor %}
-		<div class="core_clear"></div>
-	</div>
-	{% else %}
-	<h1 id="core_message">You haven't added any players yet! Open <a href="#" onclick="showPopup('settings', '{% url pingpong.views.settings %}', ''); return false;" >settings</a> to add your first players.</h1>
-	{% endifnotequal %}
-	{% endif %}
 	
+		<!-- // Doubles rankings -->
+		<div id="doubles" class="core_rankings_div core_radius8" style="display: none">
+			<ul class="core_top_three core_radius8">
+				{% for p in doubles_players|slice:"0:3" %}
+				<li class="top_players core_radius8" onclick="showPopup('stats', '/player/stats/{{ p.key }}', '');"><span class="points">{{ p.doubles_ranking_points|floatformat:"-2" }}</span>{% ifnotequal p.display_doubles_last_movement '' %}<div class="core_last {% if p.doubles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_doubles_last_movement }}</div>{% endifnotequal %}<span class="rank core_radius8">{{ forloop.counter }}</span><div class="name">{{ p.name }}</div><div class="core_clear"></div></li>
+				{% endfor %}
+			</ul>
+			{% for p in doubles_players|slice:"3:10000" %}
+			<div class="core_the_rest" onclick="showPopup('stats', '/player/stats/{{ p.key }}', '');"><span class="points">{{ p.doubles_ranking_points|floatformat:"-2" }}</span>{% ifnotequal p.display_doubles_last_movement '' %}<div class="core_last {% if p.doubles_lost_last %}core_loss{% endif %} core_radius8">{{ p.display_doubles_last_movement }}</div>{% endifnotequal %}<div class="rank">{{ forloop.counter|add:"3" }}.</div><div class="name">{{ p.name }}</div><div class="core_clear"></div></div>
+			{% endfor %}
+			<div class="core_clear"></div>
+		</div>
+		{% else %}
+		<h1 id="core_message">You haven't added any players yet! Open <a href="#" onclick="showPopup('settings', '{% url pingpong.views.settings %}', ''); return false;" >settings</a> to add your first players.</h1>
+		{% endifnotequal %}
+		{% endif %}
+	</div>
 	<!-- // Footer ///////////////////////////////// -->
+	<div class="core_right nav_links_m">
+		<a href="{% url pingpong.views.home %}" class="links">Home</a>
+		<a href="#" onclick="showPopup('settings', '{% url pingpong.views.settings %}', ''); return false;" class="links settings_link">Settings</a>
+		<a href="#" class="links" onclick="logOut('{% url django.contrib.auth.views.logout %}'); return false;">Logout</a> 
+	</div>
 	<div class="footer">
 		<a href=""><img src="{{ MEDIA_URL }}pingpong/images/footer_logo.gif" width="198" height="44" alt="PingPongNinja.com" /></a>
+	</div>
+	<div class="footer_m">
+		<a href=""><img src="{{ MEDIA_URL }}pingpong/images/footer_logo_m.gif" width="129" height="26" alt="PingPongNinja.com" /></a>
 	</div>
   <script type="text/javascript">
     var baseUrl = "";

@@ -118,11 +118,20 @@ function determineLayout () {
 		totalCols = 3;
 		resizeCols();
 	}
+	if (windowWidth <= 755) {
+		$('body').addClass("mobile");
+	} else {
+		$('body').removeClass("mobile");
+	}
 }
 function resizeCols () {
-	var colWidth = (mainDivWidth/totalCols)-59;
-	// Set col width
-	$(".core_the_rest").css("width", colWidth+"px");
+	if (totalCols > 1) {
+		var colWidth = (mainDivWidth/totalCols)-59;
+		// Set col width
+		$(".core_the_rest").css("width", colWidth+"px");
+	} else {
+		$(".core_the_rest").removeAttr("style");
+	}
 }
 // #############################
 // 3) SECTIONS
