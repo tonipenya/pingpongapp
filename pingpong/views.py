@@ -238,7 +238,7 @@ def contact(request):
       subject = 'PingPongNinja contact form submission'
       feedback = form.cleaned_data['feedback']
       email = form.cleaned_data['email']
-      recipients = ['info@pingpongninja.com']
+      recipients = ['support@pingpongninja.com']
       from django.conf import settings
       msg = EmailMessage(subject=subject, body=feedback, from_email=settings.DEFAULT_FROM_EMAIL,
         to=recipients, headers= { 'Reply-To': email })
