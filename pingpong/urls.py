@@ -4,7 +4,6 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('pingpong.views',
   (r'^$', 'index'),
   (r'^home/$', 'home'),
-  (r'^register/$', 'register'),
   (r'^login/$', 'login'),
   (r'^settings/$', 'settings'),
   (r'^upgrade/$', 'upgrade'),
