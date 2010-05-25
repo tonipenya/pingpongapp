@@ -5,7 +5,7 @@
 {% block content %}
 {% include 'top.html' %}
 <div class="container">
-	<a href="" onclick="showPopup('signup', '/signup', 'name'); return false;" class="core_right core_screenshot"><img src="{{ MEDIA_URL }}pingpong/images/home_screenshot.jpg" width="459" height="438" /></a>
+	<a href="" onclick="showPopup('signup', '{% url pingpong.views.signup %}', 'name'); return false;" class="core_right core_screenshot"><img src="{{ MEDIA_URL }}pingpong/images/home_screenshot.jpg" width="459" height="438" /></a>
 	<div class="copy">
 		<div class="intro">Track all of your singles and doubles scores and know for sure who's the best in the office.</div>
 		<div class="feature unlimited">

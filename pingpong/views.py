@@ -19,9 +19,6 @@ from pingpong.models import Player, Team, Game, PlayerGame
 from pingpong.forms import make_player_form, ContactForm
 from pingpong.rankings import DefaultRankingSystem
 
-def register(request):
-  return render_to_response(request, 'pingpong/register.html')
-  
 # list of mobile User Agents
 mobile_uas = [
   'w3c ','acs-','alav','alca','amoi','audi','avan','benq','bird','blac',

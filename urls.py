@@ -12,6 +12,6 @@ handler500 = 'ragendja.views.server_error'
 urlpatterns += auth_patterns + patterns('',
   ('^admin/(.*)', admin.site.root),
   url(r'^register/$', 'registration.views.register',
-      kwargs={'form_class': UserRegistrationForm},
-      name='registration_register'),
+      kwargs={'form_class': UserRegistrationForm, 'template_name': 'pingpong/register.html',
+      'success_url': '/'}, name='registration_register'),
 )

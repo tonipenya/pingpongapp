@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 user = User.get_by_key_name('admin')
 if not user or user.username != 'admin' or not (user.is_active and
   user.is_staff and user.is_superuser and user.check_password('admin')):
-  user = User(key_name='admin', username='admin', email='admin@localhost',
-  first_name='Boss', last_name='Admin', is_active=True, is_staff=True, 
+  user = User(key_name='key_admin', username='admin', email='admin@localhost',
+  first_name='Ping Pong', last_name='Admin', is_active=True, is_staff=True, 
   is_superuser=True)
   user.set_password('admin')
   user.put()
