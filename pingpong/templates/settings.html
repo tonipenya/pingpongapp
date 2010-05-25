@@ -14,7 +14,7 @@
 		<form action="" id="settings">
 		<div class="popup_body core_radius_bottom6">
 			<div class="settings popup_container core_radius6">
-				<span class="core_right"><a id="add_new_players" href="" class="settings_add" onclick="settingsAdd(); return false;">Add new players</a></span>
+				<span class="core_right"><input type="button" onclick="settingsAdd();" class="btn_blue core_radius3 core_right" style="margin-top: -6px;" value="Add more players" /></span>
 				<div id="settings_add" style="display: none;">
 					<h3>Add Players</h3>
 					<p class="core_text_med mb8 core_light" style="margin-top: 8px; font-size: 12px; font-family: Arial, Helvetica, sans-serif;">Add new players below entering one player name per line.</p>
@@ -46,17 +46,21 @@
 					{% endfor %}
 				</table>
 				<div class="mb_supa"></div>
-				<h3>Account</h3>
+				<h3>Edit your account settings</h3>
 				<div class="mb_extra"></div>
 
-				<label for="email">Email address</label><br />
-
+				<label for="email">Notification email</label><br />
+				<span class="core_light">Edit the email address you use to receive notifications from us.</span>
+				<br />
 				<input type="text" name="email" id="email" class="core_left pads med required email" value="{{ email }}" />
+				
 				<div id="email_error" class="core_mb_extra core_error"></div>
 				<div class="core_clear"></div>
 				<div class="mb"></div>
 				
-				<label for="password">Password</label><br />
+				<label for="password">Account password</label><br />
+				<span class="core_light">You can reset your main account password by clicking the link below.</span>
+				<br />
 				<a href="" style="color: #006699;">Click here to reset your password</a>
 				<div class="core_clear"></div>
 				<div class="mb"></div>

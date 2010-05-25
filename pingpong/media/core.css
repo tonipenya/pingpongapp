@@ -171,9 +171,9 @@ body#home .terms_of_use { font-size: 14px; }
 .nav_add span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:109px; height:32px;  margin:0; padding:0; }
 .nav_doubles span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:90px; height:32px;  margin:0; padding:0; }
 .nav_down, .nav_up:hover { position: relative;  padding: 10px 14px !important; cursor:default; border-top: 1px solid #1B1B1B; border-left: 1px solid #1B1B1B; border-bottom: 1px solid #313131; border-right: 1px solid #313131; color: #A0A0A0; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222222), to(#2A2A2A)); background-image: -moz-linear-gradient(0% 100% 90deg,#2A2A2A, #222222); -moz-box-shadow: #1B1B1B 2px 2px 2px 0 inset; text-shadow: 1px 1px 3px #1B1B1B; }
-.nav_links, .nav_links_m { margin: 5px 0 0 5px; padding: 5px 0 0 5px; border-left: 1px solid #444; }
+.nav_links, .nav_links_m { margin: 5px 0 0 5px; padding: 5px 0 7px 5px; border-left: 1px solid #444; }
 .nav_links_m { display: none; }
-.nav a.links { text-decoration: none; margin: 10px 0 0 23px; padding: 0; font-size: 18px; }
+.nav a.links { text-decoration: none; margin: 10px 0 0 23px; padding: 0; font-size: 14px; }
 .nav_singles span { display:block; position:absolute; left:12px; top:7px; z-index:1; width:83px; height:32px;  margin:0; padding:0; }
 .nav_trial { text-align: right; margin: 11px 0 0 0; font-size: 16px; color: #666; }
 .nav_trial a { margin: 0; padding: 0; font-size: 16px; text-decoration: underline; }
