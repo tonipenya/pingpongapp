@@ -230,6 +230,9 @@ def privacy(request):
   
 def about(request):
   return render_to_response(request, 'pingpong/about.html')
+	
+def signup_thanks(request):
+  return render_to_response(request, 'pingpong/signup_thanks.html')
 
 def contact(request):
   if request.method == 'POST':
