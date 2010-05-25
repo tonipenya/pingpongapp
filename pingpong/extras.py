@@ -2,7 +2,7 @@
 # To create an admin user for local development
 from django.contrib.auth.models import User
 
-user = User.get_by_key_name('admin')
+user = User.get_by_key_name('key_admin')
 if not user or user.username != 'admin' or not (user.is_active and
   user.is_staff and user.is_superuser and user.check_password('admin')):
   user = User(key_name='key_admin', username='admin', email='admin@localhost',
