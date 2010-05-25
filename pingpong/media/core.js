@@ -378,6 +378,8 @@ function showPopup (popup, url, focus) // Show or load popup
 	} else {
 		ajax (url, "GET", "", showPopupMethod, "", "Loading...", "");
 	}
+	// To fix the 2 col layout bug
+	setTimeout("resizeCols();", 500);
 }
 function showPopupMethod (data) {
 	var tWidth = $(window).width();
