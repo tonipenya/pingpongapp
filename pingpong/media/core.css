@@ -183,16 +183,23 @@ body#home .terms_of_use { font-size: 14px; }
 /* =========================================
     POPUPS
    ========================================= */
+body.mobile .add_enter_scores { width: auto; }
+body.mobile .add_enter_scores span { display: block; float: none !important; }
+body.mobile .add_enter_scores img { float: none !important; }
+body.mobile .add_player { width: 85px; font-size: 10px; }
+body.mobile .add_score { margin-right: 60px; }
+body.mobile .add_score_header { margin-right: 60px; }
 body.mobile .core_add { margin-top: 6px; }
-body.mobile .core_last { font-size: 14px; padding: 0 6px 6px 6px; width: auto; margin: 0 12px 0 0; }
+body.mobile .core_last { font-size: 14px; padding: 0 6px 6px 6px; width: auto; position: absolute; right: 60px; border-width: 1px; }
 body.mobile .core_main { padding-bottom: 1px; }
 body.mobile .core_rankings_div { margin: 8px 0 8px 8px; }
-body.mobile .core_the_rest { min-width: 285px; font-size: 12px; height: auto; width: auto; padding: 2px 8px 0 8px; margin: 6px 9px 0 0; float: none; display: block; }
+body.mobile .core_the_rest { min-width: 265px; font-size: 12px; height: auto; width: auto; padding: 2px 8px 0 8px; margin: 6px 9px 0 0; float: none; display: block; }
+body.mobile .core_the_rest .core_last { right: 48px; margin-top: 2px; }
 body.mobile .core_the_rest .name { margin-top: 7px; width: 60%; }
 body.mobile .core_the_rest .points { margin: 7px 7px 0 0; }
-body.mobile .core_the_rest .rank { margin: 5px 5px 5px 13px; width: 23px; }
-body.mobile .core_top_three { min-width: 290px; padding: 8px 8px 1px 8px; margin: 0 10px 10px 0; }
-body.mobile .core_top_three li { padding: 4px 8px; min-width: 250px; margin-bottom: 5px; }
+body.mobile .core_the_rest .rank { margin: 5px 5px 5px 13px; width: 21px; }
+body.mobile .core_top_three { min-width: 270px; padding: 8px 8px 1px 8px; margin: 0 10px 10px 0; }
+body.mobile .core_top_three li { padding: 4px 8px; min-width: 250px; margin-bottom: 5px; border-width: 1px; }
 body.mobile .core_top_three li .name { font-size: 14px; padding: 0; margin: 3px 0 0 10px; }
 body.mobile .core_top_three li .points { font-size: 14px; margin-top: 3px; }
 body.mobile .core_top_three li .rank { font-size: 14px; padding: 0 6px 2px 6px; height: auto; }
@@ -201,12 +208,19 @@ body.mobile .footer { display: none !important; }
 body.mobile .footer_m { display: block; }
 body.mobile .nav { height: 43px; }
 body.mobile .nav a { font-size: 11px; padding: 6px 8px; }
-body.mobile .nav_container { padding: 6px; min-width: 300px; }
+body.mobile .nav_container { padding: 6px 8px 6px 6px; min-width: 265px; }
 body.mobile .nav_down, body.mobile .nav_up:hover { padding: 5px 7px !important }
 body.mobile .nav_links { display: none !important; }
 body.mobile .nav_links_m { display: block; margin: 8px 12px 0 0; border-left: none; }
-body.mobile .nav_links_m a { margin-left: 12px; }
+body.mobile .nav_links_m a { margin-left: 12px; padding: 4px; }
+body.mobile .popup { padding-top: 15px; }
+body.mobile .popup_body { padding: 13px; }
+body.mobile .popup_dark { margin-top: 15px; }
+body.mobile .popup_large { width: 95% !important; }
+body.mobile .popup_half { float: none !important; display: block; width: 95% !important; padding-right: 0 !important; }
 body.mobile .settings_link { display: none; }
+body.mobile .stats_name { padding-bottom: 5px; }
+body.mobile .stats_table { width: 94% }
 /* =========================================
     POPUPS
    ========================================= */
