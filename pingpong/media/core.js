@@ -5,15 +5,12 @@
 var teamone = new Array();
 var teamtwo = new Array();
 var preventDoubleSubmission = true;
-var popupShowing = false;
 // Set events
 $(document).ready(function () {
 	determineLayout();
 });
 $(window).resize(function () {
-	if (!popupShowing) {
-		determineLayout();
-	}
+	determineLayout();
 });
 $('.nav_singles').live('click', function() {
   showSingles();
@@ -343,7 +340,6 @@ function fullPageLoading (message)
 }
 function hideShade () // Hides all popups and shade
 {
-	popupShowing = false;
 	$("#core_shade").hide();
 	$(".popup").hide();
 	hideMessage();
@@ -363,8 +359,6 @@ function preloadPopupMethod (data) {
 }
 function showPopup (popup, url, focus) // Show or load popup
 {
-	// To fix the 2 col layout bug
-	popupShowing = true;
 	// Set popup name for method
 	popupName = popup;
 	// Add fake pageview to Google Analytics
@@ -376,6 +370,8 @@ function showPopup (popup, url, focus) // Show or load popup
 	// Show shade
 	$("#core_shade").css("height", docHeight+300);
 	$("#core_shade").show();
+	// Fix 2 col bug
+	determineLayout();
 	// If div exists, show it, else load it
 	if ( $("#popup_"+popup).length > 0 ) {
 		$("#popup_"+popup).show();
