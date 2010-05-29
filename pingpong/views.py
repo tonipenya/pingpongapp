@@ -51,17 +51,12 @@ def index(request):
                                   owner=request.user)
     doubles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY doubles_ranking_points DESC, name",
                                   owner=request.user)
-    if is_mobile_browser(request):
-      return render_to_response(request, 'pingpong/main.html',
-	  { 'singles_players': singles_players, 'doubles_players': doubles_players, 'isMobile': True })
-    else:
-      return render_to_response(request, 'pingpong/main.html',
-      { 'singles_players': singles_players, 'doubles_players': doubles_players, 'isMobile': False })
+    return render_to_response(request, 'pingpong/main.html',
+      { 'singles_players': singles_players, 'doubles_players': doubles_players, 
+      'isMobile': True if is_mobile_browser(request) else False })
   else:
-    if is_mobile_browser(request):
-      return render_to_response(request, 'pingpong/index_m.html')
-    else:
-      return render_to_response(request, 'pingpong/index.html')
+    return render_to_response(request, 'pingpong/index.html',
+      { 'isMobile': True if is_mobile_browser(request) else False })
 
 def home(request):
   if request.user.is_authenticated():
