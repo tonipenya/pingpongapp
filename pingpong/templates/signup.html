@@ -1,16 +1,3 @@
-	<script>	
-
-			$("#signupForm").validate();
-			$('.fields').live('blur', function() {
-				$("#signupForm").validate().element(this);
-			});
-			$("#signupForm").submit(function () {
-				if (!$("#signupForm").valid()) {
-					return false;
-				}
-			});
-
-	</script>
 	<div id="popup_signup" class="popup popup_medlrg core_radius_top6">
 		<div class="popup_header core_radius_top6">
 			<span class="core_right"><a href="" onClick="hideShade(); return false;" class="popup_close"><strong>close</strong></a></span>
@@ -43,10 +30,22 @@
 				<h3>How much does it cost?</h3>
 				<ul>
 					<li>Try for free for 14 days.  No credit card is required.</li>
-					<li>Then pay <strong><script>utmx_section("8.95")</script>$8.95</noscript>/mo</strong> (unlimited games and players)</li>
+					<li>Then pay <strong><span id="thePrice"></span>/mo</strong> (unlimited games and players)</li>
 					<li>Cancel anytime with zero hassle.</li>
 				</ul>
 			</div>
 			<div class="core_clear"></div>
 		</div>
 	</div>
+	<script>	
+			$("#signupForm").validate();
+			$('.fields').live('blur', function() {
+				$("#signupForm").validate().element(this);
+			});
+			$("#signupForm").submit(function () {
+				if (!$("#signupForm").valid()) {
+					return false;
+				}
+			});
+			$("#thePrice").html(price);
+	</script>
