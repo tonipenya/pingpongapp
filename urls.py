@@ -14,4 +14,5 @@ urlpatterns += auth_patterns + patterns('',
   url(r'^register/$', 'registration.views.register',
       kwargs={'form_class': UserRegistrationForm, 'template_name': 'pingpong/register.html',
       'success_url': '/'}, name='registration_register'),
+  url(r'^gaebar/', include('gaebar.urls')),
 )

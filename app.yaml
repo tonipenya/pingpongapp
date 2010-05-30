@@ -11,6 +11,9 @@ handlers:
   secure: optional
   login: admin
 
+- url: /gaebar/static
+  static_dir: gaebar/static
+
 - url: /media
   static_dir: _generated_media
   secure: optional

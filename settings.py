@@ -101,6 +101,7 @@ INSTALLED_APPS = (
     'pingpong',
     'registration',
     'mediautils',
+    'gaebar',
 )
 
 # List apps which should be left out from app settings and urlsauto loading
@@ -131,3 +132,28 @@ DATABASE_OPTIONS = {
 }
 
 from ragendja.settings_post import *
+
+# Gaebar
+GAEBAR_LOCAL_URL = 'http://localhost:8000'
+
+GAEBAR_SECRET_KEY = '72nd89^HI(*&)*(&(*UQSG&))'
+
+GAEBAR_SERVERS = {
+  u'Deployment': u'http://www.pingpongninja.com',
+  u'Local Test': u'http://localhost:8080',
+}
+
+GAEBAR_MODELS = (
+  (
+    'pingpong.models',
+    (u'pingpong_player', u'pingpong_team', u'pingpong_game', u'pingpong_playergame'),
+  ),
+  (
+    'django.contrib.auth.models',
+    (u'auth_user',),
+  ),
+  (
+    'registration.models',
+    (u'registration_registrationprofile',),
+  ),
+)
