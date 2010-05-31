@@ -11,6 +11,9 @@ handlers:
   secure: optional
   login: admin
 
+- url: /stats.*
+  script: $PYTHON_LIB/google/appengine/ext/appstats/ui.py
+
 - url: /gaebar/static
   static_dir: gaebar/static
 
