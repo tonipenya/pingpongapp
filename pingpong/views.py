@@ -269,9 +269,15 @@ def player_stats(request, key):
     if dp.key == player.key:
       break
 
+  games = []
   pgs = PlayerGame.gql("WHERE player = :player ORDER BY date_played DESC LIMIT 20", player=player)
-  prefetch_references(pgs, ('player', 'game',))
+  try:
+    prefetch_references(pgs, ('player', 'game',))
+  except IndexError:
+    pass # Don't want this thrown - just deal with an empty result below
+  for pg in pgs:
+    games.append(pg)
 
   return render_to_response(request, 'pingpong/player_stats.html',
     { 'player': player, 'singles_ranking': singles_ranking, 'doubles_ranking': doubles_ranking, 
-    'games': pgs })
+    'games': games })
