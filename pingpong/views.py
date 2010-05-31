@@ -5,7 +5,7 @@ from django.forms.fields import email_re
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from ragendja.template import render_to_response
-from ragendja.dbutils import get_object, db_create
+from ragendja.dbutils import get_object, db_create, prefetch_references
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -165,10 +165,14 @@ def add_score(request):
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
 
 def save_player_games(game, p1, p2, p3, p4):
-  if p1 != None: db_create(PlayerGame, player=p1, game=game, date_played=game.date_played)
-  if p2 != None: db_create(PlayerGame, player=p2, game=game, date_played=game.date_played)
-  if p3 != None: db_create(PlayerGame, player=p3, game=game, date_played=game.date_played)
-  if p4 != None: db_create(PlayerGame, player=p4, game=game, date_played=game.date_played)
+  if p1 != None:
+    db_create(PlayerGame, player=p1, game=game, date_played=game.date_played, won=game.won(p1))
+  if p2 != None:
+    db_create(PlayerGame, player=p2, game=game, date_played=game.date_played, won=game.won(p2))
+  if p3 != None:
+    db_create(PlayerGame, player=p3, game=game, date_played=game.date_played, won=game.won(p3))
+  if p4 != None:
+    db_create(PlayerGame, player=p4, game=game, date_played=game.date_played, won=game.won(p4))
 
 @login_required
 def list_players(request):
@@ -265,11 +269,9 @@ def player_stats(request, key):
     if dp.key == player.key:
       break
 
-  player_games = [] # Load game history
   pgs = PlayerGame.gql("WHERE player = :player ORDER BY date_played DESC LIMIT 20", player=player)
-  for pg in pgs:
-    player_games.append(pg.game)
+  prefetch_references(pgs, ('player', 'game',))
 
   return render_to_response(request, 'pingpong/player_stats.html',
     { 'player': player, 'singles_ranking': singles_ranking, 'doubles_ranking': doubles_ranking, 
-    'games': player_games })
+    'games': pgs })

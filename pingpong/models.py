@@ -70,4 +70,5 @@ class Game(db.Model):
 class PlayerGame(db.Model):
   player = db.ReferenceProperty(Player)
   game = db.ReferenceProperty(Game)
+  won = db.BooleanProperty()
   date_played = db.DateTimeProperty(auto_now_add=True)

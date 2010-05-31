@@ -44,10 +44,10 @@
 					{% if games %}
 					{% for g in games %}
 					<tr{% cycle ' class="gray"' '' %}>
-						<td class="{% if player|won:g %}won{% else %}lost{% endif %}"><span>{% if player|won:g %}Won{% else %}Lost{% endif %}</span></td>
+						<td class="{% if g.won %}won{% else %}lost{% endif %}"><span>{% if g.won %}Won{% else %}Lost{% endif %}</span></td>
 						<td class="the_players" title="Played {{ g.date_played|timesince }} ago">
-						  {{ g.team1.player1.name }} {% if g.team1.player2 %} &amp; {{ g.team1.player2.name }} {% endif %} ({{ g.team1.points|floatformat:0 }}) vs. 
-						  {{ g.team2.player1.name }} {% if g.team2.player2 %} &amp; {{ g.team2.player2.name }} {% endif %} ({{ g.team2.points|floatformat:0 }})</td>
+						  {{ g.game.team1.player1.name }} {% if g.game.team1.player2 %} &amp; {{ g.game.team1.player2.name }} {% endif %} ({{ g.game.team1.points|floatformat:0 }}) vs. 
+						  {{ g.game.team2.player1.name }} {% if g.game.team2.player2 %} &amp; {{ g.game.team2.player2.name }} {% endif %} ({{ g.game.team2.points|floatformat:0 }})</td>
 					</tr>
 					{% endfor %}
 					{% else %}

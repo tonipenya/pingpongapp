@@ -83,6 +83,12 @@ for p in Player.all():
     for g in games:
       db_create(PlayerGame, player=p, game=g, date_played=g.date_played)
 
+# Populating extant PlayerGame entities with new won property
+from pingpong.models import PlayerGame
+for pg in PlayerGame.all():
+  pg.won = pg.game.won(pg.player)
+  pg.put()
+
 # Reduce players' singles and/or doubles ranking points if they haven't played
 # any games in a defined period.
 # N.B. Doubles and singles ranking points are treated separately
