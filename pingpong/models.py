@@ -70,6 +70,10 @@ class Game(db.Model):
 class PlayerGame(db.Model):
   player = db.ReferenceProperty(Player, collection_name="player_reference_player_set")
   game = db.ReferenceProperty(Game)
+  
+  # TODO: To improve performance, we could just store keys of these players and build
+  # a dictionary of unique players...
+  
   t1p1 = db.ReferenceProperty(Player, collection_name="player_reference_t1p1_set")
   t1p2 = db.ReferenceProperty(Player, collection_name="player_reference_t1p2_set")
   t2p1 = db.ReferenceProperty(Player, collection_name="player_reference_t2p1_set")
