@@ -151,7 +151,7 @@ def add_score(request):
       t1 = db_create(Team, player1=t1p1, player2=t1p2, points=t1s)
       t2 = db_create(Team, player1=t2p1, player2=t2p2, points=t2s)
       game = db_create(Game, team1=t1, team2=t2)
-      save_player_games(game, t1p1, t1p2, t2p1, t2p2)
+      save_player_games(game, t1p1, t1p2, t2p1, t2p2, t1s, t2s)
       doubles = (t1p1 != None and t1p2 != None and t2p1 != None and t2p2 != None)
       if doubles:
         mode = 'doubles'
@@ -164,15 +164,19 @@ def add_score(request):
       response_dict = { 'status': False, 'message' : 'Hmmm... There was a problem saving your scores - please have another go.', 'mode': mode }
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
 
-def save_player_games(game, p1, p2, p3, p4):
+def save_player_games(game, p1, p2, p3, p4, t1s, t2s):
   if p1 != None:
-    db_create(PlayerGame, player=p1, game=game, date_played=game.date_played, won=game.won(p1))
+    db_create(PlayerGame, player=p1, game=game, date_played=game.date_played, won=game.won(p1),
+              t1p1=p1, t1p2=p2, t2p1=p3, t2p2=p4, team1_points=t1s, team2_points=t2s)
   if p2 != None:
-    db_create(PlayerGame, player=p2, game=game, date_played=game.date_played, won=game.won(p2))
+    db_create(PlayerGame, player=p2, game=game, date_played=game.date_played, won=game.won(p2),
+              t1p1=p1, t1p2=p2, t2p1=p3, t2p2=p4, team1_points=t1s, team2_points=t2s)
   if p3 != None:
-    db_create(PlayerGame, player=p3, game=game, date_played=game.date_played, won=game.won(p3))
+    db_create(PlayerGame, player=p3, game=game, date_played=game.date_played, won=game.won(p3),
+              t1p1=p1, t1p2=p2, t2p1=p3, t2p2=p4, team1_points=t1s, team2_points=t2s)
   if p4 != None:
-    db_create(PlayerGame, player=p4, game=game, date_played=game.date_played, won=game.won(p4))
+    db_create(PlayerGame, player=p4, game=game, date_played=game.date_played, won=game.won(p4),
+              t1p1=p1, t1p2=p2, t2p1=p3, t2p2=p4, team1_points=t1s, team2_points=t2s)
 
 @login_required
 def list_players(request):
@@ -272,7 +276,7 @@ def player_stats(request, key):
   games = []
   pgs = PlayerGame.gql("WHERE player = :player ORDER BY date_played DESC LIMIT 20", player=player)
   try:
-    prefetch_references(pgs, ('player', 'game',))
+    prefetch_references(pgs, ('player', 't1p1', 't1p2', 't2p1', 't2p2',))
   except IndexError:
     pass # Don't want this thrown - just deal with an empty result below
   for pg in pgs:

@@ -89,6 +89,20 @@ for pg in PlayerGame.all():
   pg.won = pg.game.won(pg.player)
   pg.put()
 
+# Populating extant PlayerGame entities with new team1_points, team2_points,
+# t1p1, t1p2, t2p1 and t2p2 properties
+from pingpong.models import PlayerGame
+# Work in blocks specifying limit and offset here...
+pgs = PlayerGame.all().fetch(limit=1000)
+for pg in pgs:
+  pg.team1_points = pg.game.team1.points
+  pg.team2_points = pg.game.team2.points
+  pg.t1p1 = pg.game.team1.player1
+  pg.t1p2 = pg.game.team1.player2
+  pg.t2p1 = pg.game.team2.player1
+  pg.t2p2 = pg.game.team2.player2
+  pg.put()
+
 # Reduce players' singles and/or doubles ranking points if they haven't played
 # any games in a defined period.
 # N.B. Doubles and singles ranking points are treated separately

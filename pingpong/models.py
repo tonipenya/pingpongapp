@@ -68,7 +68,13 @@ class Game(db.Model):
       return self.team2.player1 == player or self.team2.player2 == player
 
 class PlayerGame(db.Model):
-  player = db.ReferenceProperty(Player)
+  player = db.ReferenceProperty(Player, collection_name="player_reference_player_set")
   game = db.ReferenceProperty(Game)
+  t1p1 = db.ReferenceProperty(Player, collection_name="player_reference_t1p1_set")
+  t1p2 = db.ReferenceProperty(Player, collection_name="player_reference_t1p2_set")
+  t2p1 = db.ReferenceProperty(Player, collection_name="player_reference_t2p1_set")
+  t2p2 = db.ReferenceProperty(Player, collection_name="player_reference_t2p2_set")
+  team1_points = db.FloatProperty()
+  team2_points = db.FloatProperty()
   won = db.BooleanProperty()
   date_played = db.DateTimeProperty(auto_now_add=True)
