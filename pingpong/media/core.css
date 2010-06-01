@@ -39,6 +39,7 @@ td { vertical-align: top; }
 .add_score { font-size: 100px; font-family: Arial, Helvetica, sans-serif; line-height: 80px; font-weight: bold; color: #666; text-shadow: 2px 2px 2px #999; }
 .add_score_header { margin: 13px 0; }
 .add_slider { padding: 16px 27px 10px 10px; }
+.add_marker { color: #999; float: left; font-size: 10px; }
 /* =========================================
     BUTTONS
    ========================================= */
