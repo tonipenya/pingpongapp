@@ -275,10 +275,6 @@ def player_stats(request, key):
 
   games = []
   pgs = PlayerGame.gql("WHERE player = :player ORDER BY date_played DESC LIMIT 20", player=player)
-  try:
-    prefetch_references(pgs, ('player', 't1p1', 't1p2', 't2p1', 't2p2',))
-  except IndexError:
-    pass # Don't want this thrown - just deal with an empty result below
   for pg in pgs:
     games.append(pg)
 
