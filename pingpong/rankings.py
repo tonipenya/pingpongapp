@@ -85,11 +85,13 @@ class DefaultRankingSystem:
   def reset_singles_last_movements(self, user):
     players = Player.gql("WHERE owner = :owner", owner=user)
     for p in players:
-      p.singles_last_movement = 0.0
-      p.put()
+      if p.singles_last_movement != 0.0:
+        p.singles_last_movement = 0.0
+        p.put()
 
   def reset_doubles_last_movements(self, user):
     players = Player.gql("WHERE owner = :owner", owner=user)
     for p in players:
-      p.doubles_last_movement = 0.0
-      p.put()
+      if p.doubles_last_movement != 0.0:
+        p.doubles_last_movement = 0.0
+        p.put()
