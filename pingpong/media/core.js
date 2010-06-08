@@ -8,7 +8,7 @@ var preventDoubleSubmission = true;
 // Set events
 $(document).ready(function () {
 	determineLayout();
-	var price = $("#price").text() || "$8.95";
+	setTimeout(function () {determineLayout();}, 400);
 });
 $(window).resize(function () {
 	determineLayout();
