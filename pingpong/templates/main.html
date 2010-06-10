@@ -63,10 +63,10 @@
 		<a href="#" class="links" onclick="logOut('{% url django.contrib.auth.views.logout %}'); return false;">Logout</a> 
 	</div>
 	<div class="footer">
-		<a href=""><img src="{{ MEDIA_URL }}pingpong/images/footer_logo.gif" width="198" height="44" alt="PingPongNinja.com" /></a>
+		<a href="{% url pingpong.views.home %}"><img src="{{ MEDIA_URL }}pingpong/images/footer_logo.gif" width="198" height="44" alt="PingPongNinja.com" /></a>
 	</div>
 	<div class="footer_m">
-		<a href=""><img src="{{ MEDIA_URL }}pingpong/images/footer_logo_m.gif" width="129" height="26" alt="PingPongNinja.com" /></a>
+		<a href="{% url pingpong.views.home %}"><img src="{{ MEDIA_URL }}pingpong/images/footer_logo_m.gif" width="129" height="26" alt="PingPongNinja.com" /></a>
 	</div>
   <script type="text/javascript">
     var baseUrl = "";
