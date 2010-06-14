@@ -226,20 +226,27 @@ def upgrade(request):
 @login_required
 def paypal(request):
   from django.conf import settings
+  from appenginepatcher import on_production_server
+  notify_url = 'http://www.pingpongninja.com/ipn' if on_production_server else 'http://localhost:8000/ipn'
   return render_to_response(request, 'pingpong/paypal.html',
-    { 'price': settings.MONTHLY_PRICE, 'business': settings.PP_BUSINESS_EMAIL })
+    { 'price': settings.MONTHLY_PRICE, 'business': settings.PP_BUSINESS_EMAIL,
+      'notify_url': notify_url })
 
 def ipn(request):
   from django.conf import settings
   parameters = None
   try:
-    if request['payment_status'] == 'Completed':
+    if request.POST:
+      payment_status = request.POST['payment_status']
+    else:
+      payment_status = request.GET['payment_status']
+    if payment_status == 'Completed':
       if request.POST:
         parameters = request.POST.copy()
       else:
         parameters = request.GET.copy()
     else:
-      log_error("IPN", "The parameter payment_status was not Completed.")
+      logging.error("IPN error: The parameter payment_status was not Completed.")
 
     if parameters:
       parameters['cmd']='_notify-validate'
@@ -262,11 +269,11 @@ def ipn(request):
       email = parameters['payer_email']
       identifier = parameters['payer_id']
 
-      # TODO: Do whatever we need to with the parameters here...
+      # TODO: Do whatever we need to with the parameters here to upgrade the account...
 
       return HttpResponse("Ok")
 
-  except Exception, e:
+  except:
     logging.exception('There was a problem with PayPal IPN')
   return HttpResponseServerError("Error")
   
