@@ -158,3 +158,10 @@ GAEBAR_MODELS = (
     (u'registration_registrationprofile',),
   ),
 )
+
+# Paypal-related settings
+PP_URL = "https://www.sandbox.paypal.com/cgi-bin/webscr"
+#PP_URL = "https://www.paypal.com/cgi-bin/webscr"
+PP_BUSINESS_EMAIL = "pingpo_1276498886_biz@gmail.com"
+#PP_BUSINESS_EMAIL = "pingpongapp@gmail.com"
+MONTHLY_PRICE = 8.95

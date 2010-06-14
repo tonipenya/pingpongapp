@@ -19,7 +19,7 @@
 					<a href="#" class="links" onclick="logOut('{% url django.contrib.auth.views.logout %}'); return false;">Logout</a> 
 				</div>
 				<!-- Show when in trial mode - up to 14 days after signup date -->
-				<!--<div class="nav_trial">14 trial days left - <a href="" onclick="showPopup('upgrade', '/upgrade', ''); return false;"><strong>upgrade now</strong></a></div>-->
+				<div class="nav_trial">14 trial days left - <a href="" onclick="showPopup('upgrade', '{% url pingpong.views.upgrade %}', ''); return false;"><strong>upgrade now</strong></a></div>
 				<div class="core_clear"></div>
 			</div>
 		</div>	

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('pingpong.views',
@@ -8,6 +8,7 @@ urlpatterns = patterns('pingpong.views',
   (r'^settings/$', 'settings'),
   (r'^upgrade/$', 'upgrade'),
   (r'^paypal/$', 'paypal'),
+  (r'^ipn/$', 'ipn'),
   (r'^signup/$', 'signup'),
   (r'^terms/$', 'terms'),
   (r'^privacy/$', 'privacy'),

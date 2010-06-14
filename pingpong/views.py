@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
+import urllib
+import urllib2
+
 from django.utils import simplejson
 from django.forms.fields import email_re
 from django.core.mail import EmailMessage
@@ -7,8 +10,8 @@ from django.core.urlresolvers import reverse
 from ragendja.template import render_to_response
 from ragendja.dbutils import get_object, db_create, prefetch_references
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseServerError, \
+  HttpResponseRedirect
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -19,7 +22,6 @@ from pingpong.models import Player, Team, Game, PlayerGame
 from pingpong.forms import make_player_form, ContactForm
 from pingpong.rankings import DefaultRankingSystem
 
-# list of mobile User Agents
 mobile_uas = [
   'w3c ','acs-','alav','alca','amoi','audi','avan','benq','bird','blac',
   'blaz','brew','cell','cldc','cmd-','dang','doco','eric','hipt','inno',
@@ -29,8 +31,7 @@ mobile_uas = [
   'qwap','sage','sams','sany','sch-','sec-','send','seri','sgh-','shar',
   'sie-','siem','smal','smar','sony','sph-','symb','t-mo','teli','tim-',
   'tosh','tsm-','upg1','upsi','vk-v','voda','wap-','wapa','wapi','wapp',
-  'wapr','webc','winw','winw','xda','xda-'
-  ]
+  'wapr','webc','winw','winw','xda','xda-', ]
  
 mobile_ua_hints = [ 'SymbianOS', 'Opera Mini', 'iPhone' ]
 
@@ -216,11 +217,58 @@ def delete_player(request, key):
   else:
     return HttpResponseRedirect('/')
 
-def paypal(request):
-  return render_to_response(request, 'pingpong/paypal.html')
-
+@login_required
 def upgrade(request):
-  return render_to_response(request, 'pingpong/upgrade.html')
+  from django.conf import settings
+  return render_to_response(request, 'pingpong/upgrade.html',
+    { 'price': settings.MONTHLY_PRICE })
+
+@login_required
+def paypal(request):
+  from django.conf import settings
+  return render_to_response(request, 'pingpong/paypal.html',
+    { 'price': settings.MONTHLY_PRICE, 'business': settings.PP_BUSINESS_EMAIL })
+
+def ipn(request):
+  from django.conf import settings
+  parameters = None
+  try:
+    if request['payment_status'] == 'Completed':
+      if request.POST:
+        parameters = request.POST.copy()
+      else:
+        parameters = request.GET.copy()
+    else:
+      log_error("IPN", "The parameter payment_status was not Completed.")
+
+    if parameters:
+      parameters['cmd']='_notify-validate'
+
+      params = urllib.urlencode(parameters)
+      req = urllib2.Request(settings.PP_URL, params)
+      req.add_header("Content-type", "application/x-www-form-urlencoded")
+      response = urllib2.urlopen(req)
+      status = response.read()
+      if not status == "VERIFIED":
+        print "The request could not be verified, check for fraud." + str(status)
+        parameters = None
+
+    if parameters:
+      reference = parameters['txn_id']
+      invoice_id = parameters['invoice']
+      currency = parameters['mc_currency']
+      amount = parameters['mc_gross']
+      fee = parameters['mc_fee']
+      email = parameters['payer_email']
+      identifier = parameters['payer_id']
+
+      # TODO: Do whatever we need to with the parameters here...
+
+      return HttpResponse("Ok")
+
+  except Exception, e:
+    logging.exception('There was a problem with PayPal IPN')
+  return HttpResponseServerError("Error")
   
 def terms(request):
   return render_to_response(request, 'pingpong/terms.html')
