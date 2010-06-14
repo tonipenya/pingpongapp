@@ -227,10 +227,9 @@ def upgrade(request):
 def paypal(request):
   from django.conf import settings
   from appenginepatcher import on_production_server
-  notify_url = 'http://www.pingpongninja.com/ipn' if on_production_server else 'http://localhost:8000/ipn'
   return render_to_response(request, 'pingpong/paypal.html',
     { 'price': settings.MONTHLY_PRICE, 'business': settings.PP_BUSINESS_EMAIL,
-      'notify_url': notify_url })
+      'notify_url': 'http://www.pingpongninja.com/ipn' })
 
 def ipn(request):
   from django.conf import settings
@@ -262,16 +261,21 @@ def ipn(request):
 
     if parameters:
       reference = parameters['txn_id']
-      invoice_id = parameters['invoice']
       currency = parameters['mc_currency']
       amount = parameters['mc_gross']
       fee = parameters['mc_fee']
       email = parameters['payer_email']
       identifier = parameters['payer_id']
-
-      # TODO: Do whatever we need to with the parameters here to upgrade the account...
-
-      return HttpResponse("Ok")
+      user_key = parameters['custom']
+      user_paying = get_object(User, user_key)
+      if user_paying:
+        # TODO: Upgrade the user's account...
+        logging.info("TODO: Upgrade user's account - username: %s" % user_paying.username)
+        
+        return HttpResponse("Ok")
+        
+      else:
+        logging.error("Could not find user with key: %s" % user_key)
 
   except:
     logging.exception('There was a problem with PayPal IPN')
