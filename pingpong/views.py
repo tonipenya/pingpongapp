@@ -56,9 +56,11 @@ def index(request):
       { 'singles_players': singles_players, 'doubles_players': doubles_players, 
       'isMobile': True if is_mobile_browser(request) else False })
   else:
-    return render_to_response(request, 'pingpong/index.html',
-      { 'isMobile': True if is_mobile_browser(request) else False })
-
+    if is_mobile_browser(request):
+		  return render_to_response(request, 'pingpong/mobile.html')
+    else:
+		  return render_to_response(request, 'pingpong/index.html')
+			
 def home(request):
   if request.user.is_authenticated():
     return render_to_response(request, 'pingpong/index.html')
@@ -72,9 +74,14 @@ def login(request):
       if user.is_active:
         auth_login(request, user)
         return HttpResponseRedirect('/')
-    return render_to_response(request, 'pingpong/index.html',
-      { 'login_error': 'Your username or password was invalid',
-        'previous_username': request.POST['username'] })
+    if is_mobile_browser(request):
+      return render_to_response(request, 'pingpong/mobile.html',
+        { 'login_error': 'Your username or password was invalid',
+          'previous_username': request.POST['username'] })
+    else:
+		  return render_to_response(request, 'pingpong/index.html',
+        { 'login_error': 'Your username or password was invalid',
+          'previous_username': request.POST['username'] })
   else:
     return HttpResponseRedirect('/')
 
