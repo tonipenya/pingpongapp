@@ -18,7 +18,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, delete_object, \
   update_object
-from pingpong.models import Player, Team, Game, PlayerGame
+from pingpong.models import Player, Team, Game, PlayerGame, UserSettings, \
+  UserPayment
 from pingpong.forms import make_player_form, ContactForm
 from pingpong.rankings import DefaultRankingSystem
 
@@ -48,16 +49,28 @@ def is_mobile_browser(request):
 
 def index(request):
   if request.user.is_authenticated():
+    settings = get_user_settings(request.user)
+    days_remaining = 14
     singles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY singles_ranking_points DESC, name",
                                   owner=request.user)
     doubles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY doubles_ranking_points DESC, name",
                                   owner=request.user)
-    return render_to_response(request, 'pingpong/main.html',
-      { 'singles_players': singles_players, 'doubles_players': doubles_players, 
+    return render_to_response(request, 'pingpong/main.html', {
+      'trial_expired': settings.trial_expired(), 'trial_days_left': settings.trial_days_left(),
+      'in_trial_period': (not settings.has_paid_subscription and not settings.free_account), 
+      'singles_players': singles_players, 'doubles_players': doubles_players, 
       'isMobile': True if is_mobile_browser(request) else False })
   else:
     return render_to_response(request, 'pingpong/index.html',
       { 'isMobile': True if is_mobile_browser(request) else False })
+
+def get_user_settings(user):
+  key_name = '%s_settings' % str(user.key())
+  settings = UserSettings.get_by_key_name(key_name)
+  if settings is None:
+    settings = UserSettings(key_name=key_name, user=user)
+    settings.put()
+  return settings
 
 def home(request):
   if request.user.is_authenticated():
@@ -269,14 +282,14 @@ def ipn(request):
       user_key = parameters['custom']
       user_paying = get_object(User, user_key)
       if user_paying:
+
         # TODO: Upgrade the user's account...
+        # Save a UserPayment entity and update the UserSettings entity associated with the user
         logging.info("TODO: Upgrade user's account - username: %s" % user_paying.username)
         
         return HttpResponse("Ok")
-        
       else:
         logging.error("Could not find user with key: %s" % user_key)
-
   except:
     logging.exception('There was a problem with PayPal IPN')
   return HttpResponseServerError("Error")

@@ -1,25 +1,33 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
   <div class="core_main">
 		<div id="message" class="core_message core_radius_bottom6" style="display: none;">Loading...</div>
 		<div id="core_loading" class="core_loading" style="display: none;">Loading...</div>
 		<div id="popup_container"></div>
-	
-		<!-- // Nav ////////////////////////////////////////////// -->
+
+    <!-- Nav -->
 		<div class="nav">
 			<div class="nav_container">
 				<a href="" class="nav_singles core_left nav_down core_radius8">Singles</a>
 				<a href="" class="nav_doubles core_left nav_up core_radius8">Doubles</a>
+				{% if not trial_expired %}
 				<div class="core_right core_add"><a href="" onclick="showPopup('add', '/score/add', ''); return false;" class="nav_add core_radius8">Add score</a></div>
+				{% endif %}
 				<div class="core_left nav_links">
 					<a href="{% url pingpong.views.home %}" class="links">Home</a>
 					<a href="#" onclick="showPopup('settings', '{% url pingpong.views.settings %}', ''); return false;" class="links">Settings</a>
 					<a href="#" class="links" onclick="logOut('{% url django.contrib.auth.views.logout %}'); return false;">Logout</a> 
 				</div>
-				<!-- Show when in trial mode - up to 14 days after signup date -->
-				<div class="nav_trial">14 trial days left - <a href="" onclick="showPopup('upgrade', '{% url pingpong.views.upgrade %}', ''); return false;"><strong>upgrade now</strong></a></div>
+				{% if in_trial_period %}
+				<div class="nav_trial">
+				  {% if not trial_expired %}
+				  {{ trial_days_left }} day{{ trial_days_left|pluralize }} left - 
+				  {% else %}
+				  Your trial has expired - 
+				  {% endif %}
+				  <a href="" onclick="showPopup('upgrade', '{% url pingpong.views.upgrade %}', ''); return false;"><strong>Upgrade now</strong></a></div>
+				{% endif %}
 				<div class="core_clear"></div>
 			</div>
 		</div>	
@@ -56,7 +64,7 @@
 		{% endifnotequal %}
 		{% endif %}
 	</div>
-	<!-- // Footer ///////////////////////////////// -->
+	<!-- Footer -->
 	<div class="core_right nav_links_m">
 		<a href="{% url pingpong.views.home %}" class="links">Home</a>
 		<a href="#" onclick="showPopup('settings', '{% url pingpong.views.settings %}', ''); return false;" class="links settings_link">Settings</a>

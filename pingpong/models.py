@@ -1,5 +1,31 @@
+from datetime import datetime, timedelta
 from google.appengine.ext import db
 from django.contrib.auth.models import User
+
+class UserSettings(db.Model):
+  # key_name is generated as follows: '%s_settings' % str(user.key())
+  user = db.ReferenceProperty(User)
+  signup_date = db.DateTimeProperty(auto_now_add=True)
+  has_paid_subscription = db.BooleanProperty(default=False)
+  free_account = db.BooleanProperty(default=False)
+  
+  def trial_days_left(self):
+    end = self.signup_date + timedelta(days=14) # 14 day trial period
+    delta = end - datetime.now()
+    return 0 if delta.days <= 0 else delta.days
+
+  def trial_expired(self):
+    return self.trial_days_left() == 0
+
+class UserPayment(db.Model):
+  user = db.ReferenceProperty(User)
+  date = db.DateTimeProperty(auto_now_add=True)
+  transaction_id = db.StringProperty(required=True)
+  currency = db.StringProperty(required=True)
+  amount = db.FloatProperty(required=True)
+  fee = db.FloatProperty(required=True)
+  email = db.StringProperty(required=True)
+  payer_id = db.StringProperty(required=True)
 
 class Player(db.Model):
   owner = db.ReferenceProperty(User, collection_name="player_owner_set")
