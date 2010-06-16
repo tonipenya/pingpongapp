@@ -50,7 +50,6 @@ def is_mobile_browser(request):
 def index(request):
   if request.user.is_authenticated():
     settings = get_user_settings(request.user)
-    days_remaining = 14
     singles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY singles_ranking_points DESC, name",
                                   owner=request.user)
     doubles_players = Player.gql("WHERE owner = :owner AND active = True ORDER BY doubles_ranking_points DESC, name",
@@ -61,9 +60,11 @@ def index(request):
       'singles_players': singles_players, 'doubles_players': doubles_players, 
       'isMobile': True if is_mobile_browser(request) else False })
   else:
-    return render_to_response(request, 'pingpong/index.html',
-      { 'isMobile': True if is_mobile_browser(request) else False })
-
+    if is_mobile_browser(request):
+		  return render_to_response(request, 'pingpong/mobile.html')
+    else:
+		  return render_to_response(request, 'pingpong/index.html')
+			
 def get_user_settings(user):
   key_name = '%s_settings' % str(user.key())
   settings = UserSettings.get_by_key_name(key_name)
@@ -85,9 +86,14 @@ def login(request):
       if user.is_active:
         auth_login(request, user)
         return HttpResponseRedirect('/')
-    return render_to_response(request, 'pingpong/index.html',
-      { 'login_error': 'Your username or password was invalid',
-        'previous_username': request.POST['username'] })
+    if is_mobile_browser(request):
+      return render_to_response(request, 'pingpong/mobile.html',
+        { 'login_error': 'Your username or password was invalid',
+          'previous_username': request.POST['username'] })
+    else:
+      return render_to_response(request, 'pingpong/index.html',
+        { 'login_error': 'Your username or password was invalid',
+          'previous_username': request.POST['username'] })
   else:
     return HttpResponseRedirect('/')
 
@@ -282,7 +288,6 @@ def ipn(request):
       user_key = parameters['custom']
       user_paying = get_object(User, user_key)
       if user_paying:
-
         # TODO: Upgrade the user's account...
         # Save a UserPayment entity and update the UserSettings entity associated with the user
         logging.info("TODO: Upgrade user's account - username: %s" % user_paying.username)
