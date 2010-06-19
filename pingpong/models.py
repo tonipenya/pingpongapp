@@ -1,6 +1,29 @@
 from datetime import datetime, timedelta
 from google.appengine.ext import db
 from django.contrib.auth.models import User
+from paypal.standard.ipn.signals import payment_was_successful, \
+  subscription_signup
+from ragendja.dbutils import get_object
+import logging
+
+def on_payment_success(sender, **kwargs):
+  ipn = sender
+  user_paying = get_object(User, ipn.custom) # custom parameter stores the user key
+  if user_paying:
+    key_name = '%s_settings' % str(user_paying.key())
+    settings = UserSettings.get_by_key_name(key_name)
+    if settings:
+      
+      # TODO: Other checks...
+      
+      settings.has_paid_subscription = True
+      settings.put()
+
+def on_subscription_signup(sender, **kwargs):
+  logging.info("subscription_signup signal received...")
+
+payment_was_successful.connect(on_payment_success)
+subscription_signup.connect(on_subscription_signup)
 
 class UserSettings(db.Model):
   # key_name is generated as follows: '%s_settings' % str(user.key())
@@ -16,16 +39,6 @@ class UserSettings(db.Model):
 
   def trial_expired(self):
     return self.trial_days_left() == 0
-
-class UserPayment(db.Model):
-  user = db.ReferenceProperty(User)
-  date = db.DateTimeProperty(auto_now_add=True)
-  transaction_id = db.StringProperty(required=True)
-  currency = db.StringProperty(required=True)
-  amount = db.FloatProperty(required=True)
-  fee = db.FloatProperty(required=True)
-  email = db.StringProperty(required=True)
-  payer_id = db.StringProperty(required=True)
 
 class Player(db.Model):
   owner = db.ReferenceProperty(User, collection_name="player_owner_set")

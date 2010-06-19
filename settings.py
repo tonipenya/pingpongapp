@@ -103,6 +103,7 @@ INSTALLED_APPS = (
     'registration',
     'mediautils',
     'gaebar',
+    'paypal.standard.ipn',
 )
 
 # List apps which should be left out from app settings and urlsauto loading
@@ -159,9 +160,8 @@ GAEBAR_MODELS = (
   ),
 )
 
-# Paypal-related settings
-PP_URL = "https://www.sandbox.paypal.com/cgi-bin/webscr"
-#PP_URL = "https://www.paypal.com/cgi-bin/webscr"
-PP_BUSINESS_EMAIL = "pingpo_1276498886_biz@gmail.com"
-#PP_BUSINESS_EMAIL = "pingpongapp@gmail.com"
+# Paypal settings
 MONTHLY_PRICE = 8.95
+PAYPAL_RECEIVER_EMAIL = "pingpo_1276498886_biz@gmail.com"
+#PAYPAL_RECEIVER_EMAIL = "pingpongapp@gmail.com"
+PAYPAL_NOTIFY_URL = "http://www.pingpongninja.com/ipn/"

@@ -18,10 +18,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, delete_object, \
   update_object
-from pingpong.models import Player, Team, Game, PlayerGame, UserSettings, \
-  UserPayment
+from pingpong.models import Player, Team, Game, PlayerGame, UserSettings
 from pingpong.forms import make_player_form, ContactForm
 from pingpong.rankings import DefaultRankingSystem
+from paypal.standard.forms import PayPalPaymentsForm
 
 mobile_uas = [
   'w3c ','acs-','alav','alca','amoi','audi','avan','benq','bird','blac',
@@ -245,60 +245,29 @@ def upgrade(request):
 @login_required
 def paypal(request):
   from django.conf import settings
-  from appenginepatcher import on_production_server
-  return render_to_response(request, 'pingpong/paypal.html',
-    { 'price': settings.MONTHLY_PRICE, 'business': settings.PP_BUSINESS_EMAIL,
-      'notify_url': 'http://www.pingpongninja.com/ipn' })
+  vals = {
+    "cmd": "_xclick-subscriptions",
+    "business": settings.PAYPAL_RECEIVER_EMAIL,
+    "item_number": "1",
+    "item_name": "PingPongNinja.com - $%s/mo - cancel anytime" % settings.MONTHLY_PRICE,
+    "no_shipping": "1",
+    "rm": "2",
+    "a3": settings.MONTHLY_PRICE,
+    "p3": "1",
+    "t3": "M",
+    "src": "1",
+    "sra": "1",
+    "no_note": "1",
+    "custom": str(request.user.key()),
+    "page_style": "primary",
+    "return_url": "http://www.pingpongninja.com/",
+    "cancel_return": "http://www.pingpongninja.com/",
+    "notify_url": settings.PAYPAL_NOTIFY_URL,
+  }
+  form = PayPalPaymentsForm(initial=vals)
+  context = { "form": form }
+  return render_to_response(request, 'pingpong/paypal.html', context)
 
-def ipn(request):
-  from django.conf import settings
-  parameters = None
-  try:
-    if request.POST:
-      payment_status = request.POST['payment_status']
-    else:
-      payment_status = request.GET['payment_status']
-    if payment_status == 'Completed':
-      if request.POST:
-        parameters = request.POST.copy()
-      else:
-        parameters = request.GET.copy()
-    else:
-      logging.error("IPN error: The parameter payment_status was not Completed.")
-
-    if parameters:
-      parameters['cmd']='_notify-validate'
-
-      params = urllib.urlencode(parameters)
-      req = urllib2.Request(settings.PP_URL, params)
-      req.add_header("Content-type", "application/x-www-form-urlencoded")
-      response = urllib2.urlopen(req)
-      status = response.read()
-      if not status == "VERIFIED":
-        print "The request could not be verified, check for fraud." + str(status)
-        parameters = None
-
-    if parameters:
-      reference = parameters['txn_id']
-      currency = parameters['mc_currency']
-      amount = parameters['mc_gross']
-      fee = parameters['mc_fee']
-      email = parameters['payer_email']
-      identifier = parameters['payer_id']
-      user_key = parameters['custom']
-      user_paying = get_object(User, user_key)
-      if user_paying:
-        # TODO: Upgrade the user's account...
-        # Save a UserPayment entity and update the UserSettings entity associated with the user
-        logging.info("TODO: Upgrade user's account - username: %s" % user_paying.username)
-        
-        return HttpResponse("Ok")
-      else:
-        logging.error("Could not find user with key: %s" % user_key)
-  except:
-    logging.exception('There was a problem with PayPal IPN')
-  return HttpResponseServerError("Error")
-  
 def terms(request):
   return render_to_response(request, 'pingpong/terms.html')
   
