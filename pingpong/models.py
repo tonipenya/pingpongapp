@@ -1,29 +1,39 @@
 from datetime import datetime, timedelta
 from google.appengine.ext import db
 from django.contrib.auth.models import User
-from paypal.standard.ipn.signals import payment_was_successful, \
-  subscription_signup
+from paypal.standard.ipn.signals import *
 from ragendja.dbutils import get_object
 import logging
 
-def on_payment_success(sender, **kwargs):
-  ipn = sender
+def get_user_settings_from_ipn(ipn):
+  settings = None
   user_paying = get_object(User, ipn.custom) # custom parameter stores the user key
   if user_paying:
     key_name = '%s_settings' % str(user_paying.key())
     settings = UserSettings.get_by_key_name(key_name)
-    if settings:
-      
-      # TODO: Other checks...
-      
-      settings.has_paid_subscription = True
-      settings.put()
+  return settings
 
-def on_subscription_signup(sender, **kwargs):
-  logging.info("subscription_signup signal received...")
+def on_payment_was_successful(sender, **kwargs):
+  settings = get_user_settings_from_ipn(sender)
+  if settings:
+    settings.has_paid_subscription = True
+    settings.put()
 
-payment_was_successful.connect(on_payment_success)
-subscription_signup.connect(on_subscription_signup)
+def on_subscription_cancel(sender, **kwargs):
+  settings = get_user_settings_from_ipn(sender)
+  if settings:
+    settings.has_paid_subscription = False
+    settings.put()
+
+def on_subscription_eot(sender, **kwargs):
+  settings = get_user_settings_from_ipn(sender)
+  if settings:
+    settings.has_paid_subscription = False
+    settings.put()
+
+payment_was_successful.connect(on_payment_was_successful)
+subscription_cancel.connect(on_subscription_cancel)
+subscription_eot.connect(on_subscription_eot)
 
 class UserSettings(db.Model):
   # key_name is generated as follows: '%s_settings' % str(user.key())
