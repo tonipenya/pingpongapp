@@ -162,6 +162,6 @@ GAEBAR_MODELS = (
 
 # Paypal settings
 MONTHLY_PRICE = 8.95
-PAYPAL_RECEIVER_EMAIL = "pingpo_1276498886_biz@gmail.com"
-#PAYPAL_RECEIVER_EMAIL = "pingpongapp@gmail.com"
+#PAYPAL_RECEIVER_EMAIL = "pingpo_1276498886_biz@gmail.com"
+PAYPAL_RECEIVER_EMAIL = "pingpongapp@gmail.com"
 PAYPAL_NOTIFY_URL = "http://www.pingpongninja.com/ipn/"
