@@ -149,9 +149,6 @@ def settings(request):
 def is_valid_email(email):
     return True if email_re.match(email) else False
 
-def signup(request):
-  return render_to_response(request, 'pingpong/signup.html')
-
 @login_required
 def add_score(request):
   if request.method != 'POST':
@@ -276,9 +273,6 @@ def privacy(request):
   
 def about(request):
   return render_to_response(request, 'pingpong/about.html')
-	
-def signup_thanks(request):
-  return render_to_response(request, 'pingpong/signup_thanks.html')
 
 def contact(request):
   if request.method == 'POST':

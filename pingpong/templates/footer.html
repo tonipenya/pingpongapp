@@ -6,7 +6,7 @@
 		<a href="{% url pingpong.views.privacy %}">Privacy policy</a>
 	</div>
 	<div class="core_tryit core_right">
-		<a href="" onClick="showPopup('signup', '{% url pingpong.views.signup %}', 'name'); return false;"><img src="{{ MEDIA_URL }}pingpong/images/home_try_it_free.jpg" width="239" height="45" /></a>
+		<a href="{% url registration.views.register %}"><img src="{{ MEDIA_URL }}pingpong/images/home_try_it_free.jpg" width="239" height="45" /></a>
 	</div>
 	<div class="core_clear"></div>
 	<span class="cancel core_right">Then <script>utmx_section("base")</script><span id="price">$8.95</span></noscript>/ mo. Cancel anytime - no hassle.</span>
