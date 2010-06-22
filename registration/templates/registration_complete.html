@@ -1,8 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Activation required{% endblock %}
+
+{% block body-atts %} id="home"{% endblock %}
 
 {% block content %}
-<h1>Activation required</h1>
-<p>In order to activate your account please check your email and click on the activation link.</p>
-{% endblock content %}
- 
+{% include 'top.html' %}
+<div class="container core_privacy">
+  <div class="core_content core_radius6">
+    <h1>Activation required</h1>
+    <p>In order to activate your account please check your email and click on the activation link.</p>
+  </div>
+</div>
+{% include 'footer.html' %}
+{% endblock %}

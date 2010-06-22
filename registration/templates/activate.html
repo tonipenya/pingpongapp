@@ -1,12 +1,19 @@
 {% extends "base.html" %}
-{% block title %}{% if account %}Activation successful{% else %}Activation failed :({% endif %}{% endblock %}
+
+{% block body-atts %} id="home"{% endblock %}
 
 {% block content %}
-{% if account %}
-  <h1>Activation successful</h1>
-  <p>Congratulations, {{ account.username }}. Your account has been created successfully.</p>
-{% else %}
-  <h1>Activation failed :(</h1>
-  <p>Sorry, there were problems with the activation. Please make sure that the activation link was opened correctly in your Browser. Please be also aware that activation links expire automatically.</p>
-{% endif %}
-{% endblock content %}
+{% include 'top.html' %}
+<div class="container core_privacy">
+  <div class="core_content core_radius6">
+    {% if account %}
+      <h1>Activation successful</h1>
+      <p>Congratulations, {{ account.username }}. Your account has been created successfully.</p>
+    {% else %}
+      <h1>Activation failed :(</h1>
+      <p>Sorry, there were problems with the activation. Please make sure that the activation link was opened correctly in your Browser. Please be also aware that activation links expire automatically.</p>
+    {% endif %}
+  </div>
+</div>
+{% include 'footer.html' %}
+{% endblock %}
