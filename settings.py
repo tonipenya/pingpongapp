@@ -24,7 +24,7 @@ COMBINE_MEDIA = {
 
 # Change your email settings
 if on_production_server:
-    DEFAULT_FROM_EMAIL = 'support@pingpongapp.com'
+    DEFAULT_FROM_EMAIL = 'support@pingpongninja.com'
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # Make this unique, and don't share it with anybody.
@@ -163,5 +163,5 @@ GAEBAR_MODELS = (
 # Paypal settings
 MONTHLY_PRICE = 8.95
 #PAYPAL_RECEIVER_EMAIL = "pingpo_1276498886_biz@gmail.com"
-PAYPAL_RECEIVER_EMAIL = "pingpongapp@gmail.com"
+PAYPAL_RECEIVER_EMAIL = "account@pingpongninja.com"
 PAYPAL_NOTIFY_URL = "http://www.pingpongninja.com/ipn/"
