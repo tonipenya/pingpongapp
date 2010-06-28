@@ -101,7 +101,7 @@ td { vertical-align: top; }
 .core_the_rest .points { float: right; font-weight: bold; margin: 21px 23px 0 0; }
 .core_the_rest .rank { width: 30px; float: left; margin: 21px 0 0 23px; }
 .core_the_rest td { width: 33%; }
-.core_top_three { padding: 23px; min-width: 485px; margin: 0 39px 16px 0; font-size: 26px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2E3135), to(#0E1112)); background-image: -moz-linear-gradient(0% 100% 90deg,#0E1112, #2E3135); }
+.core_top_three { padding: 23px; min-width: 485px; margin: 0 39px 16px 0; font-size: 26px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#24272B), to(#0E1112)); background-image: -moz-linear-gradient(0% 100% 90deg,#0E1112, #24272B); }
 .core_top_three li { padding: 18px 20px; min-width: 300px; margin-bottom: 23px; cursor: pointer; text-shadow: 2px 2px 3px #1C1C1C; border-top: 2px solid #2C2C2C; border-left: 2px solid #2C2C2C; border-bottom: 1px solid #3C3F44; border-right: 1px solid #3C3F44; -moz-box-shadow: #1B1B1B 2px 2px 2px 0 inset; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#282B2E), to(#1E2123)); background-image: -moz-linear-gradient(0% 100% 90deg,#1E2123, #282B2E); }
 .core_top_three li .name { float: left; font-size: 33px; width: 45%; font-weight: bold; padding: 10px 0; margin: 7px 0 0 46px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .core_top_three li .points { float: right; font-size: 33px; font-weight: bold; margin: 15px 0 0 0; }
