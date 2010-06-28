@@ -60,10 +60,11 @@ def index(request):
       'singles_players': singles_players, 'doubles_players': doubles_players, 
       'isMobile': True if is_mobile_browser(request) else False })
   else:
+    from django.conf import settings
     if is_mobile_browser(request):
-		  return render_to_response(request, 'pingpong/mobile.html')
+		  return render_to_response(request, 'pingpong/mobile.html', { 'price': settings.MONTHLY_PRICE })
     else:
-		  return render_to_response(request, 'pingpong/index.html')
+		  return render_to_response(request, 'pingpong/index.html', { 'price': settings.MONTHLY_PRICE })
 			
 def get_user_settings(user):
   key_name = '%s_settings' % str(user.key())
@@ -74,8 +75,9 @@ def get_user_settings(user):
   return settings
 
 def home(request):
+  from django.conf import settings
   if request.user.is_authenticated():
-    return render_to_response(request, 'pingpong/index.html')
+    return render_to_response(request, 'pingpong/index.html', { 'price': settings.MONTHLY_PRICE })
   else:
     return HttpResponseRedirect('/')
 
@@ -266,7 +268,8 @@ def paypal(request):
   return render_to_response(request, 'pingpong/paypal.html', context)
 
 def terms(request):
-  return render_to_response(request, 'pingpong/terms.html')
+  from django.conf import settings
+  return render_to_response(request, 'pingpong/terms.html', { 'price': settings.MONTHLY_PRICE })
   
 def privacy(request):
   return render_to_response(request, 'pingpong/privacy.html')
@@ -317,7 +320,6 @@ def player_stats(request, key):
   pgs = PlayerGame.gql("WHERE player = :player ORDER BY date_played DESC LIMIT 20", player=player)
   for pg in pgs:
     games.append(pg)
-
   return render_to_response(request, 'pingpong/player_stats.html',
-    { 'player': player, 'singles_ranking': singles_ranking, 'doubles_ranking': doubles_ranking, 
-    'games': games })
+    { 'player': player, 'singles_ranking': singles_ranking, 
+      'doubles_ranking': doubles_ranking, 'games': games })

@@ -8,14 +8,14 @@
 		<div class="container main">
 			<div class="main_signup">
 				<a href="{% url registration.views.register %}"><img src="{{ MEDIA_URL }}pingpong/images/home_signup.png" height="55" width="249" /></a>
-				Then $8.95/ mo. Cancel anytime - no hassle. 
+				Then ${{ price }}/ mo. Cancel anytime - no hassle. 
 			</div>
 		</div>
 	</div>
 	<div class="container features">
 		<div class="unlimited mr15">
 			<h2>Unlimited players &amp; games</h2>
-			<p>You can add unlimited players and list unlimited games for just <span id="price">$8.95</span>/mo.  Cancel anytime and take your data with you.</p>
+			<p>You can add unlimited players and list unlimited games for just <span id="price">${{ price }}</span>/mo.  Cancel anytime and take your data with you.</p>
 		</div>
 		<div class="free mr20">
 			<h2>14 day free trial</h2>
@@ -35,8 +35,8 @@
 		</div>
 		<div class="tv">
 			<img src="{{ MEDIA_URL }}pingpong/images/home_screen_tv.jpg" height="252" width="390" style="margin-bottom: 23px;" />
-			<h3>Beautiful on a touch screen TV</h3>
-			<p>PingPongNinja was designed from the ground up to be used in the office.  There's nothing cooler than using a flat-panel TV to enter your scores after each game?</p>
+			<h3>Beautiful on a touch screen</h3>
+			<p>PingPongNinja was designed from the ground up to be used in the office.  There's nothing cooler than using a touch screen to enter your scores after each game!</p>
 			<span class="core_right"><a href="{% url registration.views.register %}"><img src="{{ MEDIA_URL }}pingpong/images/home_signup.png" height="55" width="249" /></a></span>
 		</div>
 		<div class="core_clear"></div>
