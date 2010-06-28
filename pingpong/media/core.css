@@ -137,6 +137,7 @@ body#home .headline { background: #13181C url("images/home_bg.jpg"); padding: 37
 body#home .login { position: relative; float: right; margin: 17px 0 0 0; }
 body#home .login input { float: right; }
 body#home .login_fields { font-size: 15px; padding: 5px 8px 6px 8px; margin: 3px 5px 0 0; width: 108px; }
+body#home .logged_in { margin-top: 37px; }
 body#home .logo { text-align: left; height: 96px; }
 body#home .main { position: relative; background: url("images/home_main.png") 0 0 no-repeat; height: 357px; }
 body#home .main_signup { position: absolute; top: 199px; left: 0; font-size: 12px; color: #ACACAC; }
@@ -148,7 +149,7 @@ body#home .screens p { margin-bottom: 23px; }
 body#home .screens .adding { width: 543px; margin-right: 40px; }
 body#home .screens .tv { width: 390px; }
 body#home .top { background: #121618; height: 96px; border-bottom: 1px solid #1C2226; }
-body#home .username_placeholder { color: #CCCCCC; font-size: 15px; position: absolute; top: 26px; right: 247px; z-index: 1000; }
+body#home .username_placeholder { color: #CCCCCC; font-size: 15px; position: absolute; top: 28px; right: 249px; z-index: 1000; }
 /* =========================================
     Loader
    ========================================= */

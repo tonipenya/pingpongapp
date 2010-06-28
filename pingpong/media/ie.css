@@ -53,9 +53,11 @@ img { -ms-interpolation-mode: bicubic; }
 /* Our styles
 -------------------------------------------------------------- */
 
-body#home .login { width: 255px; }
+body#home .features { padding-bottom: 27px; }
+body#home .foot { padding-top: 10px; padding-bottom: 37px; }
+body#home .login { width: 355px; }
 body#home .login_box { width: 255px; }
-body#home .top { background: #242424; }
+body#home .screens { padding-bottom: 0; }
 
 .core_the_rest { background: #202020; }
 .core_the_rest .name, .core_the_rest .rank { padding: 5px 0; margin-top: 18px; }

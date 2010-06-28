@@ -55,7 +55,7 @@
 				</form>
 			</div>
 			{% else %}
-    	<div class="logged_in"> Welcome {{ user.username }}! &nbsp;&nbsp;<a href="{% url pingpong.views.index %}">My dashboard</a> | <a href="{% url django.contrib.auth.views.logout %}">Logout</a> </div>
+    	<div class="logged_in core_right"> Welcome {{ user.username }}! &nbsp;&nbsp;<a href="{% url pingpong.views.index %}">My dashboard</a> | <a href="{% url django.contrib.auth.views.logout %}">Logout</a> </div>
     	{% endif %}
 			<a href="{% url pingpong.views.index %}"><img src="{{ MEDIA_URL }}pingpong/images/home_logo.png" width="282" height="48" alt="PingPongNinja - In-Office Ping Pong Rankings" style="margin-top: 23px;" /></a>
 		</div>
