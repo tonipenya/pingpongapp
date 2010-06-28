@@ -1,9 +1,12 @@
-<script>
+	<script type="text/javascript">
 		$(document).ready(function () {
 			// Login events
 			if ($("#uname").val().length > 0) {
 				$(".username_placeholder").hide();
 			}
+			$("#uname").blur(function () {
+				checkUsernameLength();
+			});
 			$("#login_button").live("mouseover", function () {
 				$("#login_button").attr("src", "{{ MEDIA_URL }}pingpong/images/home_login_on.jpg");
 			});
@@ -35,6 +38,11 @@
 				}
 			});
 		});
+		function checkUsernameLength() {
+			if ($("#uname").val().length === 0) {
+				$(".username_placeholder").show();
+			}
+		}
 	</script>
 	<div class="top">
 		<div class="container logo">
@@ -49,7 +57,7 @@
 						{% endif %}
 					</div>
 					<span class="username_placeholder">Username</span>
-					<input id="login_button" type="image" tabindex="3" src="{{ MEDIA_URL }}pingpong/images/home_login_off.jpg" />
+					<input id="login_button" class="login_button" type="image" tabindex="3" src="{{ MEDIA_URL }}pingpong/images/home_login_off.jpg" />
 					<input id="passw" class="login_fields" name="password" tabindex="2" type="password" value="Password" />
 					<input id="uname" class="login_fields" name="username" tabindex="1" type="text" {% if previous_username %}value="{{ previous_username }}"{% endif %} />
 				</form>
