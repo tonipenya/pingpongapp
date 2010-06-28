@@ -4,7 +4,7 @@
 html { height: 100%; }
 html.core_fixed_nav { overflow: hidden; }
 body, div, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, p, blockquote, th, td { margin: 0; padding: 0; }
-body { background: #333; font-family: Georgia, Arial, Helvetica, sans-serif; font-size:12px; color: #FFF; line-height:1.5em; height: 100%; }
+body { -webkit-font-smoothing: antialiased; background: #333; font-family: Georgia, Arial, Helvetica, sans-serif; font-size:12px; color: #FFF; line-height:1.5em; height: 100%; }
 a { color: #FFF; }
 a:hover { text-decoration: none; } 
 th { font-style: inherit; font-weight: inherit; }
@@ -14,8 +14,8 @@ input.pads { padding: 3px 5px; margin: 0 10px 4px 0; -moz-border-radius:3px; bor
 input[type=text]:focus, input[type=password]:focus { outline: none; border: 2px solid #0099CC; }
 input.fat { padding: 3px 5px; margin: 0 10px 4px 0; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px }
 input.med { width: 200px; }
-label { font-size: 13px; font-weight: bold; }
-label.error { color: #993300; font-weight: normal; font-size: 12px; line-height: 23px; font-family: Arial, Helvetica, sans-serif; }
+label { float:left; font-family: Georgia, "Times New Roman", Times, serif; font-size:13px; font-weight:bold; }
+label.error { float: none; display: block; color: #993300; font-weight: normal; font-size: 12px; line-height: 23px; font-family: Arial, Helvetica, sans-serif; }
 ul.errorlist li { list-style: none outside none; color: #993300; font-weight: bold; font-size: 12px; line-height: 23px; font-family: Arial, Helvetica, sans-serif; }
 /* label { color: #333; display: block; font-weight: bold; margin: 0 0 5px 0; } */
 h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
@@ -64,9 +64,10 @@ td { vertical-align: top; }
 .core_box_side li { list-style-type: square; margin-left: 16px; }
 .core_box_side p, .core_box_side ul { font-size: 95%; margin: 13px 0 23px 0; }
 .core_center { text-align: center; }
-.core_clear { clear: both; }
+.core_clear { clear: both; float: none !important; }
 .core_container { margin: 0 auto; text-align: left; min-width: 550px; height: 69px; padding: 25px 35px 25px 39px; }
-.core_content { background: #FFF; padding: 23px; }
+.core_content { background: #FFF; padding: 37px; text-align: left; }
+.core_content h1 { font-size: 23px; font-family: Georgia, "Times New Roman", Times, serif; color: #555; }
 .core_error { color: #993300; font-weight: normal; font-size: 12px; line-height: 23px; font-family: Arial, Helvetica, sans-serif; }
 .core_last { float: right; padding: 10px 4px 17px 0; text-align: center; width: 75px; margin: 3px 23px 0 0; color: #8DC754; text-shadow: 2px 2px 3px #1C1C1C; border-top: 2px solid #212121; border-left: 2px solid #212121; border-bottom: 1px solid #424242; border-right: 1px solid #424242; -moz-box-shadow: #1B1B1B 2px 2px 2px 0 inset; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#303030), to(#2B2B2B)); background-image: -moz-linear-gradient(0% 100% 90deg,#2B2B2B, #303030); }
 .core_left { float: left; }
@@ -121,31 +122,33 @@ h1#core_message { font-size: 33px; margin: 39px; }
 /* =========================================
     HOME
    ========================================= */
-body#home { background: #2E2E2E; font-family: Helvetica, Arial, sans-serif; }
-body#home h1 { font-family: Georgia, "Times New Roman", Times, serif; font-size: 27px; margin-top: 8px; }
-body#home h2 { font-size: 16px; font-weight: bold; margin: 0; padding: 0; }
-body#home label { display: block; font-weight: bold; }
-body#home p { color: #ACACAC; font-size: 12px; line-height: 20px; }
-body#home .cancel { color: #ACACAC; display: block; margin: 13px 0 43px 0; font-size: 12px; font-family: Helvetica, Arial, sans-serif; }
-body#home .container { width: 812px; margin: 0 auto; padding: 43px 0; }
-body#home .copy { width: 314px; float: left; line-height: 26px; margin-top: -4px; }
-body#home .feature { margin-top: 33px; }
-body#home .hosted { background: url(images/home_icon_hosted.jpg) no-repeat; padding-left: 80px; }
-body#home .intro { font-size: 16px; }
-body#home .links { float: left; }
-body#home .links a { margin-right: 13px; }
-body#home .login { float: right; margin-top: 3px; }
-body#home .login .small { font-size: 13px; padding: 4px; width: 85px; margin-right: 3px; }
-html>/**/body#home .login .small, x:-moz-any-link, x:default { padding: 5px 4px; }
-body#home .logo { margin: 0 auto; width: 812px; padding: 23px 0 21px 0; }
-body#home .popup li, body#home .popup p { color: #666; font-size: 12px; }
-body#home .signup { color: #888; margin: 0 0 8px 0; font-size: 14px; }
-body#home .signup_box { float: right; margin-top: 17px; }
-body#home .top { background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3B3B3B), to(#141414)); background-image: -moz-linear-gradient(0% 100% 90deg,#141414, #3b3b3b); }
-body#home .trial { background: url(images/home_icon_trial.jpg) no-repeat; padding-left: 80px; }
-body#home .unlimited { background: url(images/home_icon_unlimited.jpg) no-repeat; padding-left: 80px; }
-body#home .logged_in { font-size: 14px; }
-body#home .terms_of_use { font-size: 14px; }
+body#home { background: #121618; font-family: Helvetica, Arial, sans-serif; text-align: center; }
+body#home .container { margin: 0 auto; width: 973px; text-align: center; }
+body#home .errors { color: #FF2F2F; font-size: 12px; width: 310px; overflow: hidden; white-space: nowrap; text-align: left; }
+body#home .features { border-bottom: 1px solid #000; padding: 37px 0; }
+body#home .features div { float: left; width: 247px; text-align: left; color: #ACACAC; }
+body#home .features h2 { font-size: 14px; font-weight: bold; color: #FFF; margin-bottom: 5px; }
+body#home .features .free { background: url("images/home_icon_free.gif") no-repeat; padding-left: 64px; }
+body#home .features .remote { background: url("images/home_icon_remote.gif") no-repeat; padding-left: 63px; }
+body#home .features .unlimited { background: url("images/home_icon_unlimited.gif") no-repeat; padding-left: 60px; }
+body#home .foot { padding-top: 37px; margin-bottom: 37px; text-align: left; }
+body#home .foot a { margin-right: 17px; }
+body#home .headline { background: #13181C url("images/home_bg.jpg"); padding: 37px 0; border-bottom: 1px solid #21292E; }
+body#home .login { position: relative; float: right; margin: 17px 0 0 0; }
+body#home .login input { float: right; }
+body#home .login_fields { font-size: 15px; padding: 5px 8px 6px 8px; margin: 3px 5px 0 0; width: 108px; }
+body#home .logo { text-align: left; height: 96px; }
+body#home .main { position: relative; background: url("images/home_main.png") 0 0 no-repeat; height: 357px; }
+body#home .main_signup { position: absolute; top: 199px; left: 0; font-size: 12px; color: #ACACAC; }
+body#home .main_signup a { display: block; }
+body#home .screens { border-top: 1px solid #21292E; border-bottom: 1px solid #000; padding: 37px 0; color: #ACACAC; font-size: 14px; }
+body#home .screens h3 { font-size: 18px; color: #FFF; margin-bottom: 23px; }
+body#home .screens div { float: left; text-align: left; }
+body#home .screens p { margin-bottom: 23px; }
+body#home .screens .adding { width: 543px; margin-right: 40px; }
+body#home .screens .tv { width: 390px; }
+body#home .top { background: #121618; height: 96px; border-bottom: 1px solid #1C2226; }
+body#home .username_placeholder { color: #CCCCCC; font-size: 15px; position: absolute; top: 26px; right: 247px; z-index: 1000; }
 /* =========================================
     Loader
    ========================================= */
@@ -161,6 +164,8 @@ body#home .terms_of_use { font-size: 14px; }
 .mb8 { margin-bottom: 8px; }
 .mb_extra { margin-bottom: 23px; }
 .mb_supa { margin-bottom: 46px; }
+.mr15 { margin-right: 15px; }
+.mr20 { margin-right: 20px; }
 .mt11 { margin-top: 11px; }
 /* =========================================
     NAV

@@ -14,12 +14,24 @@
 </head>
 <body id="home">
   <div class="top">
-  	<div class="logo">
-  		<img src="{{ MEDIA_URL }}pingpong/images/home_logo.gif" width="286" height="75" alt="PingPongNinja - In-Office Ping Pong Rankings" />
-  	</div>
-  </div>
-  <div class="container">
-	<h1 style="margin-bottom: 23px;">Oops - we can't find what you're looking for.</h1>
-	<object width="640" height="480"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=2747427&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1&amp;group_id=" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=2747427&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1&amp;group_id=" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="640" height="480"></embed></object>
-  </div></body>
+		<div class="container logo">
+			<a href="{% url pingpong.views.index %}"><img src="{{ MEDIA_URL }}pingpong/images/home_logo.png" width="282" height="48" alt="PingPongNinja - In-Office Ping Pong Rankings" style="margin-top: 23px;" /></a>
+		</div>
+	</div>
+	<div class="headline">
+		<div class="container">
+			<h1 style="margin-bottom: 23px; font-size: 23px; font-family: Georgia !important;">Oops - we can't find what you're looking for.</h1>
+			<object width="640" height="480"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=2747427&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1&amp;group_id=" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=2747427&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1&amp;group_id=" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="640" height="480"></embed></object>
+		</div>
+	</div>
+	<div class="container foot">
+		<div class="links terms_of_use">
+			<a href="{% url pingpong.views.about %}">Our story</a>
+			<a href="{% url pingpong.views.contact %}">Contact us</a>
+			<a href="{% url pingpong.views.terms %}">Terms of use</a>
+			<a href="{% url pingpong.views.privacy %}">Privacy policy</a>
+			<a href="http://twitter.com/ppninja">Follow us on Twitter</a>
+		</div>
+	</div>
+</body>
 </html>

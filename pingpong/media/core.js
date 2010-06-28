@@ -289,22 +289,6 @@ function loginClear (which) {
 		}
 	}
 }
-function loginFormValue () {
-	var loginUsername = $("#loginUsername").val();
-	var loginPassword = $("#loginPassword").val();
-	if (loginUsername === "" || loginUsername === "Username") {
-		$("#loginUsername").val("Username");
-		$("#loginUsername").css("color", "#999");
-	} else {
-		$("#loginUsername").css("color", "#333");
-	}
-	if (loginPassword === "" || loginPassword === "Password") {
-		$("#loginPassword").val("Password");
-		$("#loginPassword").css("color", "#999");
-	} else {
-		$("#loginPassword").css("color", "#333");
-	}
-}
 function doLogin() {
 	$("#popup_login").hide();
 	showMessage('Logging in...');

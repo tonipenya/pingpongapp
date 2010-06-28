@@ -4,18 +4,20 @@
 
 {% block content %}
 {% include 'top.html' %}
-<div class="container core_privacy">
-  <div class="core_content core_radius6">
-  <h1>Our story</h1>
-  <img src="{{ MEDIA_URL }}pingpong/images/david-martin.jpg" width="218" height="110" align="right" hspace="5" />
-  <img src="{{ MEDIA_URL }}pingpong/images/james-dennes.jpg" width="218" height="110" align="right" hspace="5" />
-  <p>PingPongNinja was developed and designed by <a href="http://jdenn.es/">James Dennes</a>, 
-    and Dave Martin out of Sydney Australia, who both work on <a href="http://www.campaignmonitor.com/">Campaign Monitor</a>.
-  <p>The Campaign Monitor crew take their ping pong seriously and have had an internal ping pong ranking app for some time.</p>
-  <p>James and Dave one day thought to themselves, "Hey, a lot of other companies would probably enjoy this!" So they created 
-    a new version of their ping pong ranking app for use by anyone - PingPongNinja!</p>
-  <p>PingPongNinja is powered by <a href="http://www.djangoproject.com/">Django</a> on <a href="http://code.google.com/appengine/">Google App Engine</a>.</p>
-  </div>
+<div class="headline">
+	<div class="container core_privacy">
+		<div class="core_content core_radius6">
+		<h1>Our story</h1>
+		<img src="{{ MEDIA_URL }}pingpong/images/david-martin.jpg" width="218" height="110" align="right" hspace="5" />
+		<img src="{{ MEDIA_URL }}pingpong/images/james-dennes.jpg" width="218" height="110" align="right" hspace="5" />
+		<p>PingPongNinja was developed and designed by <a href="http://jdenn.es/">James Dennes</a>, 
+			and Dave Martin out of Sydney Australia, who both work on <a href="http://www.campaignmonitor.com/">Campaign Monitor</a>.
+		<p>The Campaign Monitor crew take their ping pong seriously and have had an internal ping pong ranking app for some time.</p>
+		<p>James and Dave one day thought to themselves, "Hey, a lot of other companies would probably enjoy this!" So they created 
+			a new version of their ping pong ranking app for use by anyone - PingPongNinja!</p>
+		<p>PingPongNinja is powered by <a href="http://www.djangoproject.com/">Django</a> on <a href="http://code.google.com/appengine/">Google App Engine</a>.</p>
+		</div>
+	</div>
 </div>
 {% include 'footer.html' %}
 {% endblock %}
