@@ -48,7 +48,7 @@ class UserSettings(db.Model):
     return 0 if delta.days <= 0 else delta.days
 
   def trial_expired(self):
-    return self.trial_days_left() == 0
+    return self.trial_days_left() == 0 and not self.has_paid_subscription and not self.free_account
 
 class Player(db.Model):
   owner = db.ReferenceProperty(User, collection_name="player_owner_set")
