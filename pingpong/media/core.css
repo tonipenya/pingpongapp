@@ -4,7 +4,7 @@
 html { height: 100%; }
 html.core_fixed_nav { overflow: hidden; }
 body, div, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, button, textarea, p, blockquote, th, td { margin: 0; padding: 0; }
-body { -webkit-font-smoothing: antialiased; background: #333; font-family: Georgia, Arial, Helvetica, sans-serif; font-size:12px; color: #FFF; line-height:1.5em; height: 100%; }
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; background: #333; font-family: Georgia, Arial, Helvetica, sans-serif; font-size:12px; color: #FFF; line-height:1.5em; height: 100%; }
 a { color: #FFF; }
 a:hover { text-decoration: none; } 
 th { font-style: inherit; font-weight: inherit; }
