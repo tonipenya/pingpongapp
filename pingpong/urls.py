@@ -3,6 +3,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('pingpong.views',
   (r'^$', 'index'),
+  (r'^dash/$', 'dash'),
   (r'^home/$', 'home'),
   (r'^login/$', 'login'),
   (r'^settings/$', 'settings'),

@@ -9,6 +9,7 @@ from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from ragendja.template import render_to_response
 from ragendja.dbutils import get_object, db_create, prefetch_references
+from ragendja.auth.decorators import staff_only
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse, HttpResponseServerError, \
   HttpResponseRedirect
@@ -46,6 +47,16 @@ def is_mobile_browser(request):
       if request.META['HTTP_USER_AGENT'].find(hint) > 0:
         mobile_browser = True
   return mobile_browser
+
+@staff_only
+def dash(request):
+  total_accounts = UserSettings.all().count()
+  paying_accounts = UserSettings.all().filter("has_paid_subscription = ", True).count()
+  free_accounts = UserSettings.all().filter("free_account = ", True).count()
+  context = { "total_players": total_players, "total_games": total_games,
+    "total_accounts": total_accounts, "paying_accounts": paying_accounts,
+    "free_accounts": free_accounts }
+  return render_to_response(request, 'pingpong/dash.html', context)
 
 def index(request):
   if request.user.is_authenticated():

@@ -292,3 +292,8 @@ body.mobile .stats_table { width: 94% }
 .upgrade_list { margin: 13px 0 0 15px; }
 .upgrade_list li { list-style: square; line-height: 22px; font-family: Arial, Helvetica, sans-serif; }
 .upgrade_price { font-size: 170%; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; }
+/* =========================================
+    Dash
+   ========================================= */
+.dash-stat-value { font-size: 60px; font-weight: bold; float: left; color: #00A9E0; width: 70px; text-align: right; height: 60px; line-height: 60px; }
+.dash-stat-title { font-size: 22px; float: left; margin: 10px 0 0 2px; text-align: left; height: 60px; line-height: 60px; }
