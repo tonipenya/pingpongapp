@@ -53,8 +53,7 @@ def dash(request):
   total_accounts = UserSettings.all().count()
   paying_accounts = UserSettings.all().filter("has_paid_subscription = ", True).count()
   free_accounts = UserSettings.all().filter("free_account = ", True).count()
-  context = { "total_players": total_players, "total_games": total_games,
-    "total_accounts": total_accounts, "paying_accounts": paying_accounts,
+  context = { "total_accounts": total_accounts, "paying_accounts": paying_accounts,
     "free_accounts": free_accounts }
   return render_to_response(request, 'pingpong/dash.html', context)
 
