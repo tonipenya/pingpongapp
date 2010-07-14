@@ -208,6 +208,30 @@ def save_player_games(game, p1, p2, p3, p4, t1s, t2s):
               t1p1=p1, t1p2=p2, t2p1=p3, t2p2=p4, team1_points=t1s, team2_points=t2s)
 
 @login_required
+def undo_score(request, key):
+  if request.method == 'POST':
+    try:
+      game = get_object(Game, key)
+      if game:
+        delete_player_games(game)
+        ranking_system = DefaultRankingSystem()
+        ranking_system.undo_save_game(game)
+        response_dict = { 'status': True, 'message': 'Done.'}
+      else:
+        response_dict = { 'status': False, 'message': "Hmm... We couldn't find that game. Please have another go."}
+    except:
+      logging.exception('There was a problem undoing the addition of the game')
+      response_dict = { 'status': False, 'message' : 'Hmmm... There was a problem undoing your game - sorry.'}
+    return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
+  else:
+    return HttpResponseRedirect('/')
+
+def delete_player_games(game):
+  pgs = PlayerGame.gql("WHERE game = :game", game=game)
+  for pg in pgs:
+    pg.delete()
+
+@login_required
 def list_players(request):
   return object_list(request, Player.gql("WHERE owner = :owner ORDER BY name",
                                          owner=request.user), paginate_by=20)
