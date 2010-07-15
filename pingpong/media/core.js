@@ -239,19 +239,33 @@ function submitScoresMethod (data) {
 		$("#teamTwoScore").text("0");
 		$("#teamOneSlider").slider( "option", "value", 0 );
 		$("#teamTwoSlider").slider( "option", "value", 0 );
-		setTimeout(function(){redirectAfterAddScore(data.mode)}, 1000);
+		setTimeout(function(){redirectAfterAddScore(data.mode, data.game)}, 1000);
 		$(".popup").hide();
 	} else {
-		// show error provided in JSON response something like "Only two players can be selected per team."
 		showMessage(data.message);
 	}
 }
-function redirectAfterAddScore(mode) {
-  window.location.replace("/?m=" + mode);
+function redirectAfterAddScore(mode, game) {
+  window.location.replace("/?m=" + mode + "&g=" + game);
 }
-function presetScore (points, team) {
+function presetScore(points, team) {
 	$("#team"+team+"Slider .ui-slider-handle").css("left", points*3.33333+"%");
 	$("#team"+team+"Score").html(points);
+}
+function showUndoAddScore(game) {
+  showMessage('Scores saved! If you made a mistake, <a id="undo-add-score" href="#">undo</a>.');
+  $("#undo-add-score").click(function() { undoAddScore(game); });
+}
+function undoAddScore(game){
+  ajax ("/score/undo/" + game, "POST", "", undoAddScoreCallback, "", "Undoing the scores just entered...", "");
+}
+function undoAddScoreCallback(data) {
+	var status = data.status; // true if success, otherwise false
+	if (status) {
+		window.location.replace("/?m=" + data.mode);
+	} else {
+	  setTimeout(function(){showMessage(data.message);}, 1500);
+	}
 }
 // ANALYTICS //////////////////////////
 function fakePageview (pageName) {

@@ -116,6 +116,9 @@ class Game(db.Model):
     else:
       return self.team2.player1 == player or self.team2.player2 == player
 
+  def doubles(self):
+    return self.p3_ranking_points != None and self.p4_ranking_points != None
+
 class PlayerGame(db.Model):
   player = db.ReferenceProperty(Player, collection_name="player_reference_player_set")
   game = db.ReferenceProperty(Game)

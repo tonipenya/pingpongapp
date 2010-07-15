@@ -75,6 +75,7 @@ td { vertical-align: top; }
 .core_loss { color: #CCC; }
 .core_main { background: #13181C url("images/app_bg.jpg"); padding-bottom: 35px; }
 .core_message { background: #F3F5B4; color: #000; font-size: 13px; font-weight: bold; padding: 6px 14px 8px 14px; position: fixed; top: 0; z-index: 100000; }
+.core_message a { color: #00A9E0; }
 .core_privacy { color: #666; line-height: 20px; }
 .core_privacy a { text-decoration: underline; color: #006699; }
 .core_privacy h1 { color: #333; margin-bottom: 23px; }

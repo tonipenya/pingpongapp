@@ -97,7 +97,7 @@ class DefaultRankingSystem:
         p.put()
 
   def undo_save_game(self, game):
-    doubles = game.p3_ranking_points and game.p4_ranking_points
+    doubles = game.p3_ranking_points != None and game.p4_ranking_points != None
     t1 = game.team1
     t2 = game.team2
     t1p1 = t1.player1

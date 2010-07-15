@@ -187,7 +187,8 @@ def add_score(request):
       ranking_system = DefaultRankingSystem()
       ranking_system.save_game(t1p1=t1p1, t1p2=t1p2, t2p1=t2p1, t2p2=t2p2, 
         t1s=t1s, t2s=t2s, t1=t1, t2=t2, game=game, doubles=doubles)
-      response_dict = { 'status': True, 'message': 'Scores successfully saved.', 'mode': mode }
+      response_dict = { 'status': True, 'message': 'Scores successfully saved.', 
+        'mode': mode, 'game': str(game.key()) }
     except:
       logging.exception('There was a problem adding scores')
       response_dict = { 'status': False, 'message' : 'Hmmm... There was a problem saving your scores - please have another go.', 'mode': mode }
@@ -213,15 +214,16 @@ def undo_score(request, key):
     try:
       game = get_object(Game, key)
       if game:
+        mode = 'doubles' if game.doubles() else 'singles'
         delete_player_games(game)
         ranking_system = DefaultRankingSystem()
         ranking_system.undo_save_game(game)
-        response_dict = { 'status': True, 'message': 'Done.'}
+        response_dict = { 'status': True, 'message': 'Done.', 'mode': mode }
       else:
-        response_dict = { 'status': False, 'message': "Hmm... We couldn't find that game. Please have another go."}
+        response_dict = { 'status': False, 'message': "Hmmm... We couldn't find that game - sorry." }
     except:
       logging.exception('There was a problem undoing the addition of the game')
-      response_dict = { 'status': False, 'message' : 'Hmmm... There was a problem undoing your game - sorry.'}
+      response_dict = { 'status': False, 'message' : 'Hmmm... There was a problem undoing your game - sorry.' }
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/json')
   else:
     return HttpResponseRedirect('/')

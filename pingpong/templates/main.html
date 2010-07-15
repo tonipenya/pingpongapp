@@ -80,10 +80,10 @@
     var baseUrl = "";
     $(document).ready(function() {
       mode = getParameterByName('m');
-      if (mode === 'doubles') {
-        showDoubles();
-      	return false;
-      }
+      if (mode === 'doubles') { showDoubles(); }
+      g = getParameterByName('g');
+      if (g) { showUndoAddScore(g); }
+      return false;
     });
   </script>
 {% endblock %}
