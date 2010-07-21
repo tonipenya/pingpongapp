@@ -247,7 +247,7 @@ body.mobile .stats_table { width: 94% }
 .popup_container h3 { font-family: Georgia, "Times New Roman", Times, serif; font-size: 180%; font-weight: normal; }
 .popup_half { background: #FFF; border: 1px solid #DFDCD9; padding: 13px 0 13px 15px; width: 47%; }
 .popup_half_of { width: 48%; }
-.popup_header { height: 62px; background: url("images/popup_header_bg.jpg") repeat-x #6A625C; text-align: left; padding: 23px 23px 0 23px; }
+.popup_header { height: 62px; background: url("images/popup_header_bg.jpg") repeat-x #262F35; text-align: left; padding: 23px 23px 0 23px; }
 .popup_header img { margin-top: 7px; }
 .popup_light { background: #F7F7F7 !important; }
 .popup_links { line-height: 24px; margin-top: 23px; }
